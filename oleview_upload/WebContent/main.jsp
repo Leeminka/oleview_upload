@@ -148,7 +148,7 @@
 		var content1 = $('<iframe></iframe>');
 		content1.width(width);
 		content1.height(height);
-		content1.attr('src', '/Oleview/get_page_part.do?url='
+		content1.attr('src', '/GetPage?url='
 				+ encodeURIComponent(url) + '&dom_data='
 				+ encodeURIComponent(dom_data));
 		content1.attr('scrolling', 'no');

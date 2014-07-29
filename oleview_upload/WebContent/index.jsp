@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"
+	import="java.sql.*, 
+javax.sql.*, 
+java.io.*,
+javax.naming.InitialContext,
+javax.naming.Context"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -65,6 +70,10 @@ div#tutorialDiv {
 	height: 300px;
 	z-index: 2;
 }
+
+div.start_bg {
+	z-index: 2;
+}
 </style>
 <script type="text/javascript"
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
@@ -95,13 +104,14 @@ div#tutorialDiv {
 		console.log('statusChangeCallback');
 		console.log(response);
 		if (response.status === 'connected') {
-			//console.log('status - connected');
+			console.log('status - connected');
 			document.getElementById('status').innerHTML = 'login!! success';
-			document.getElementById('userID').innerHTML = 'id = '
+			document.getElementById('userID').innerHTML = ''
 					+ response.authResponse.userID;
 
-			 
-			 //처음인 경우 
+			//Cookie cookie = new Cookie("ID", response.authResponse.userID);
+			//response.addCookie(cookie);
+			//처음인 경우 
 			var width = $(window).width();
 			var height = $(window).height();
 
@@ -116,9 +126,14 @@ div#tutorialDiv {
 
 		} else if (response.status === 'not_authorized') {
 			document.getElementById('status').innerHTML = 'please log into this app';
+			document.getElementById('userID').innerHTML = ''
+					+ response.authResponse.userID;
 		} else {
 			document.getElementById('status').innerHTML = 'did you log out?';
+			document.getElementById('userID').innerHTML = ''
+					+ response.authResponse.userID;
 		}
+
 	}
 	$(document).keydown(function(event) {
 		if (event.which == '27') {
@@ -127,8 +142,11 @@ div#tutorialDiv {
 		}
 	});
 	function checkLoginState() {
+		console.log('checkLoginState()');
 		FB.getLoginStatus(function(response) {
 			statusChangeCallback(response);
+			document.getElementById('userID').innerHTML = ''
+					+ response.authResponse.userID;
 			//여기 어딘지 확인하기
 			//document.getElementById('userID').innerHTML = 'id = '
 			//		+ response.authResponse.userID;
@@ -139,17 +157,44 @@ div#tutorialDiv {
 		FB.init({
 			appId : '283897015123867',
 			status : true,
+			cookie : true,
 			xfbml : true
 		});
 	};
+	function fb_login() {
+		FB
+				.login(function(response) {
+					if (response.authResponse) {
+						console.log('Welcome!  Fetching your information.... ');
+						//console.log(response); // dump complete info
+						access_token = response.authResponse.accessToken; //get access token
+						user_id = response.authResponse.userID; //get FB UID
+						document.getElementById('userID').innerHTML = ''+user_id;
+						FB.api('/me', function(response) {
+							user_email = response.email; //get user email
+							// you can store this data into your database             
+						});
+
+					} else {
+						//user hit cancel button
+						console
+								.log('User cancelled login or did not fully authorize.');
+
+					}
+				});
+		$(".start_bg").fadeOut(1000);
+
+	}
 	(function() {
 		var e = document.createElement('script');
-		e.type = 'text/javascript';
 		e.src = document.location.protocol
-				+ '//connect.facebook.net/ko_KR/all.js';
+				+ '//connect.facebook.net/en_US/all.js';
 		e.async = true;
+		document.getElementById('fb-root').appendChild(e);
 	}());
 </script>
+
+
 
 <script>
 	var getPage = function() {
@@ -157,11 +202,13 @@ div#tutorialDiv {
 		var params = "url=" + url;
 		$.ajax({
 			url : "GetSelectPage",
-			data : params
+			data : "" + params
+
 		}).done(function(data) {
 			$('#page').empty();
 			$('#page').append(data);
 			$('#page').find("*").addClass('oleview_tag');
+			console.log("getPage안쪽");
 			add_event();
 		}).fail(function() {
 			alert('Fail?');
@@ -173,7 +220,9 @@ div#tutorialDiv {
 <script>
 	function add_event() {
 		// ele.addEventListener('hover', callback, false)
+		console.log("add-_event 처음");
 		$('.oleview_tag').mouseenter(function(event) {
+			console.log("add event inside");
 			event.stopPropagation();
 			$('#page').find("*").css('box-shadow', 'none');
 			$('#page').find("*").css('background-color', 'none');
@@ -256,7 +305,16 @@ div#tutorialDiv {
 </head>
 <body>
 
-<div class='backLayer'></div>
+	<div class="start_bg">
+
+		<img src="img/bg_1st-bg2.png" /> <a href="#" onclick="fb_login();"><img
+			src="img/btn_start.png" border="0" alt=""
+			style="position: absolute; left: 700px; top: 560px"></a>
+		<!--
+		   <fb:login-button autologoutlink="true" onlogin="checkLoginState();" style="position: absolute; left: 0px; top: 0px" background-img="img/btn_start.png"></fb:login-button>
+		-->
+	</div>
+	<div class='backLayer'></div>
 	<div id="effect">
 		<div id="content">
 			<div id="real_content">
@@ -270,7 +328,8 @@ div#tutorialDiv {
 				<fb:name uid="loggedinuser" use-you="no"></fb:name>
 				<br>
 				<div id="status"></div>
-				<div id="userID"></div>
+				<div onlogin="checkLoginState();" id="userID"></div>
+
 
 			</div>
 		</div>
@@ -284,6 +343,7 @@ div#tutorialDiv {
 
 	<div id="tutorialDiv">tutorial Div!</div>
 
+	<!-- 
 	<div id="page"></div>
 	<form onsubmit="getPage(); return false;">
 		<table>
@@ -294,5 +354,6 @@ div#tutorialDiv {
 			</tr>
 		</table>
 	</form>
+	 -->
 </body>
 </html>
