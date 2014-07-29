@@ -44,13 +44,14 @@ javax.naming.Context"%>
 	height: 2000px;
 	float: left;
 	font: 18px/1.6 NanumBrushWeb;
-	background-color: #666666;
+	background: url(img/bg_slide.png);
 	z-index: 1;
-	float: left;
+	margin: auto;
 }
 
 #real_content {
-	margin_left: 20px;
+	margin_left: 10px;
+	text-align: center;
 }
 
 div.backLayer {
@@ -100,56 +101,16 @@ div.start_bg {
 <script src="http://connect.facebook.net/en_US/all.js"
 	language="JavaScript" type="text/javascript"></script>
 <script>
-	function statusChangeCallback(response) {
-		console.log('statusChangeCallback');
-		console.log(response);
-		if (response.status === 'connected') {
-			console.log('status - connected');
-			document.getElementById('status').innerHTML = 'login!! success';
-			document.getElementById('userID').innerHTML = ''
-					+ response.authResponse.userID;
-
-			//Cookie cookie = new Cookie("ID", response.authResponse.userID);
-			//response.addCookie(cookie);
-			//처음인 경우 
-			var width = $(window).width();
-			var height = $(window).height();
-
-			$(".backLayer").width(width);
-			$(".backLayer").height(height);
-			$(".backLayer").fadeTo(500, 0.5);
-
-			var tutorialDiv = $("#tutorialDiv");
-			tutorialDiv.css("top", $(document).height() / 2 - 150);
-			tutorialDiv.css("left", $(document).width() / 2 - 150);
-			tutorialDiv.fadeIn(500);
-
-		} else if (response.status === 'not_authorized') {
-			document.getElementById('status').innerHTML = 'please log into this app';
-			document.getElementById('userID').innerHTML = ''
-					+ response.authResponse.userID;
-		} else {
-			document.getElementById('status').innerHTML = 'did you log out?';
-			document.getElementById('userID').innerHTML = ''
-					+ response.authResponse.userID;
-		}
-
-	}
 	$(document).keydown(function(event) {
 		if (event.which == '27') {
 			$("#tutorialDiv").fadeOut(500);
 			$(".backLayer").fadeOut(1000);
 		}
 	});
-	function checkLoginState() {
-		console.log('checkLoginState()');
-		FB.getLoginStatus(function(response) {
-			statusChangeCallback(response);
-			document.getElementById('userID').innerHTML = ''
-					+ response.authResponse.userID;
-			//여기 어딘지 확인하기
-			//document.getElementById('userID').innerHTML = 'id = '
-			//		+ response.authResponse.userID;
+	function fb_logout() {
+		FB.logout(function(response) {
+			window.alert('byebye!');
+			window.location.href = "";
 		});
 	}
 	//페이스북 초기화
@@ -169,11 +130,24 @@ div.start_bg {
 						//console.log(response); // dump complete info
 						access_token = response.authResponse.accessToken; //get access token
 						user_id = response.authResponse.userID; //get FB UID
-						document.getElementById('userID').innerHTML = ''+user_id;
+						document.getElementById('userID').innerHTML = ''
+								+ user_id;
 						FB.api('/me', function(response) {
 							user_email = response.email; //get user email
 							// you can store this data into your database             
 						});
+
+						var width = $(window).width();
+						var height = $(window).height();
+
+						$(".backLayer").width(width);
+						$(".backLayer").height(height);
+						$(".backLayer").fadeTo(500, 0.5);
+
+						var tutorialDiv = $("#tutorialDiv");
+						tutorialDiv.css("top", $(document).height() / 2 - 150);
+						tutorialDiv.css("left", $(document).width() / 2 - 150);
+						tutorialDiv.fadeIn(500);
 
 					} else {
 						//user hit cancel button
@@ -305,30 +279,48 @@ div.start_bg {
 </head>
 <body>
 
+
+	<div id="page"></div>
+	<form onsubmit="getPage(); return false;">
+		<table>
+			<tr>
+				<td>URL 입력 :</td>
+				<td><input type="text" id="input_url" name="input_url" /></td>
+				<td><input type="submit" /></td>
+			</tr>
+		</table>
+	</form>
+
 	<div class="start_bg">
 
-		<img src="img/bg_1st-bg2.png" /> <a href="#" onclick="fb_login();"><img
-			src="img/btn_start.png" border="0" alt=""
-			style="position: absolute; left: 700px; top: 560px"></a>
-		<!--
-		   <fb:login-button autologoutlink="true" onlogin="checkLoginState();" style="position: absolute; left: 0px; top: 0px" background-img="img/btn_start.png"></fb:login-button>
-		-->
+		<img src="img/bg_1st-bg2.png"
+			style="position: absolute; left: 0px; top: 0px" /> <a href="#"
+			onclick="fb_login();"><img src="img/btn_start.png" border="0"
+			alt="" style="position: absolute; left: 700px; top: 560px"></a>
+
 	</div>
 	<div class='backLayer'></div>
 	<div id="effect">
 		<div id="content">
 			<div id="real_content">
-				<br>
-				<fb:login-button autologoutlink="true" onlogin="checkLoginState();"></fb:login-button>
-				<br> <br>
+				<div style="float: right;">
+					<a href="#" onclick="fb_logout();"><img
+						src="img/btn_logout.png" border="0"></a> <br>
 
-				<!-- 로그인한 프로필 사진-->
-				<fb:profile-pic uid="loggedinuser" size="square"></fb:profile-pic>
-				<!-- 로그인한 이름 -->
-				<fb:name uid="loggedinuser" use-you="no"></fb:name>
+				</div>
 				<br>
-				<div id="status"></div>
-				<div onlogin="checkLoginState();" id="userID"></div>
+				<div style="margin: 0 auto;">
+					<div style="margin-top: 15px">
+						<!-- 로그인한 프로필 사진-->
+						<fb:profile-pic uid="loggedinuser" size="square"></fb:profile-pic>
+						<!-- 로그인한 이름 -->
+						<fb:name uid="loggedinuser" use-you="no"></fb:name>
+						<br>
+						<div id="status"></div>
+						<div onlogin="checkLoginState();" id="userID"></div>
+					</div>
+
+				</div>
 
 
 			</div>
@@ -343,17 +335,6 @@ div.start_bg {
 
 	<div id="tutorialDiv">tutorial Div!</div>
 
-	<!-- 
-	<div id="page"></div>
-	<form onsubmit="getPage(); return false;">
-		<table>
-			<tr>
-				<td>URL 입력 :</td>
-				<td><input type="text" id="input_url" name="input_url" /></td>
-				<td><input type="submit" /></td>
-			</tr>
-		</table>
-	</form>
-	 -->
+
 </body>
 </html>
