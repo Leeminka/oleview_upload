@@ -27,6 +27,8 @@ public class SaveContents extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String json = request.getParameter("contents");
+		
 	}
 
 	/**

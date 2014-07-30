@@ -174,7 +174,6 @@ div.start_bg {
 		$.ajax({
 			url : "GetSelectPage",
 			data : "" + params
-
 		}).done(function(data) {
 			$('#page').empty();
 			$('#page').append(data);
