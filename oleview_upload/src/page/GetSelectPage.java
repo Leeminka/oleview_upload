@@ -15,36 +15,38 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 /**
- * Servlet implementation class GetSelectPage
+ * Servlet implementation class UrlConnector
  */
 @WebServlet("/GetSelectPage")
 public class GetSelectPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public GetSelectPage() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public GetSelectPage() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String url = request.getParameter("url");
-		String res = "Àß¸øµÈ URL ÀÔ´Ï´Ù.";
+		String res = "ìž˜ëª»ëœ URL ìž…ë‹ˆë‹¤.";
 		int fromIndex = -1;
 		int counter = 0;
 
-		// http ÇÁ·ÎÅäÄÝÀ» ÀÔ·Â ¾ÈÇßÀ» °æ¿ì¿¡ ÀÔ·ÂÇØÁÜ
+		// http í”„ë¡œí† ì½œì„ ìž…ë ¥ ì•ˆí–ˆì„ ê²½ìš°ì— ìž…ë ¥í•´ì¤Œ
 		if (url.toLowerCase().indexOf("http://") == -1) {
 			url = "http://" + url;
 		}
 
-		// ROOT ÁÖ¼Ò¸¦ °¡Á®¿À±â À§ÇØ¼­
+		// ROOT ì£¼ì†Œë¥¼ ê°€ì ¸ì˜¤ê¸° ìœ„í•´ì„œ
 		String root_url = url;
 		while ((fromIndex = url.toLowerCase().indexOf('/', fromIndex + 1)) > 0
 				&& url.length() > fromIndex) {
@@ -95,9 +97,11 @@ public class GetSelectPage extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
 

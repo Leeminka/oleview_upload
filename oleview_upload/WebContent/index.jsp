@@ -167,9 +167,6 @@ div.start_bg {
 		document.getElementById('fb-root').appendChild(e);
 	}());
 </script>
-
-
-
 <script>
 	var getPage = function() {
 		var url = $("#input_url").val();
@@ -186,7 +183,6 @@ div.start_bg {
 			add_event();
 		}).fail(function() {
 			alert('Fail?');
-
 		});
 		return false;
 	}
@@ -278,29 +274,21 @@ div.start_bg {
 </script>
 </head>
 <body>
-
-
-
 	<div class="start_bg">
-
 		<img src="img/bg_1st-bg2.png"
 			style="position: absolute; left: 0px; top: 0px" /> <a href="#"
 			onclick="fb_login();"><img src="img/btn_start.png" border="0"
 			alt="" style="position: absolute; left: 700px; top: 560px"></a>
-
 	</div>
 	<div class='backLayer'></div>
 	<!-- 상단 바 부분 -->
 	<img src="img/bg_bar.png" />
-
-
 	<div id="effect">
 		<div id="content">
 			<div id="real_content">
 				<div style="float: right;">
 					<a href="#" onclick="fb_logout();"><img
 						src="img/btn_logout.png" border="0"></a> <br>
-
 				</div>
 				<br>
 				<div style="margin: 0 auto;">
@@ -313,10 +301,7 @@ div.start_bg {
 						<div id="status"></div>
 						<div onlogin="checkLoginState();" id="userID"></div>
 					</div>
-
 				</div>
-
-
 			</div>
 		</div>
 		<div id="button">
@@ -324,24 +309,21 @@ div.start_bg {
 				<a href="#">Toggle</a>
 			</p>
 		</div>
-
 	</div>
-
 	<div id="tutorialDiv">tutorial Div!</div>
-
-
-
-
 	<div id="page"></div>
-	<form onsubmit="getPage(); return false;">
-		<table>
-			<tr>
-				<td>URL 입력 :</td>
-				<td><input type="text" id="input_url" name="input_url" /></td>
-				<td><input type="submit" /></td>
-			</tr>
-		</table>
-	</form>
-
+	
+	<!-- 입력 폼 -->
+	<center>
+		<form onsubmit="getPage(); return false;">
+			<table>
+				<tr>
+					<td>URL 입력 :</td>
+					<td><input type="text" id="input_url" name="input_url" /></td>
+					<td><input type="submit" /></td>
+				</tr>
+			</table>
+		</form>
+	</center>
 </body>
 </html>
