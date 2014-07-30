@@ -24,9 +24,9 @@ javax.naming.Context"%>
 #button {
 	float: left;
 	/*버튼 이미지 사이즈 만큼*/
-	width: 40px;
-	height: 30px;
-	background: url(img/button1.gif);
+	width: 37px;
+	height: 33px;
+	background: url(img/btn_slide.png);
 	text-indent: -9999px;
 	cursor: pointer; /*버튼위에 마우스 올리면 손가락 모양으로!*/
 }
@@ -36,7 +36,7 @@ javax.naming.Context"%>
 	height: 135px;
 	position: fixed;
 	left: -200px;
-	top: 5%;
+	top: 0%;
 }
 
 #content {
@@ -85,14 +85,14 @@ div.start_bg {
 				left : 0
 			}, 500);
 			jQuery("#button").css({
-				"background" : "url(img/button2.gif)"
+				"background" : "url(img/btn_select-slide.png)"
 			});
 		}, function() {
 			jQuery("#effect").animate({
 				left : '-200px'
 			}, 500);
 			jQuery("#button").css({
-				"background" : "url(img/button1.gif)"
+				"background" : "url(img/btn_slide.png)"
 			});
 		});
 	});
@@ -280,16 +280,6 @@ div.start_bg {
 <body>
 
 
-	<div id="page"></div>
-	<form onsubmit="getPage(); return false;">
-		<table>
-			<tr>
-				<td>URL 입력 :</td>
-				<td><input type="text" id="input_url" name="input_url" /></td>
-				<td><input type="submit" /></td>
-			</tr>
-		</table>
-	</form>
 
 	<div class="start_bg">
 
@@ -300,6 +290,10 @@ div.start_bg {
 
 	</div>
 	<div class='backLayer'></div>
+	<!-- 상단 바 부분 -->
+	<img src="img/bg_bar.png" />
+
+
 	<div id="effect">
 		<div id="content">
 			<div id="real_content">
@@ -335,6 +329,19 @@ div.start_bg {
 
 	<div id="tutorialDiv">tutorial Div!</div>
 
+
+
+
+	<div id="page"></div>
+	<form onsubmit="getPage(); return false;">
+		<table>
+			<tr>
+				<td>URL 입력 :</td>
+				<td><input type="text" id="input_url" name="input_url" /></td>
+				<td><input type="submit" /></td>
+			</tr>
+		</table>
+	</form>
 
 </body>
 </html>
