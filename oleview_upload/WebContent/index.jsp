@@ -64,17 +64,19 @@ javax.naming.Context"%>
 	top: 0px;
 	z-index: 1;
 }
-#search{
-	position:relative;
-	top:3px;
-	left:1100px;
-	z-index:1;
+
+#search {
+	position: absolute;
+	top: 3px;
+	left: 1100px;
+	z-index: 1;
 }
-#search_icon{
-	position:relative;
-left:1340px;
-top:-22px;
-z-index:1;
+
+#search_icon {
+	position: absolute;
+	left: 1340px;
+	top: 10px;
+	z-index: 1;
 }
 
 div.backLayer {
@@ -97,7 +99,8 @@ div#tutorialDiv {
 
 div.start_bg {
 	position: relative;
-
+	top: -10px;
+	left: -10px;
 	z-index: 2;
 }
 </style>
@@ -310,7 +313,8 @@ div.start_bg {
 
 	</div>
 	<div id="search_icon">
-		<input type="image" src="img/btn_search.png" name="submit" align="absmiddle" border="0">
+		<input type="image" src="img/btn_search.png" name="submit"
+			align="absmiddle" border="0">
 	</div>
 
 	<div class="start_bg">
@@ -355,17 +359,5 @@ div.start_bg {
 	<Br>
 	<br>
 	<Br>
-	<!-- 입력 폼 -->
-	<center>
-		<form onsubmit="getPage(); return false;">
-			<table>
-				<tr>
-					<td>URL 입력 :</td>
-					<td><input type="text" id="input_url" name="input_url" /></td>
-					<td><input type="submit" /></td>
-				</tr>
-			</table>
-		</form>
-	</center>
 </body>
 </html>
