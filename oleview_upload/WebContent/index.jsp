@@ -34,11 +34,32 @@ javax.naming.Context"%>
 	left: 2px;
 }
 
+#bgbutton {
+	float: right;
+	width: 37px;
+	height: 33px;
+	background: url(img/background/btn_bgskin.png);
+	text-indent: -9999px;
+	cursor: pointer;
+	position: fixed;
+	top: 7px;
+	right: 2px;
+}
+
 #effect {
 	width: 500px;
 	height: 135px;
 	position: fixed;
 	left: -200px;
+	top: 48px;
+	z-index: 1;
+}
+
+#effect2 {
+	width: 500px;
+	height: 135px;
+	position: fixed;
+	right: -200px;
 	top: 48px;
 	z-index: 1;
 }
@@ -53,8 +74,22 @@ javax.naming.Context"%>
 	margin: auto;
 }
 
+#content2 {
+	width: 93px;
+	height: 793px;
+	float: right;
+	background: url(img/background/bg_bgskin.png);
+	z-index: 1;
+	margin: auto;
+}
+
 #real_content {
 	margin_left: 10px;
+	text-align: center;
+}
+
+#bg_select_slide {
+	margin_right: 10px;
 	text-align: center;
 }
 
@@ -121,6 +156,24 @@ div.start_bg {
 			}, 500);
 			jQuery("#button").css({
 				"background" : "url(img/btn_slide.png)"
+			});
+		});
+	});
+
+	jQuery(function() {
+		jQuery("#bgbutton").toggle(function() {
+			jQuery("#effect2").animate({
+				right : 0
+			}, 500);
+			jQuery("#bgbutton").css({
+				"background" : "url(img/background/btn_select-bgskin.png)"
+			});
+		}, function() {
+			jQuery("#effect2").animate({
+				right : '-200px'
+			}, 500);
+			jQuery("#bgbutton").css({
+				"background" : "url(img/background/btn_bgskin.png)"
 			});
 		});
 	});
@@ -299,6 +352,21 @@ div.start_bg {
 		window.location = replace_url;
 	}
 </script>
+
+<script type="text/javascript">
+	$(function() {
+		$("#btn_skin1").click(function() {
+			document.getElementById(
+			return true;
+		});
+		
+		$("#btn_before").click(function() {
+			alert("btn_before!!!");
+			return false;
+		});
+		
+	});
+</script>
 </head>
 <body>
 	<!-- 상단 바 부분 -->
@@ -352,6 +420,26 @@ div.start_bg {
 			</p>
 		</div>
 	</div>
+
+	<div id="effect2">
+		<div id="content2">
+			<div id="bg_select_slide">
+				<br> <Br> <br>
+				<img src="img/background/btn_beforepage.png" id="btn_before">
+				<span id="count" value=1></span> / 4 <img src="img/background/btn_nextpage.png" id="btn_next"><br>
+				<img src="img/background/btn_no-skin_c.png"><br>
+				<img src="img/background/btn_skin1.png"
+					id="btn_skin1"><br> <img
+					src="img/background/btn_skin2.png"><br> <img
+					src="img/background/btn_skin3.png"><br>
+			</div>
+		</div>
+		<div id="bgbutton">
+			<p>
+				<a href="#">Toggle</a>
+			</p>
+		</div>
+	</div>
 	<div id="tutorialDiv">tutorial Div!</div>
 	<div id="page"></div>
 
@@ -359,5 +447,8 @@ div.start_bg {
 	<Br>
 	<br>
 	<Br>
+	<!-- show_content_area에 내용들이 보일꺼고, 위치 수정해줘야함..시작위치가 바 부분 밑일수 있게 -->
+	<div id="show_content_area">
+	</div>
 </body>
 </html>
