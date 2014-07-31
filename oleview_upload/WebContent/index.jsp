@@ -64,6 +64,18 @@ javax.naming.Context"%>
 	top: 0px;
 	z-index: 1;
 }
+#search{
+	position:relative;
+	top:3px;
+	left:1100px;
+	z-index:1;
+}
+#search_icon{
+	position:relative;
+left:1340px;
+top:-22px;
+z-index:1;
+}
 
 div.backLayer {
 	display: none;
@@ -85,8 +97,7 @@ div#tutorialDiv {
 
 div.start_bg {
 	position: relative;
-	top: -10px;
-	left: -10px;
+
 	z-index: 2;
 }
 </style>
@@ -290,10 +301,16 @@ div.start_bg {
 	<!-- 상단 바 부분 -->
 	<div id="bar">
 		<img src="img/bg_bar.png" />
+	</div>
+	<div id="search">
 		<form onsubmit="getPage(); return false;">
-			<input type="text" id="input_url" name="input_url" style="background:url(img/bg_search1.png)"/> <input
-				type="submit" />
+			<input type="text" id="input_url" name="input_url"
+				style="background: url(img/bg_search1.png); background-repeat: no-repeat; width: 225px; height: 31px; border: 0px; padding-left: 6px; padding-right: 40px;">
 		</form>
+
+	</div>
+	<div id="search_icon">
+		<input type="image" src="img/btn_search.png" name="submit" align="absmiddle" border="0">
 	</div>
 
 	<div class="start_bg">
