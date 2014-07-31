@@ -34,24 +34,24 @@
 	hegith: 36px;
 }
 
-#btn_migrate {
+.btn_migrate {
 	width: 39px;
 	hegith: 36px;
 	left: -2px;
 	top: 0px;
 }
 
-#btn_crop {
+.btn_crop {
 	left: 37px;
 	top: 0px;
 }
 
-#btn_delete {
+.btn_delete {
 	left: 74px;
 	top: 0px;
 }
 
-#btn_save {
+.btn_save {
 	left: 111px;
 	top: 0px;
 }
@@ -119,7 +119,7 @@
 	var contents_list = [];
 	$(document).ready(function() {
 		//데이터베이스에서 모든 저장된 컨텐츠를 가져옴
-		//getAllContents();
+		getAllContents();
 
 		//편집 상태 (Select Page -> main 으로 Query와 함께 넘어옴)
 		if (isAnyQuery())
@@ -137,12 +137,13 @@
 
 	function makeFrame(width, height, url, dom_data, left, top, isNewFrame) {
 		//새로운 DIV 생성
-		var draggable_div = $('<div></div>').addClass("draggable_div").attr(
-				"id", "handle");
+		var draggable_div = $('<div></div>').addClass("draggable_div");
 		draggable_div.width(width);
 		draggable_div.height(height);
+		draggable_div.css('position','absolute');
 		draggable_div.css('left', left);
 		draggable_div.css('top', top);
+		
 
 		//iframe 컨텐츠생성 나중에 사용하기 위해 속성으로 다 넣어버려
 		var content1 = $('<iframe></iframe>');
@@ -161,21 +162,20 @@
 		//리모콘 생성
 		var remote_div = $('<div></div>').addClass("remote_div");
 		var btn_migrate = $('<img />').attr('src', 'img/main/btn_migrate.png')
-				.attr('id', 'btn_migrate').addClass('remote_btn');
-		var btn_crop = $('<img />').attr('src', 'img/main/btn_crop.png').attr(
-				'id', 'btn_crop').addClass('remote_btn');
+				.addClass('btn_migrate remote_btn');
+		var btn_crop = $('<img />').attr('src', 'img/main/btn_crop.png')
+				.addClass('btn_crop remote_btn');
 		var btn_delete = $('<img />').attr('src', 'img/main/btn_delete.png')
-				.attr('id', 'btn_delete').addClass('remote_btn');
-		var btn_save = $('<img />').attr('src', 'img/main/btn_save.png').attr(
-				'id', 'btn_save').addClass('remote_btn');
+				.addClass('btn_delete remote_btn');
+		var btn_save = $('<img />').attr('src', 'img/main/btn_save.png')
+				.addClass('btn_save remote_btn');
 
 		//각 생성된 버튼들을 remote_div에 붙임
 		btn_migrate.appendTo(remote_div);
 		btn_crop.appendTo(remote_div);
 		btn_delete.appendTo(remote_div);
 		btn_save.appendTo(remote_div);
-		
-		
+
 		//save 이벤트 추가
 		btn_save.click(function() {
 			//InsertDB
@@ -194,6 +194,7 @@
 		//핸들에 들어가는 이미지 생성
 		var handle_img = $('<img />').attr('src', 'img/main/handle_img.png')
 				.addClass("handle_img");
+
 		//핸들 이미지 사이즈 생성
 		if (width >= height) {
 			handle_img.width(height * 0.5);
@@ -208,6 +209,7 @@
 
 		//핸들 DIV에 핸들 img 추가
 		handle_div.append(handle_img);
+
 		//핸들 DIV를 CONTENT에 추가
 		draggable_div.append(handle_div);
 
@@ -271,20 +273,20 @@
 	//컨테이너 안에 있는 컨텐츠들의 포지션을 저장함
 	function saveContentPosition(content) {
 		var content_json = {};
-		content_json["left"] = content.offset().left;
-		content_json["top"] = content.offset().top;
+		content_json["left"] = content.parent().position().left;
+		content_json["top"] = content.parent().position().top;
 		content_json["width"] = content.width();
 		content_json["height"] = content.height();
 		content_json["dom_data"] = content.attr("dom_data");
 		content_json["url"] = content.attr("url");
-		
+
 		if (typeof content.attr("title") == "undefined") {
 			var title = prompt("컨텐츠의 제목을 입력하세요", "");
 			if (title == null) {
 				return false;
 			}
 			content_json["title"] = title;
-		}else{
+		} else {
 			content_json["title"] = content.attr("title");
 		}
 
@@ -293,14 +295,35 @@
 			type : "post",
 			data : "jData=" + JSON.stringify(content_json)
 		}).done(function(data) {
-			alert(data);
+			if (data.result == "success") {
+				content.parent().find('.handle_div').hide();
+				content.parent().find('.remote_div').hide();
+			} else if (data.result == "fail") {
+				alert("data result : fail");
+			}
 		}).fail(function(error) {
-			alert("fail");
+			alert("main save Content ajax error");
 			alert(JSON.stringify(error));
 			return false;
 		});
-
 		return true;
+	}
+	function getAllContents() {
+		$.ajax({
+			url : "/GetContents",
+			type : "Get"
+		}).done(
+				function(data) {
+					for ( var i in data) {
+						makeFrame(data[i].width, data[i].height, data[i].url,
+								data[i].dom_data, data[i].left, data[i].top,
+								false);
+					}
+				}).fail(function(error) {
+			alert("main get Contents ajax error");
+			alert(JSON.stringify(error));
+			return false;
+		});
 	}
 </script>
 </head>

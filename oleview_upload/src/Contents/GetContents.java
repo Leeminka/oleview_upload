@@ -24,7 +24,6 @@ import DBO.ContentDTO;
 @WebServlet("/GetContents")
 public class GetContents extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
