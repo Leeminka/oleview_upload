@@ -29,6 +29,9 @@ javax.naming.Context"%>
 	background: url(img/btn_slide.png);
 	text-indent: -9999px;
 	cursor: pointer; /*버튼위에 마우스 올리면 손가락 모양으로!*/
+	position: fixed;
+	top: 7px;
+	left: 2px;
 }
 
 #effect {
@@ -36,7 +39,8 @@ javax.naming.Context"%>
 	height: 135px;
 	position: fixed;
 	left: -200px;
-	top: 0%;
+	top: 48px;
+	z-index: 1;
 }
 
 #content {
@@ -52,6 +56,13 @@ javax.naming.Context"%>
 #real_content {
 	margin_left: 10px;
 	text-align: center;
+}
+
+#bar {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	z-index: 1;
 }
 
 div.backLayer {
@@ -73,6 +84,9 @@ div#tutorialDiv {
 }
 
 div.start_bg {
+	position: relative;
+	top: -10px;
+	left: -10px;
 	z-index: 2;
 }
 </style>
@@ -273,6 +287,15 @@ div.start_bg {
 </script>
 </head>
 <body>
+	<!-- 상단 바 부분 -->
+	<div id="bar">
+		<img src="img/bg_bar.png" />
+		<form onsubmit="getPage(); return false;">
+			<input type="text" id="input_url" name="input_url" style="background:url(img/bg_search1.png)"/> <input
+				type="submit" />
+		</form>
+	</div>
+
 	<div class="start_bg">
 		<img src="img/bg_1st-bg2.png"
 			style="position: absolute; left: 0px; top: 0px" /> <a href="#"
@@ -280,8 +303,7 @@ div.start_bg {
 			alt="" style="position: absolute; left: 700px; top: 560px"></a>
 	</div>
 	<div class='backLayer'></div>
-	<!-- 상단 바 부분 -->
-	<img src="img/bg_bar.png" />
+
 	<div id="effect">
 		<div id="content">
 			<div id="real_content">
@@ -311,7 +333,11 @@ div.start_bg {
 	</div>
 	<div id="tutorialDiv">tutorial Div!</div>
 	<div id="page"></div>
-	
+
+	<br>
+	<Br>
+	<br>
+	<Br>
 	<!-- 입력 폼 -->
 	<center>
 		<form onsubmit="getPage(); return false;">
