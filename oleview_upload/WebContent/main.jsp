@@ -15,15 +15,52 @@
 
 .draggable_div {
 	position: absolute;
-	border:solid;
-	border-color: rgb(167,204,18);
+	border: solid;
+	border-width: thin;
+	border-color: rgb(167, 204, 18);
+}
+
+.remote_div {
+	position: absolute;
+	top: -36px;
+	left: 0px;
+	width: 148px;
+	height: 36px;
+}
+
+.remote_btn {
+	position: absolute;
+	width: 37px;
+	hegith: 36px;
+}
+
+#btn_migrate {
+	width: 39px;
+	hegith: 36px;
+	left: -2px;
+	top: 0px;
+}
+
+#btn_crop {
+	left: 37px;
+	top: 0px;
+}
+
+#btn_delete {
+	left: 74px;
+	top: 0px;
+}
+
+#btn_save {
+	left: 111px;
+	top: 0px;
 }
 
 .handle_div {
 	position: absolute;
 	left: 0px;
 	top: 0px;
-	background: rgba(120, 255, 124, 0.4);
+	background: rgba(167, 204, 18, 0.4);
 	cursor: move;
 	z-index: 10;
 	cursor: move;
@@ -100,23 +137,54 @@
 
 	function makeFrame(width, height, url, dom_data, left, top, isNewFrame) {
 		//새로운 DIV 생성
-		var draggable_div = $('<div></div>').addClass("draggable_div").attr("id","handle");
+		var draggable_div = $('<div></div>').addClass("draggable_div").attr(
+				"id", "handle");
 		draggable_div.width(width);
 		draggable_div.height(height);
 		draggable_div.css('left', left);
 		draggable_div.css('top', top);
 
-		//iframe 컨텐츠생성
+		//iframe 컨텐츠생성 나중에 사용하기 위해 속성으로 다 넣어버려
 		var content1 = $('<iframe></iframe>');
 		content1.width(width);
 		content1.height(height);
 		content1.attr('src', '/GetPage?url=' + encodeURIComponent(url)
 				+ '&dom_data=' + encodeURIComponent(dom_data));
 		content1.attr('scrolling', 'no');
+		content1.attr('url', url);
+		content1.attr('dom_data', dom_data);
 		content1.addClass('content');
 
 		//컨텐츠를 DIV에 붙임
 		content1.appendTo(draggable_div);
+
+		//리모콘 생성
+		var remote_div = $('<div></div>').addClass("remote_div");
+		var btn_migrate = $('<img />').attr('src', 'img/main/btn_migrate.png')
+				.attr('id', 'btn_migrate').addClass('remote_btn');
+		var btn_crop = $('<img />').attr('src', 'img/main/btn_crop.png').attr(
+				'id', 'btn_crop').addClass('remote_btn');
+		var btn_delete = $('<img />').attr('src', 'img/main/btn_delete.png')
+				.attr('id', 'btn_delete').addClass('remote_btn');
+		var btn_save = $('<img />').attr('src', 'img/main/btn_save.png').attr(
+				'id', 'btn_save').addClass('remote_btn');
+
+		//각 생성된 버튼들을 remote_div에 붙임
+		btn_migrate.appendTo(remote_div);
+		btn_crop.appendTo(remote_div);
+		btn_delete.appendTo(remote_div);
+		btn_save.appendTo(remote_div);
+		
+		
+		//save 이벤트 추가
+		btn_save.click(function() {
+			//InsertDB
+			if (isNewFrame)
+				saveContentPosition(content1);
+		});
+
+		//remote_div를 content에 붙임
+		remote_div.appendTo(draggable_div);
 
 		//핸들 생성
 		var handle_div = $('<div></div>').addClass("handle_div");
@@ -124,7 +192,7 @@
 		handle_div.height(height);
 
 		//핸들에 들어가는 이미지 생성
-		var handle_img = $('<img />').attr('src', 'img/handle_img.png')
+		var handle_img = $('<img />').attr('src', 'img/main/handle_img.png')
 				.addClass("handle_img");
 		//핸들 이미지 사이즈 생성
 		if (width >= height) {
@@ -149,12 +217,15 @@
 			containment : "#contents_cont",
 			scroll : false
 		});
-		
+
 		//만약 새로운 프레임이면 핸들을 바로 보이게 아닐경우 핸들을 숨김
-		if(!isNewFrame){
+		if (isNewFrame) {
+
+		} else {
 			handle_div.hide();
+			remote_div.hide();
 		}
-		
+
 		//DIV를 contents 컨테이너에 붙임
 		draggable_div.appendTo($('#contents_cont'));
 		return true;
@@ -188,13 +259,48 @@
 	function getQueryVariable(variable) {
 		var query = window.location.search.substring(1);
 		var vars = query.split('&');
-		for ( var i = 0; i < vars.length; i++) {
+		for (var i = 0; i < vars.length; i++) {
 			var pair = vars[i].split('=');
 			if (decodeURIComponent(pair[0]) == variable) {
 				return decodeURIComponent(pair[1]);
 			}
 		}
 		return '';
+	}
+
+	//컨테이너 안에 있는 컨텐츠들의 포지션을 저장함
+	function saveContentPosition(content) {
+		var content_json = {};
+		content_json["left"] = content.offset().left;
+		content_json["top"] = content.offset().top;
+		content_json["width"] = content.width();
+		content_json["height"] = content.height();
+		content_json["dom_data"] = content.attr("dom_data");
+		content_json["url"] = content.attr("url");
+		
+		if (typeof content.attr("title") == "undefined") {
+			var title = prompt("컨텐츠의 제목을 입력하세요", "");
+			if (title == null) {
+				return false;
+			}
+			content_json["title"] = title;
+		}else{
+			content_json["title"] = content.attr("title");
+		}
+
+		$.ajax({
+			url : "/InsertContent",
+			type : "post",
+			data : "jData=" + JSON.stringify(content_json)
+		}).done(function(data) {
+			alert(data);
+		}).fail(function(error) {
+			alert("fail");
+			alert(JSON.stringify(error));
+			return false;
+		});
+
+		return true;
 	}
 </script>
 </head>

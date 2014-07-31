@@ -54,6 +54,7 @@ public class GetContents extends HttpServlet {
 		while (iter.hasNext()) {
 			ContentDTO tmpDTO = iter.next();
 			JSONObject tmp = new JSONObject();
+			tmp.put("title", tmpDTO.getTitle());
 			tmp.put("url", tmpDTO.getUrl());
 			tmp.put("dom_data", tmpDTO.getDom_data());
 			tmp.put("width", tmpDTO.getWidth());

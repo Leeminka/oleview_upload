@@ -45,14 +45,15 @@ public class ContentDAO {
 			while (rs.next()) {
 				// ContentDTO
 				// 결과를 한 행씩 돌아가면서 가져온다.
+				String title = rs.getString("title");
 				String dom_data = rs.getString("dom_data");
 				String url = rs.getString("url");
 				int width = rs.getInt("width_int");
 				int height = rs.getInt("height_int");
 				int top = rs.getInt("top_int");
 				int left = rs.getInt("left_int");
-				ContentDTO tmp = new ContentDTO(user_id, url, dom_data, width,
-						height, left, top);
+				ContentDTO tmp = new ContentDTO(title, user_id, url, dom_data,
+						width, height, left, top);
 				retArray.add(tmp);
 			}
 		} catch (SQLException e) {
@@ -62,12 +63,13 @@ public class ContentDAO {
 		return retArray;
 	}
 
-	public int insert(ContentDTO dto) {
-		String sql = "insert into contents(user_id,dom_data,width_int,height_int,left_int,top_int,url) value(?,?,?,?,?,?,?)";
+	public boolean insert(ContentDTO dto) {
+		String sql = "insert into contents(title,user_id,dom_data,width_int,height_int,left_int,top_int,url) value(?,?,?,?,?,?,?,?)";
 		try {
 			stmt = (PreparedStatement) conn.prepareStatement(sql);
-			stmt.setString(1, dto.getUser_id());
-			stmt.setString(2, dto.getDom_data());
+			stmt.setString(1, dto.getTitle());
+			stmt.setString(2, dto.getUser_id());
+			stmt.setString(3, dto.getDom_data());
 			stmt.setInt(4, dto.getWidth());
 			stmt.setInt(5, dto.getHeight());
 			stmt.setInt(6, dto.getLeft());
@@ -77,7 +79,8 @@ public class ContentDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
-		return 0;
+		return true;
 	}
 }

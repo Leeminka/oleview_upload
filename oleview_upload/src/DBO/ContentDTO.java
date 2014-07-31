@@ -2,6 +2,7 @@ package DBO;
 
 //컨텐츠 객체 데이터
 public class ContentDTO {
+	private String title;
 	private String user_id;
 	private String url;
 	private String dom_data;
@@ -10,9 +11,10 @@ public class ContentDTO {
 	private int left;
 	private int top;
 
-	public ContentDTO(String user_id, String url, String dom_data, int width,
+	public ContentDTO(String title, String user_id, String url, String dom_data, int width,
 			int height, int left, int top) {
 		// TODO Auto-generated constructor stub
+		this.title = title;
 		this.user_id = user_id;
 		this.url = url;
 		this.dom_data = dom_data;
@@ -20,6 +22,14 @@ public class ContentDTO {
 		this.height = height;
 		this.left = left;
 		this.top = top;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getUser_id() {

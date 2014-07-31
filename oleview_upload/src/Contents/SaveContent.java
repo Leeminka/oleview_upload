@@ -10,14 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class SaveContents
  */
-@WebServlet("/SaveContents")
-public class SaveContents extends HttpServlet {
+@WebServlet("/SaveContent")
+public class SaveContent extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SaveContents() {
+    public SaveContent() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,7 +27,7 @@ public class SaveContents extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String json = request.getParameter("contents");
+		String json = request.getParameter("jData");
 		
 	}
 
