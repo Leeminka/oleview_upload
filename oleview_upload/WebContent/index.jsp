@@ -264,8 +264,7 @@ div.start_bg {
 			console.log("getPage안쪽");
 			add_event();
 		}).fail(function() {
-			//alert('Fail?');
-			window.location = "http://localhost:8888/oleview_upload/main.jsp?width=298&height=157&url=www.naver.com&dom_data=HTML%2CBODY%2CDIV%23page%2CDIV%23wrap%2CDIV%23container%2CDIV%23column_right%2CDIV%23time_square%2CDIV.tsq%2CDIV%23ws_tsq.tsq_slide";
+			alert('Fail?');
 		});
 		return false;
 	}
