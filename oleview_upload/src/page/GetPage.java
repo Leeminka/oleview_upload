@@ -115,8 +115,8 @@ public class GetPage extends HttpServlet {
 				String tagName = e.tagName().toLowerCase();
 				if (tagName.equals("a")) {		//새창띄워임마
 					String target_url = e.attr("target");					
-					if (!target_url.equals("_blank"))
-						target_url = "_blank";
+					//if (!target_url.equals("_blank"))
+						target_url = "_self";
 					e.attr("target",target_url);
 				}
 			}

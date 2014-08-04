@@ -111,10 +111,8 @@
 <script src="scripts/jquery-1.11.0.min.js"></script>
 <script src="scripts/jquery-ui-1.10.4.custom.min.js"></script>
 <script>
-	const
-	STATE_PLAIN = 0;
-	const
-	STATE_EDIT = 1;
+	const STATE_PLAIN = 0;
+	const STATE_EDIT = 1;
 	var STATE = STATE_PLAIN;
 	var contents_list = [];
 	$(document).ready(function() {

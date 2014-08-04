@@ -1,10 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
 	import="java.sql.*, 
 javax.sql.*, 
 java.io.*,
 javax.naming.InitialContext,
-javax.naming.Context"%>
+javax.naming.Context"%> --%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -262,7 +264,8 @@ div.start_bg {
 			console.log("getPage안쪽");
 			add_event();
 		}).fail(function() {
-			alert('Fail?');
+			//alert('Fail?');
+			window.location = "http://localhost:8888/oleview_upload/main.jsp?width=298&height=157&url=www.naver.com&dom_data=HTML%2CBODY%2CDIV%23page%2CDIV%23wrap%2CDIV%23container%2CDIV%23column_right%2CDIV%23time_square%2CDIV.tsq%2CDIV%23ws_tsq.tsq_slide";
 		});
 		return false;
 	}
@@ -355,10 +358,10 @@ div.start_bg {
 
 <script type="text/javascript">
 	$(function() {
-		$("#btn_skin1").click(function() {
+		/* $("#btn_skin1").click(function() {
 			document.getElementById(
 			return true;
-		});
+		}); */
 		
 		$("#btn_before").click(function() {
 			alert("btn_before!!!");
