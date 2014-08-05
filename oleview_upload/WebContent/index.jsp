@@ -1,12 +1,10 @@
-<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
 	import="java.sql.*, 
 javax.sql.*, 
 java.io.*,
 javax.naming.InitialContext,
-javax.naming.Context"%> --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+javax.naming.Context"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -357,10 +355,10 @@ div.start_bg {
 
 <script type="text/javascript">
 	$(function() {
-		/* $("#btn_skin1").click(function() {
+		 $("#btn_skin1").click(function() {
 			document.getElementById(
 			return true;
-		}); */
+		}); 
 		
 		$("#btn_before").click(function() {
 			alert("btn_before!!!");
