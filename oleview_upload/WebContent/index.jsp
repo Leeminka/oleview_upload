@@ -113,31 +113,6 @@ javax.naming.Context"%>
 	top: 10px;
 	z-index: 1;
 }
-
-div.backLayer {
-	display: none;
-	background-color: black;
-	position: absolute;
-	left: 0px;
-	top: 0px;
-	z-index: 2;
-}
-
-div#tutorialDiv {
-	background-color: skyblue;
-	display: none;
-	position: absolute;
-	width: 300px;
-	height: 300px;
-	z-index: 2;
-}
-
-div.start_bg {
-	position: relative;
-	top: -10px;
-	left: -10px;
-	z-index: 2;
-}
 </style>
 <script type="text/javascript"
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
@@ -182,71 +157,21 @@ div.start_bg {
 <script src="http://connect.facebook.net/en_US/all.js"
 	language="JavaScript" type="text/javascript"></script>
 <script>
-	$(document).keydown(function(event) {
-		if (event.which == '27') {
-			$("#tutorialDiv").fadeOut(500);
-			$(".backLayer").fadeOut(1000);
-		}
+//페이스북 초기화
+window.fbAsyncInit = function() {
+	FB.init({
+		appId : '283897015123867',
+		status : true,
+		cookie : true,
+		xfbml : true
 	});
+};
 	function fb_logout() {
 		FB.logout(function(response) {
 			window.alert('byebye!');
 			window.location.href = "";
 		});
 	}
-	//페이스북 초기화
-	window.fbAsyncInit = function() {
-		FB.init({
-			appId : '283897015123867',
-			status : true,
-			cookie : true,
-			xfbml : true
-		});
-	};
-	function fb_login() {
-		FB
-				.login(function(response) {
-					if (response.authResponse) {
-						console.log('Welcome!  Fetching your information.... ');
-						//console.log(response); // dump complete info
-						access_token = response.authResponse.accessToken; //get access token
-						user_id = response.authResponse.userID; //get FB UID
-						document.getElementById('userID').innerHTML = ''
-								+ user_id;
-						FB.api('/me', function(response) {
-							user_email = response.email; //get user email
-							// you can store this data into your database             
-						});
-
-						var width = $(window).width();
-						var height = $(window).height();
-
-						$(".backLayer").width(width);
-						$(".backLayer").height(height);
-						$(".backLayer").fadeTo(500, 0.5);
-
-						var tutorialDiv = $("#tutorialDiv");
-						tutorialDiv.css("top", $(document).height() / 2 - 150);
-						tutorialDiv.css("left", $(document).width() / 2 - 150);
-						tutorialDiv.fadeIn(500);
-
-					} else {
-						//user hit cancel button
-						console
-								.log('User cancelled login or did not fully authorize.');
-
-					}
-				});
-		$(".start_bg").fadeOut(1000);
-
-	}
-	(function() {
-		var e = document.createElement('script');
-		e.src = document.location.protocol
-				+ '//connect.facebook.net/en_US/all.js';
-		e.async = true;
-		document.getElementById('fb-root').appendChild(e);
-	}());
 </script>
 <script>
 	var getPage = function() {
@@ -369,6 +294,7 @@ div.start_bg {
 </script>
 </head>
 <body>
+
 	<!-- 상단 바 부분 -->
 	<div id="bar">
 		<img src="img/bg_bar.png" />
@@ -385,14 +311,8 @@ div.start_bg {
 			align="absmiddle" border="0">
 	</div>
 
-	<div class="start_bg">
-		<img src="img/bg_1st-bg2.png"
-			style="position: absolute; left: 0px; top: 0px" /> <a href="#"
-			onclick="fb_login();"><img src="img/btn_start.png" border="0"
-			alt="" style="position: absolute; left: 700px; top: 560px"></a>
-	</div>
-	<div class='backLayer'></div>
 
+	<!-- 좌측 슬라이드 부분 -->
 	<div id="effect">
 		<div id="content">
 			<div id="real_content">
@@ -421,15 +341,16 @@ div.start_bg {
 		</div>
 	</div>
 
+	<!-- 우측 슬라이드 부분 -->
 	<div id="effect2">
 		<div id="content2">
 			<div id="bg_select_slide">
-				<br> <Br> <br>
-				<img src="img/background/btn_beforepage.png" id="btn_before">
-				<span id="count" value=1></span> / 4 <img src="img/background/btn_nextpage.png" id="btn_next"><br>
-				<img src="img/background/btn_no-skin_c.png"><br>
-				<img src="img/background/btn_skin1.png"
-					id="btn_skin1"><br> <img
+				<br> <Br> <br> <img
+					src="img/background/btn_beforepage.png" id="btn_before"> <span
+					id="count" value=1></span> / 4 <img
+					src="img/background/btn_nextpage.png" id="btn_next"><br>
+				<img src="img/background/btn_no-skin_c.png"><br> <img
+					src="img/background/btn_skin1.png" id="btn_skin1"><br> <img
 					src="img/background/btn_skin2.png"><br> <img
 					src="img/background/btn_skin3.png"><br>
 			</div>
@@ -440,7 +361,7 @@ div.start_bg {
 			</p>
 		</div>
 	</div>
-	<div id="tutorialDiv">tutorial Div!</div>
+
 	<div id="page"></div>
 
 	<br>
@@ -448,7 +369,6 @@ div.start_bg {
 	<br>
 	<Br>
 	<!-- show_content_area에 내용들이 보일꺼고, 위치 수정해줘야함..시작위치가 바 부분 밑일수 있게 -->
-	<div id="show_content_area">
-	</div>
+	<div id="show_content_area"></div>
 </body>
 </html>
