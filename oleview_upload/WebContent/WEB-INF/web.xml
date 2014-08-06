@@ -17,6 +17,7 @@
     <servlet-name>GetPage</servlet-name>
     <url-pattern>/testGetPage</url-pattern>
   </servlet-mapping>
+  
   <servlet>
     <servlet-name>GetSelectPage</servlet-name>
     <servlet-class>page.GetSelectPage</servlet-class>
@@ -25,4 +26,5 @@
     <servlet-name>GetSelectPage</servlet-name>
     <url-pattern>/testGetSelectPage</url-pattern>
   </servlet-mapping>
+  
 </web-app>

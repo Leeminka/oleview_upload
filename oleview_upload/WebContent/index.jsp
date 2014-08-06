@@ -356,7 +356,7 @@ div.start_bg {
 <script type="text/javascript">
 	$(function() {
 		 $("#btn_skin1").click(function() {
-			document.getElementById(
+			//document.getElementById(
 			return true;
 		}); 
 		

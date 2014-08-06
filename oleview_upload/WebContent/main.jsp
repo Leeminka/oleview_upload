@@ -15,9 +15,9 @@
 
 .draggable_div {
 	position: absolute;
-	border-width:1px; 
+	border-width: 1px; 
 	border-color: rgb(167,204,18); 
-	border-style:solid;
+	border-style: solid;
 }
 
 .remote_div {
@@ -60,7 +60,7 @@
 	position: absolute;
 	left: 0px;
 	top: 0px;
-	background: rgba(167, 204, 18, 0.4);
+	background: rgba(167, 204, 18, 0.3);
 	cursor: move;
 	z-index: 10;
 	cursor: move;
@@ -107,7 +107,7 @@
 .clip_div {
 	position: absolute;
 	top: -31px;
-	left: 0px;
+	left: -1px;
 	height: 31px;
 	background: rgb(191,221,67);
 }
@@ -121,14 +121,14 @@
 .btn_reflash {
 	position: absolute;
 	top: 0px;
-	right: 36px;
+	right: 34px;
 	height: 31px;
 	width: 31px;
 }
 .btn_new {
 	position: absolute;
 	top: 0px;
-	right: 0px;
+	right: -2px;
 	height: 31px;
 	width: 36px;
 }
@@ -171,7 +171,7 @@
 		var content1 = $('<iframe></iframe>');
 		content1.width(width);
 		content1.height(height);
-		content1.attr('src', '/GetPage?url=' + encodeURIComponent(url)
+		content1.attr('src', '/oleview_upload/testGetPage?url=' + encodeURIComponent(url)
 				+ '&dom_data=' + encodeURIComponent(dom_data));
 		content1.attr('scrolling', 'no');
 		content1.attr('url', url);
@@ -206,7 +206,7 @@
 			remote_bar = 1;
 			//InsertDB		
 			/* if (isNewFrame)
-				saveContentPosition(content1); */
+				saveContentPosition(content1);  */
 		});
 
 		//remote_div를 content에 붙임
@@ -281,32 +281,22 @@
 		$('#contents_cont').height(window.innerHeight);
 		draggable_div.appendTo($('#contents_cont'));
 		
-		//iframe 객체 위에 커서를 올리믄 바가 나와용
-		$('#id_content1').mouseenter(function() {
-			clip_div.show();
-			$('#draggable_div').border-width('3px');
-			$('#draggable_div').border-style('solid');
-		}); 
-		
 		//iframe 위에 커서를 올리믄 바가 나와용 위에 없으면 바가 없어져용
 		$(this).mousemove(function(event) {
-			var start_top = $("#id_content1").offset().top;
-			var end_top = Number(start_top) + Number(height);
-			var pointY = event.screenY;	//커서 y좌표
-			
+			var div_top = $("#id_content1").offset().top;
+			var div_left = $("#id_content1").offset().left;
+			var pointX = event.clientX + document.body.scrollLeft;	//커서x좌표
+			var pointY = event.clientY + document.body.scrollTop;	//커서y좌표
+				
 			if (remote_bar==1)
 			{
-				if (start_top+31<pointY && pointY<end_top)
+				if ((div_top-31<pointY) && (pointY<div_top) && (div_left<pointX) && (pointX<div_left+Number(width)))
 				{
 					clip_div.show();
-					$('#draggable_div').border-width('3px');
-					$('#draggable_div').border-style('solid');
 				}
 				else
 				{	
 					clip_div.hide();
-					$('#draggable_div').border-width('1px');
-					$('#draggable_div').border-style('solid');
 				}	
 			}
 		});
@@ -327,6 +317,12 @@
 		btn_new.click(function() {
 			window.open("http://" + url);
 		});
+		
+		//iframe 내에서 링크를 하믄 크기가 커져용 팝업팝업
+		//자식프레임에서 호출할끄얌
+		function wide_frame(){
+			  alert("호출");
+		}
 		
 		return true;
 	}
