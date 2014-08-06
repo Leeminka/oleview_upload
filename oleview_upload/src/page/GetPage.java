@@ -113,7 +113,7 @@ public class GetPage extends HttpServlet {
 				Element e = Iter.next();
 				String tagName = e.tagName().toLowerCase();
 				if (tagName.equals("a")) {		
-					String target_url = "_self";	//링크 새창띄우지 말긔				
+					String target_url = "_self";	//링크 새창띄우지 말긔								
 					e.attr("target",target_url);
 					
 					target_url = "parent.wide_frame(\"title\");";	//프레임 내에서 링크되면 이벤트주긔 - title을 임의로 주엇어 - title 프레임이 커져야돼

@@ -15,9 +15,15 @@
 
 .draggable_div {
 	position: absolute;
+<<<<<<< HEAD
 	border-width: 1px; 
 	border-color: rgb(167,204,18); 
 	border-style: solid;
+=======
+	border: solid;
+	border-width: thin;
+	border-color: rgb(167, 204, 18);
+>>>>>>> branch 'master' of https://github.com/Leeminka/oleview_upload.git
 }
 
 .remote_div {
@@ -83,6 +89,9 @@
 
 #contents_cont {
 	position: relative;
+	width: 1000px;
+	height: 700px;
+	border: solid;
 }
 
 .container_button {
@@ -104,6 +113,7 @@
 	width: 60px;
 	height: 30px;
 }
+<<<<<<< HEAD
 .clip_div {
 	position: absolute;
 	top: -31px;
@@ -140,12 +150,16 @@
 	height: 37px;
 	width: 37px;
 }
+=======
+>>>>>>> branch 'master' of https://github.com/Leeminka/oleview_upload.git
 </style>
 <script src="scripts/jquery-1.11.0.min.js"></script>
 <script src="scripts/jquery-ui-1.10.4.custom.min.js"></script>
 <script>
-	const STATE_PLAIN = 0;
-	const STATE_EDIT = 1;
+	const
+	STATE_PLAIN = 0;
+	const
+	STATE_EDIT = 1;
 	var STATE = STATE_PLAIN;
 	var contents_list = [];
 	$(document).ready(function() {
@@ -174,7 +188,8 @@
 		draggable_div.css('position','absolute');
 		draggable_div.css('left', left);
 		draggable_div.css('top', top);
-	
+		
+
 		//iframe 컨텐츠생성 나중에 사용하기 위해 속성으로 다 넣어버려
 		var content1 = $('<iframe></iframe>');
 		content1.width(width);
@@ -184,14 +199,12 @@
 		content1.attr('scrolling', 'no');
 		content1.attr('url', url);
 		content1.attr('dom_data', dom_data);
-		content1.attr('id','id_content1');
 		content1.addClass('content');
-		
+
 		//컨텐츠를 DIV에 붙임
 		content1.appendTo(draggable_div);
 
 		//리모콘 생성
-		var remote_bar = 0;	//0이믄 리모콘이 있습니다 1이믄 리모콘이 있지 않습니다	
 		var remote_div = $('<div></div>').addClass("remote_div");
 		var btn_migrate = $('<img />').attr('src', 'img/main/btn_migrate.png')
 				.addClass('btn_migrate remote_btn');
@@ -201,13 +214,13 @@
 				.addClass('btn_delete remote_btn');
 		var btn_save = $('<img />').attr('src', 'img/main/btn_save.png')
 				.addClass('btn_save remote_btn');
-		
+
 		//각 생성된 버튼들을 remote_div에 붙임
 		btn_migrate.appendTo(remote_div);
 		btn_crop.appendTo(remote_div);
 		btn_delete.appendTo(remote_div);
 		btn_save.appendTo(remote_div);
-		
+
 		//save 이벤트 추가
 		btn_save.click(function() {
 			handle_div.hide();	remote_div.hide();
@@ -216,6 +229,9 @@
 			//InsertDB		
 			/* if (isNewFrame)
 				saveContentPosition(content1);  */
+			//InsertDB
+			if (isNewFrame)
+				saveContentPosition(content1);
 		});
 
 		//remote_div를 content에 붙임
@@ -237,7 +253,6 @@
 			handle_img.width(width * 0.5);
 			handle_img.height(width * 0.5);
 		}
-		
 		//핸들 위치 생성 가운데에 만듬
 		handle_img.css("top", (height * 0.5) - (handle_img.height() * 0.5));
 		handle_img.css("left", (width * 0.5) - (handle_img.width() * 0.5));
@@ -254,26 +269,6 @@
 			containment : "#contents_cont",
 			scroll : false
 		});
-		
-		//클립바 생성
-		var clip_div = $('<div></div>').addClass("clip_div");
-		var btn_setting = $('<img />').attr('src', 'img/main/btn_clip-setting.png')
-				.addClass('btn_setting');
-		var btn_reflash = $('<img />').attr('src', 'img/main/btn_clip-reflash.png')
-				.addClass('btn_reflash');
-		var btn_new = $('<img />').attr('src', 'img/main/btn_clip-new.png')
-				.addClass('btn_new');
-		
-		//클립바 속성 설정
-		clip_div.width(width);
-		
-		//클립바 어펜드어펜드
-		btn_setting.appendTo(clip_div);	
-		btn_reflash.appendTo(clip_div);	
-		btn_new.appendTo(clip_div);
-		clip_div.appendTo(draggable_div);
-		
-		clip_div.hide();	//첨에는 클립바를 숨기고 리모컨바를 보여줘야해
 
 		//만약 새로운 프레임이면 핸들을 바로 보이게 아닐경우 핸들을 숨김
 		if (isNewFrame) {
@@ -284,9 +279,6 @@
 		}
 
 		//DIV를 contents 컨테이너에 붙임
-		//컨테이너는 한 화면을 넘어가지 않습니다 그래서 스크롤도 숨김니다
-		$('#contents_cont').width(window.innerWidth);
-		$('#contents_cont').height(window.innerHeight);
 		draggable_div.appendTo($('#contents_cont'));
 		
 		//iframe 위에 커서를 올리믄 바가 나와용 위에 없으면 바가 없어져용
@@ -348,7 +340,7 @@
 		btn_migrate.click(function() {
 			
 		});
-		
+
 		return true;
 	}
 	
@@ -452,9 +444,14 @@
 	}
 </script>
 </head>
+<<<<<<< HEAD
 <body style="overflow-x:hidden; overflow-y:hidden">
 	
 	
 	<div id="contents_cont"></div>
+=======
+<body>
+	<div id="contents_cont">컨테이너ㅋㅋㅋ</div>
+>>>>>>> branch 'master' of https://github.com/Leeminka/oleview_upload.git
 </body>
 </html>
