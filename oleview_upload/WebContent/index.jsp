@@ -113,6 +113,20 @@ javax.naming.Context"%>
 	top: 10px;
 	z-index: 1;
 }
+
+#show_content_area {
+	top: 40px;
+	width: 1100px;
+	height: 700px;
+	backgorund-color: black;
+}
+
+#bg {
+	top: 40px;
+	width: 1200px;
+	height: 800px;
+	background: url(img/background/bg_1.png)
+}
 </style>
 <script type="text/javascript"
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
@@ -157,15 +171,15 @@ javax.naming.Context"%>
 <script src="http://connect.facebook.net/en_US/all.js"
 	language="JavaScript" type="text/javascript"></script>
 <script>
-//페이스북 초기화
-window.fbAsyncInit = function() {
-	FB.init({
-		appId : '283897015123867',
-		status : true,
-		cookie : true,
-		xfbml : true
-	});
-};
+	//페이스북 초기화
+	window.fbAsyncInit = function() {
+		FB.init({
+			appId : '283897015123867',
+			status : true,
+			cookie : true,
+			xfbml : true
+		});
+	};
 	function fb_logout() {
 		FB.logout(function(response) {
 			window.alert('byebye!');
@@ -280,16 +294,79 @@ window.fbAsyncInit = function() {
 
 <script type="text/javascript">
 	$(function() {
-		$("#btn_skin1").click(function() {
-			document.getElementById(
-			return true;
-		});
-		
 		$("#btn_before").click(function() {
-			alert("btn_before!!!");
-			return false;
+			alert("before button!");
+
 		});
-		
+	});
+
+	$(function() {
+		$("#btn_next").click(function() {
+			var number = $("#count").text() + 1;
+			var pf = parent.opener.document;
+			console.log("number=" + number);
+			pf.getElementById('count').innerHTML = ""
+			alert("next button!");
+		});
+	});
+	$(function() {
+		$("#btn_skin1")
+				.click(
+						function() {
+							//var pf = parent.opener.document;
+							document.getElementById("bg").style.backgroundImage = "url(img/background/bg_1.png)";
+							document.getElementById("btn_skin0").src="img/background/btn_no-skin.png";
+							document.getElementById("btn_skin1").src="img/background/btn_skin1_c.png";
+							document.getElementById("btn_skin2").src="img/background/btn_skin2.png";
+							document.getElementById("btn_skin3").src="img/background/btn_skin3.png";
+							
+							//pf.getElementById('count').innerHTML="1";
+						});
+	});
+	$(function() {
+		$("#btn_skin2")
+				.click(
+						function() {
+							//var pf = parent.opener.document;
+							document.getElementById("bg").style.backgroundImage = "url(img/background/bg_2.png)";
+							document.getElementById("btn_skin0").src="img/background/btn_no-skin.png";
+							document.getElementById("btn_skin1").src="img/background/btn_skin1.png";
+							document.getElementById("btn_skin2").src="img/background/btn_skin2_c.png";
+							document.getElementById("btn_skin3").src="img/background/btn_skin3.png";
+							
+							//pf.getElementById('count').innerHTML="2";
+						});
+	});
+	$(function() {
+		$("#btn_skin3")
+				.click(
+						function() {
+							//var pf = parent.opener.document;
+							document.getElementById("bg").style.backgroundImage = "url(img/background/bg_3.png)";
+							document.getElementById("btn_skin0").src="img/background/btn_no-skin.png";
+							document.getElementById("btn_skin1").src="img/background/btn_skin1.png";
+							document.getElementById("btn_skin2").src="img/background/btn_skin2.png";
+							document.getElementById("btn_skin3").src="img/background/btn_skin3_c.png";
+							
+							//pf.getElementById('count').innerHTML="3";
+						});
+	});
+	$(function() {
+		$("#btn_skin0").click(function() {
+			//var pf = parent.opener.document;
+			document.getElementById("bg").style.backgroundImage = "url()";
+			document.getElementById("btn_skin0").src="img/background/btn_no-skin_c.png";
+			document.getElementById("btn_skin1").src="img/background/btn_skin1.png";
+			document.getElementById("btn_skin2").src="img/background/btn_skin2.png";
+			document.getElementById("btn_skin3").src="img/background/btn_skin3.png";
+			
+			//pf.getElementById('count').innerHTML="0";
+		});
+	});
+	$(function() {
+		$("#btn_skin4").click(function() {
+			alert("구매 후 사용 가능합니다!");
+		});
 	});
 </script>
 </head>
@@ -346,13 +423,14 @@ window.fbAsyncInit = function() {
 		<div id="content2">
 			<div id="bg_select_slide">
 				<br> <Br> <br> <img
-					src="img/background/btn_beforepage.png" id="btn_before"> <span
-					id="count" value=1></span> / 4 <img
-					src="img/background/btn_nextpage.png" id="btn_next"><br>
-				<img src="img/background/btn_no-skin_c.png"><br> <img
-					src="img/background/btn_skin1.png" id="btn_skin1"><br> <img
-					src="img/background/btn_skin2.png"><br> <img
-					src="img/background/btn_skin3.png"><br>
+					src="img/background/btn_beforepage.png" id="btn_before" /> <span
+					id="count">1</span> / 4 <img src="img/background/btn_nextpage.png"
+					id="btn_next" /><br> <img
+					src="img/background/btn_no-skin_c.png" id="btn_skin0" /><br>
+				<img src="img/background/btn_skin1.png" id="btn_skin1" /><br>
+				<img src="img/background/btn_skin2.png" id="btn_skin2" /><br>
+				<img src="img/background/btn_skin3.png" id="btn_skin3" /><br>
+				<img src="img/background/btn_skin4.png" id="btn_skin4" />
 			</div>
 		</div>
 		<div id="bgbutton">
@@ -369,6 +447,8 @@ window.fbAsyncInit = function() {
 	<br>
 	<Br>
 	<!-- show_content_area에 내용들이 보일꺼고, 위치 수정해줘야함..시작위치가 바 부분 밑일수 있게 -->
-	<div id="show_content_area"></div>
+	<div id="bg" align="center">
+		<div id="show_content_area"></div>
+	</div>
 </body>
 </html>
