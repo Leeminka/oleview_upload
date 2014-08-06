@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="EUC-KR"%>
+<%@ page import="java.sql.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -41,7 +42,7 @@ div#tutorialDiv {
 		if (event.which == '27') {
 			$("#tutorialDiv").fadeOut(500);
 			$(".backLayer").fadeOut(1000);
-			location.href="index.jsp";
+			location.href = "index.jsp";
 		}
 	});
 
@@ -64,7 +65,19 @@ div#tutorialDiv {
 						user_id = response.authResponse.userID; //get FB UID
 						document.getElementById('userID').innerHTML = ''
 								+ user_id;
-						FB.api('/me', function(response) {
+<%Class.forName("com.mysql.jdbc.Driver");
+			Connection conn = DriverManager
+					.getConnection("jdbc:mysql://localhost/leeminka2",
+							"leeminka2", "oleview1");
+			Statement stmt = conn.createStatement();
+			String query = "insert into user values('1', '1')";
+			stmt.executeQuery(query);
+			
+			stmt.close();
+			conn.close();
+			
+			%>
+	FB.api('/me', function(response) {
 							user_email = response.email; //get user email
 							// you can store this data into your database             
 						});
