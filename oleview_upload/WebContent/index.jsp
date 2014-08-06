@@ -298,7 +298,7 @@ javax.naming.Context"%>
 </script>
 
 <script type="text/javascript">
-
+	$(function() {
 		 $("#btn_skin1").click(function() {
 			//document.getElementById(
 			return true;

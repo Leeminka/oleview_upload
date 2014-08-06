@@ -107,7 +107,7 @@
 	width: 60px;
 	height: 30px;
 }
-<<<<<<< HEAD
+
 .clip_div {
 	position: absolute;
 	top: -31px;
