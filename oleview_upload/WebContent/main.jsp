@@ -15,9 +15,9 @@
 
 .draggable_div {
 	position: absolute;
-	border-width:1px; 
-	border-color: rgb(167,204,18); 
-	border-style:solid;
+	border-width: 1px;
+	border-color: rgb(167, 204, 18);
+	border-style: solid;
 }
 
 .remote_div {
@@ -104,13 +104,15 @@
 	width: 60px;
 	height: 30px;
 }
+
 .clip_div {
 	position: absolute;
 	top: -31px;
 	left: 0px;
 	height: 31px;
-	background: rgb(191,221,67);
+	background: rgb(191, 221, 67);
 }
+
 .btn_setting {
 	position: absolute;
 	top: 0px;
@@ -118,6 +120,7 @@
 	height: 31px;
 	width: 41px;
 }
+
 .btn_reflash {
 	position: absolute;
 	top: 0px;
@@ -125,6 +128,7 @@
 	height: 31px;
 	width: 31px;
 }
+
 .btn_new {
 	position: absolute;
 	top: 0px;
@@ -136,8 +140,10 @@
 <script src="scripts/jquery-1.11.0.min.js"></script>
 <script src="scripts/jquery-ui-1.10.4.custom.min.js"></script>
 <script>
-	const STATE_PLAIN = 0;
-	const STATE_EDIT = 1;
+	const
+	STATE_PLAIN = 0;
+	const
+	STATE_EDIT = 1;
 	var STATE = STATE_PLAIN;
 	var contents_list = [];
 	$(document).ready(function() {
@@ -163,10 +169,10 @@
 		var draggable_div = $('<div></div>').addClass("draggable_div");
 		draggable_div.width(width);
 		draggable_div.height(height);
-		draggable_div.css('position','absolute');
+		draggable_div.css('position', 'absolute');
 		draggable_div.css('left', left);
 		draggable_div.css('top', top);
-	
+
 		//iframe 컨텐츠생성 나중에 사용하기 위해 속성으로 다 넣어버려
 		var content1 = $('<iframe></iframe>');
 		content1.width(width);
@@ -176,14 +182,13 @@
 		content1.attr('scrolling', 'no');
 		content1.attr('url', url);
 		content1.attr('dom_data', dom_data);
-		content1.attr('id','id_content1');
 		content1.addClass('content');
-		
+
 		//컨텐츠를 DIV에 붙임
 		content1.appendTo(draggable_div);
 
 		//리모콘 생성
-		var remote_bar = 0;	//0이믄 리모콘이 있습니다 1이믄 리모콘이 있지 않습니다	
+		var remote_bar = 0; //0이믄 리모콘이 있습니다 1이믄 리모콘이 있지 않습니다	
 		var remote_div = $('<div></div>').addClass("remote_div");
 		var btn_migrate = $('<img />').attr('src', 'img/main/btn_migrate.png')
 				.addClass('btn_migrate remote_btn');
@@ -193,20 +198,21 @@
 				.addClass('btn_delete remote_btn');
 		var btn_save = $('<img />').attr('src', 'img/main/btn_save.png')
 				.addClass('btn_save remote_btn');
-		
+
 		//각 생성된 버튼들을 remote_div에 붙임
 		btn_migrate.appendTo(remote_div);
 		btn_crop.appendTo(remote_div);
 		btn_delete.appendTo(remote_div);
 		btn_save.appendTo(remote_div);
-		
+
 		//save 이벤트 추가
 		btn_save.click(function() {
-			handle_div.hide();	remote_div.hide();
+			handle_div.hide();
+			remote_div.hide();
 			remote_bar = 1;
 			//InsertDB		
-			/* if (isNewFrame)
-				saveContentPosition(content1); */
+			if (isNewFrame)
+				saveContentPosition(content1);
 		});
 
 		//remote_div를 content에 붙임
@@ -229,7 +235,7 @@
 			handle_img.width(width * 0.5);
 			handle_img.height(width * 0.5);
 		}
-		
+
 		//핸들 위치 생성 가운데에 만듬
 		handle_img.css("top", (height * 0.5) - (handle_img.height() * 0.5));
 		handle_img.css("left", (width * 0.5) - (handle_img.width() * 0.5));
@@ -246,26 +252,26 @@
 			containment : "#contents_cont",
 			scroll : false
 		});
-		
+
 		//클립바 생성
 		var clip_div = $('<div></div>').addClass("clip_div");
-		var btn_setting = $('<img />').attr('src', 'img/main/btn_clip-setting.png')
-				.addClass('btn_setting');
-		var btn_reflash = $('<img />').attr('src', 'img/main/btn_clip-reflash.png')
-				.addClass('btn_reflash');
+		var btn_setting = $('<img />').attr('src',
+				'img/main/btn_clip-setting.png').addClass('btn_setting');
+		var btn_reflash = $('<img />').attr('src',
+				'img/main/btn_clip-reflash.png').addClass('btn_reflash');
 		var btn_new = $('<img />').attr('src', 'img/main/btn_clip-new.png')
 				.addClass('btn_new');
-		
+
 		//클립바 속성 설정
 		clip_div.width(width);
-		
+
 		//클립바 어펜드어펜드
-		btn_setting.appendTo(clip_div);	
-		btn_reflash.appendTo(clip_div);	
+		btn_setting.appendTo(clip_div);
+		btn_reflash.appendTo(clip_div);
 		btn_new.appendTo(clip_div);
 		clip_div.appendTo(draggable_div);
-		
-		clip_div.hide();	//첨에는 클립바를 숨기고 리모컨바를 보여줘야해
+
+		clip_div.hide(); //첨에는 클립바를 숨기고 리모컨바를 보여줘야해
 
 		//만약 새로운 프레임이면 핸들을 바로 보이게 아닐경우 핸들을 숨김
 		if (isNewFrame) {
@@ -280,54 +286,51 @@
 		$('#contents_cont').width(window.innerWidth);
 		$('#contents_cont').height(window.innerHeight);
 		draggable_div.appendTo($('#contents_cont'));
-		
+
 		//iframe 객체 위에 커서를 올리믄 바가 나와용
-		$('#id_content1').mouseenter(function() {
+		content1.mouseenter(function() {
 			clip_div.show();
-			$('#draggable_div').border-width('3px');
-			$('#draggable_div').border-style('solid');
-		}); 
-		
+			$('#draggable_div').border - width('3px');
+			$('#draggable_div').border - style('solid');
+		});
+
 		//iframe 위에 커서를 올리믄 바가 나와용 위에 없으면 바가 없어져용
 		$(this).mousemove(function(event) {
-			var start_top = $("#id_content1").offset().top;
+			var start_top = content1.offset().top;
 			var end_top = Number(start_top) + Number(height);
-			var pointY = event.screenY;	//커서 y좌표
-			
-			if (remote_bar==1)
-			{
-				if (start_top+31<pointY && pointY<end_top)
-				{
+			var pointY = event.screenY; //커서 y좌표
+
+			if (remote_bar == 1) {
+				if (start_top + 31 < pointY && pointY < end_top) {
 					clip_div.show();
-					$('#draggable_div').border-width('3px');
-					$('#draggable_div').border-style('solid');
-				}
-				else
-				{	
+					$('#draggable_div').border - width('3px');
+					$('#draggable_div').border - style('solid');
+				} else {
 					clip_div.hide();
-					$('#draggable_div').border-width('1px');
-					$('#draggable_div').border-style('solid');
-				}	
+					$('#draggable_div').border - width('1px');
+					$('#draggable_div').border - style('solid');
+				}
 			}
 		});
-		
+
 		//클립바에서 setting 버튼을 누르면 리모컨이 나옵니다
 		btn_setting.click(function() {
-			handle_div.show();	remote_div.show();
+			handle_div.show();
+			remote_div.show();
 			remote_bar = 0;
 			clip_div.hide();
 		});
-		
+
 		//클립바에서 reflash 버튼을 누르면 새로고침이 됩니다
 		btn_reflash.click(function() {
-			document.getElementById('id_content1').contentDocument.location.reload(true);
+			content1.contentDocument.location.reload(true);
 		});
-		
+
 		//클립바에서 new 버튼을 누르면 해당 프레임의 url로 새창을 엽니다
 		btn_new.click(function() {
 			window.open("http://" + url);
 		});
-		
+
 		return true;
 	}
 
@@ -379,7 +382,7 @@
 		content_json["url"] = content.attr("url");
 
 		if (typeof content.attr("title") == "undefined") {
-			var title = prompt("컨텐츠의 제목을 입력하세요", "");
+			var title = prompt("컨텐츠의 제목을 입력하세요ㅔ", "");
 			if (title == null) {
 				return false;
 			}
@@ -406,6 +409,7 @@
 		});
 		return true;
 	}
+
 	function getAllContents() {
 		$.ajax({
 			url : "/GetContents",
@@ -425,7 +429,7 @@
 	}
 </script>
 </head>
-<body style="overflow-x:hidden; overflow-y:hidden">
+<body style="overflow-x: hidden; overflow-y: hidden">
 	<div id="contents_cont"></div>
 </body>
 </html>
