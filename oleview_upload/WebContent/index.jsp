@@ -179,6 +179,11 @@ javax.naming.Context"%>
 			cookie : true,
 			xfbml : true
 		});
+		FB.login(function(response){
+			user_id = response.authResponse.userID; //get FB UID
+			document.getElementById('userID').innerHTML = ''
+					+ user_id;
+		});
 	};
 	function fb_logout() {
 		FB.logout(function(response) {
@@ -422,10 +427,12 @@ javax.naming.Context"%>
 	<div id="effect2">
 		<div id="content2">
 			<div id="bg_select_slide">
-				<br> <Br> <br> <img
+				<br> <Br> <br> 
+				<!--  img
 					src="img/background/btn_beforepage.png" id="btn_before" /> <span
 					id="count">1</span> / 4 <img src="img/background/btn_nextpage.png"
-					id="btn_next" /><br> <img
+					id="btn_next" /> -->
+					<br> <img
 					src="img/background/btn_no-skin_c.png" id="btn_skin0" /><br>
 				<img src="img/background/btn_skin1.png" id="btn_skin1" /><br>
 				<img src="img/background/btn_skin2.png" id="btn_skin2" /><br>
