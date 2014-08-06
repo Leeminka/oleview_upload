@@ -186,7 +186,7 @@
 		var content1 = $('<iframe></iframe>');
 		content1.width(width);
 		content1.height(height);
-		content1.attr('src', '/oleview_upload/GetPage?url=' + encodeURIComponent(url)
+		content1.attr('src', '/GetPage?url=' + encodeURIComponent(url)
 				+ '&dom_data=' + encodeURIComponent(dom_data));
 		content1.attr('scrolling', 'no');
 		content1.attr('url', url);
