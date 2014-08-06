@@ -83,9 +83,6 @@
 
 #contents_cont {
 	position: relative;
-	width: 1000px;
-	height: 700px;
-	border: solid;
 }
 
 .container_button {
@@ -107,7 +104,6 @@
 	width: 60px;
 	height: 30px;
 }
-
 .clip_div {
 	position: absolute;
 	top: -31px;
@@ -136,22 +132,12 @@
 	height: 31px;
 	width: 36px;
 }
-
-.btn_x {
-	position: absolute;
-	top: 37px;
-	right: -37px;
-	height: 37px;
-	width: 37px;
-}
 </style>
 <script src="scripts/jquery-1.11.0.min.js"></script>
 <script src="scripts/jquery-ui-1.10.4.custom.min.js"></script>
 <script>
-	const
-	STATE_PLAIN = 0;
-	const
-	STATE_EDIT = 1;
+	const STATE_PLAIN = 0;
+	const STATE_EDIT = 1;
 	var STATE = STATE_PLAIN;
 	var contents_list = [];
 	$(document).ready(function() {
@@ -180,23 +166,24 @@
 		draggable_div.css('position','absolute');
 		draggable_div.css('left', left);
 		draggable_div.css('top', top);
-		
 
 		//iframe 컨텐츠생성 나중에 사용하기 위해 속성으로 다 넣어버려
 		var content1 = $('<iframe></iframe>');
 		content1.width(width);
 		content1.height(height);
-		content1.attr('src', '/GetPage?url=' + encodeURIComponent(url)
+		content1.attr('src', '/oleview_upload/testGetPage?url=' + encodeURIComponent(url)
 				+ '&dom_data=' + encodeURIComponent(dom_data));
 		content1.attr('scrolling', 'no');
 		content1.attr('url', url);
 		content1.attr('dom_data', dom_data);
+		content1.attr('id','id_content1');
 		content1.addClass('content');
 
 		//컨텐츠를 DIV에 붙임
 		content1.appendTo(draggable_div);
 
 		//리모콘 생성
+		var remote_bar = 0;	//0이믄 리모콘이 있습니다 1이믄 리모콘이 있지 않습니다	
 		var remote_div = $('<div></div>').addClass("remote_div");
 		var btn_migrate = $('<img />').attr('src', 'img/main/btn_migrate.png')
 				.addClass('btn_migrate remote_btn');
@@ -217,10 +204,9 @@
 		btn_save.click(function() {
 			handle_div.hide();	remote_div.hide();
 			remote_bar = 1;
-			
-			//InsertDB
-			if (isNewFrame)
-				saveContentPosition(content1);
+			//InsertDB		
+			/* if (isNewFrame)
+				saveContentPosition(content1);  */
 		});
 
 		//remote_div를 content에 붙임
@@ -232,7 +218,8 @@
 		handle_div.height(height);
 
 		//핸들에 들어가는 이미지 생성
-		var handle_img = $('<img />').attr('src', 'img/main/handle_img.png').addClass("handle_img");
+		var handle_img = $('<img />').attr('src', 'img/main/handle_img.png')
+				.addClass("handle_img");
 
 		//핸들 이미지 사이즈 생성
 		if (width >= height) {
@@ -242,6 +229,7 @@
 			handle_img.width(width * 0.5);
 			handle_img.height(width * 0.5);
 		}
+
 		//핸들 위치 생성 가운데에 만듬
 		handle_img.css("top", (height * 0.5) - (handle_img.height() * 0.5));
 		handle_img.css("left", (width * 0.5) - (handle_img.width() * 0.5));
@@ -259,6 +247,26 @@
 			scroll : false
 		});
 
+		//클립바 생성
+		var clip_div = $('<div></div>').addClass("clip_div");
+		var btn_setting = $('<img />').attr('src', 'img/main/btn_clip-setting.png')
+				.addClass('btn_setting');
+		var btn_reflash = $('<img />').attr('src', 'img/main/btn_clip-reflash.png')
+				.addClass('btn_reflash');
+		var btn_new = $('<img />').attr('src', 'img/main/btn_clip-new.png')
+				.addClass('btn_new');
+
+		//클립바 속성 설정
+		clip_div.width(width);
+
+		//클립바 어펜드어펜드
+		btn_setting.appendTo(clip_div);	
+		btn_reflash.appendTo(clip_div);	
+		btn_new.appendTo(clip_div);
+		clip_div.appendTo(draggable_div);
+
+		clip_div.hide();	//첨에는 클립바를 숨기고 리모컨바를 보여줘야해
+
 		//만약 새로운 프레임이면 핸들을 바로 보이게 아닐경우 핸들을 숨김
 		if (isNewFrame) {
 
@@ -268,15 +276,18 @@
 		}
 
 		//DIV를 contents 컨테이너에 붙임
+		//컨테이너는 한 화면을 넘어가지 않습니다 그래서 스크롤도 숨김니다
+		$('#contents_cont').width(window.innerWidth);
+		$('#contents_cont').height(window.innerHeight);
 		draggable_div.appendTo($('#contents_cont'));
-		
+
 		//iframe 위에 커서를 올리믄 바가 나와용 위에 없으면 바가 없어져용
 		$(this).mousemove(function(event) {
 			var div_top = $("#id_content1").offset().top;
 			var div_left = $("#id_content1").offset().left;
 			var pointX = event.clientX + document.body.scrollLeft;	//커서x좌표
 			var pointY = event.clientY + document.body.scrollTop;	//커서y좌표
-				
+
 			if (remote_bar==1)
 			{
 				if ((div_top-31<pointY) && (pointY<div_top) && (div_left<pointX) && (pointX<div_left+Number(width)))
@@ -289,54 +300,31 @@
 				}	
 			}
 		});
-		
+
 		//클립바에서 setting 버튼을 누르면 리모컨이 나옵니다
 		btn_setting.click(function() {
 			handle_div.show();	remote_div.show();
 			remote_bar = 0;
 			clip_div.hide();
 		});
-		
+
 		//클립바에서 reflash 버튼을 누르면 새로고침이 됩니다
 		btn_reflash.click(function() {
 			document.getElementById('id_content1').contentDocument.location.reload(true);
 		});
-		
+
 		//클립바에서 new 버튼을 누르면 해당 프레임의 url로 새창을 엽니다
 		btn_new.click(function() {
 			window.open("http://" + url);
-			
-			/* $("#id_content1").animate({width: '1303px', height: '721px', top: '20px', left: '20px'}, 300);
-			var btn_x = $('<img />').attr('src', 'img/main/btn_x.png').addClass('btn_x');
-			btn_x.appendTo(content1); */
-			
-		});
-		
-		//delete 이벤트 추가
-		btn_delete.click(function() {
-			remote_div.hide();	handle_div.hide();	draggable_div.hide();
-			//db에서 content 삭제 
-		});
-		
-		//crop 이벤트 추가
-		btn_crop.click(function() {
-			remote_div.hide();	handle_div.hide();	draggable_div.hide();
-			//db에서 content 삭제 
-			
-			//주소만 똑같게 해서 index.jsp 복붙
-		});
-		
-		btn_migrate.click(function() {
-			
 		});
 
+		//iframe 내에서 링크를 하믄 크기가 커져용 팝업팝업
+		//자식프레임에서 호출할끄얌
+		function wide_frame(){
+			  alert("호출");
+		}
+
 		return true;
-	}
-	
-	//iframe 내에서 링크를 하믄 크기가 커져용 팝업팝업
-	//자식프레임에서 호출할끄얌
-	function wide_frame(title){
-		  alert(title);
 	}
 
 	function makeNewFrame() {
@@ -434,7 +422,6 @@
 </script>
 </head>
 <body style="overflow-x:hidden; overflow-y:hidden">
-	
 	<div id="contents_cont"></div>
 </body>
 </html>
