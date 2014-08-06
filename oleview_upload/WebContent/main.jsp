@@ -15,15 +15,9 @@
 
 .draggable_div {
 	position: absolute;
-<<<<<<< HEAD
 	border-width: 1px; 
 	border-color: rgb(167,204,18); 
 	border-style: solid;
-=======
-	border: solid;
-	border-width: thin;
-	border-color: rgb(167, 204, 18);
->>>>>>> branch 'master' of https://github.com/Leeminka/oleview_upload.git
 }
 
 .remote_div {
@@ -150,8 +144,6 @@
 	height: 37px;
 	width: 37px;
 }
-=======
->>>>>>> branch 'master' of https://github.com/Leeminka/oleview_upload.git
 </style>
 <script src="scripts/jquery-1.11.0.min.js"></script>
 <script src="scripts/jquery-ui-1.10.4.custom.min.js"></script>
@@ -226,9 +218,6 @@
 			handle_div.hide();	remote_div.hide();
 			remote_bar = 1;
 			
-			//InsertDB		
-			/* if (isNewFrame)
-				saveContentPosition(content1);  */
 			//InsertDB
 			if (isNewFrame)
 				saveContentPosition(content1);
@@ -315,11 +304,11 @@
 		
 		//클립바에서 new 버튼을 누르면 해당 프레임의 url로 새창을 엽니다
 		btn_new.click(function() {
-			//window.open("http://" + url);
+			window.open("http://" + url);
 			
-			$("#id_content1").animate({width: '1303px', height: '721px', top: '20px', left: '20px'}, 300);
+			/* $("#id_content1").animate({width: '1303px', height: '721px', top: '20px', left: '20px'}, 300);
 			var btn_x = $('<img />').attr('src', 'img/main/btn_x.png').addClass('btn_x');
-			btn_x.appendTo(content1);
+			btn_x.appendTo(content1); */
 			
 		});
 		
@@ -444,14 +433,8 @@
 	}
 </script>
 </head>
-<<<<<<< HEAD
 <body style="overflow-x:hidden; overflow-y:hidden">
 	
-	
 	<div id="contents_cont"></div>
-=======
-<body>
-	<div id="contents_cont">컨테이너ㅋㅋㅋ</div>
->>>>>>> branch 'master' of https://github.com/Leeminka/oleview_upload.git
 </body>
 </html>
