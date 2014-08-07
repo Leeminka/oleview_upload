@@ -132,6 +132,14 @@
 	height: 31px;
 	width: 36px;
 }
+
+.btn_x {
+	position: absolute;
+	top: 37px;
+	right: -37px;
+	height: 37px;
+	width: 37px;
+}
 </style>
 <script src="scripts/jquery-1.11.0.min.js"></script>
 <script src="scripts/jquery-ui-1.10.4.custom.min.js"></script>
@@ -204,6 +212,7 @@
 		btn_save.click(function() {
 			handle_div.hide();	remote_div.hide();
 			remote_bar = 1;
+
 			//InsertDB		
 			/* if (isNewFrame)
 				saveContentPosition(content1);  */
@@ -218,8 +227,7 @@
 		handle_div.height(height);
 
 		//핸들에 들어가는 이미지 생성
-		var handle_img = $('<img />').attr('src', 'img/main/handle_img.png')
-				.addClass("handle_img");
+		var handle_img = $('<img />').attr('src', 'img/main/handle_img.png').addClass("handle_img");
 
 		//핸들 이미지 사이즈 생성
 		if (width >= height) {
@@ -316,15 +324,38 @@
 		//클립바에서 new 버튼을 누르면 해당 프레임의 url로 새창을 엽니다
 		btn_new.click(function() {
 			window.open("http://" + url);
+
+			/* $("#id_content1").animate({width: '1303px', height: '721px', top: '20px', left: '20px'}, 300);
+			var btn_x = $('<img />').attr('src', 'img/main/btn_x.png').addClass('btn_x');
+			btn_x.appendTo(content1); */
+
 		});
 
-		//iframe 내에서 링크를 하믄 크기가 커져용 팝업팝업
-		//자식프레임에서 호출할끄얌
-		function wide_frame(){
-			  alert("호출");
-		}
+		//delete 이벤트 추가
+		btn_delete.click(function() {
+			remote_div.hide();	handle_div.hide();	draggable_div.hide();
+			//db에서 content 삭제 
+		});
+
+		//crop 이벤트 추가
+		btn_crop.click(function() {
+			remote_div.hide();	handle_div.hide();	draggable_div.hide();
+			//db에서 content 삭제 
+
+			//주소만 똑같게 해서 index.jsp 복붙
+		});
+
+		btn_migrate.click(function() {
+
+		});
 
 		return true;
+	}
+
+	//iframe 내에서 링크를 하믄 크기가 커져용 팝업팝업
+	//자식프레임에서 호출할끄얌
+	function wide_frame(title){
+		  alert(title);
 	}
 
 	function makeNewFrame() {
@@ -422,6 +453,8 @@
 </script>
 </head>
 <body style="overflow-x:hidden; overflow-y:hidden">
+
+
 	<div id="contents_cont"></div>
 </body>
 </html>
