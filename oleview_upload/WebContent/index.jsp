@@ -50,7 +50,7 @@ javax.naming.Context"%>
 	width: 500px;
 	height: 135px;
 	position: fixed;
-	left: -200px;
+	left: -250px;
 	top: 48px;
 	z-index: 1;
 }
@@ -65,7 +65,7 @@ javax.naming.Context"%>
 }
 
 #content {
-	width: 195px;
+	width: 243px;
 	height: 2000px;
 	float: left;
 	font: 18px/1.6 NanumBrushWeb;
@@ -141,7 +141,7 @@ javax.naming.Context"%>
 			});
 		}, function() {
 			jQuery("#effect").animate({
-				left : '-200px'
+				left : '-250px'
 			}, 500);
 			jQuery("#button").css({
 				"background" : "url(img/btn_slide.png)"
@@ -180,8 +180,9 @@ javax.naming.Context"%>
 			xfbml : true
 		});
 		FB.login(function(response) {
-			user_id = response.authResponse.userID; //get FB UID
-			document.getElementById('userID').innerHTML = '' + user_id;
+			fb_user_id = response.authResponse.userID; //get FB UID
+			document.addCategoryForm.user_id.value=fb_user_id;
+			document.getElementById('userID').innerHTML = '' + fb_user_id;
 		});
 	};
 	function fb_logout() {
@@ -380,6 +381,13 @@ javax.naming.Context"%>
 		});
 	});
 </script>
+<script type="text/javascript">
+	var getCategory = function() {
+		var userId = document.getElementById('userID').value;
+		var input_value = document.getElementById('input_category').value;
+	return false;
+	}
+</script>
 </head>
 <body>
 
@@ -417,12 +425,21 @@ javax.naming.Context"%>
 						<fb:name uid="loggedinuser" use-you="no"></fb:name>
 						<br>
 						<div id="status"></div>
-						<div onlogin="checkLoginState();" id="userID"></div>
-						<form onsubmit="getCategory(); return false;">
-							<input type="text" id="input_category" name="input_category"
-								style="background: url(img/left_slide/bg_add-list1.png); background-repeat: no-repeat; width: 190px; height: 33px; border: 0px; padding-left: 6px; padding-right: 30px;" />
-							<input type="image" src="img/left_slide/btn_add-list_btn.png"
-								name="submit" id="category_add_btn" border="0" />
+						<form method="post" action="add_category.jsp" name="addCategoryForm">
+							<div onlogin="checkLoginState();" id="userID" name="userID"></div>
+							<input type="hidden" name="user_id" id="user_id"/>
+							<br>
+							<table
+								style="border-collapse: collapse; padding: 0; border-spacing: 0px;">
+								<tr>
+									<td><input type="text" id="input_category"
+										name="input_category"
+										style="background: url(img/left_slide/bg_add-list1.png); background-repeat: no-repeat; width: 200px; height: 33px; border: 0px; padding-left: 6px; padding-right: 15px;"></td>
+									<td><input type="image"
+										src="img/left_slide/btn_add-list_btn.png" name="submit"
+										id="category_add_btn" border="0"></td>
+								</tr>
+							</table>
 						</form>
 					</div>
 				</div>
