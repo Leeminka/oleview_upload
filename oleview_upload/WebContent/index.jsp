@@ -117,26 +117,10 @@
 	}
 </script>
 
-
-<script type="text/javascript">
-	var getCategory = function() {
-		var userId = document.getElementById('userID').value;
-		var input_value = document.getElementById('input_category').value;
-		return false;
-	}
-</script>
 </head>
 <body>
 
 	<div id="page"></div>
 
-	<br>
-	<Br>
-	<br>
-	<Br>
-	<!-- show_content_area에 내용들이 보일꺼고, 위치 수정해줘야함..시작위치가 바 부분 밑일수 있게 -->
-	<div id="bg" align="center">
-		<div id="show_content_area"></div>
-	</div>
 </body>
 </html>

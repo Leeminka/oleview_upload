@@ -144,13 +144,15 @@
 	height: 37px;
 	width: 37px;
 }
+
 .toggler {
 	width: 500px;
 	height: 200px;
 	position: relative;
 }
+
 #button {
-	float: left;
+	
 	/*버튼 이미지 사이즈 만큼*/
 	width: 37px;
 	height: 33px;
@@ -192,7 +194,7 @@
 	z-index: 1;
 }
 
-#content {
+#left_slide_content {
 	width: 243px;
 	height: 2000px;
 	float: left;
@@ -202,7 +204,7 @@
 	margin: auto;
 }
 
-#content2 {
+#right_slide_content {
 	width: 93px;
 	height: 793px;
 	float: right;
@@ -211,7 +213,7 @@
 	margin: auto;
 }
 
-#real_content {
+#left_slide_real_content {
 	margin_left: 10px;
 	text-align: center;
 }
@@ -225,12 +227,15 @@
 	position: fixed;
 	left: 0px;
 	top: 0px;
+	width: 100%;
+	height: 48px;
+	background-color: rgb(167, 204, 18);
 	z-index: 1;
 }
 
 #search {
 	position: absolute;
-	top: 3px;
+	top: 7px;
 	left: 1100px;
 	z-index: 1;
 }
@@ -238,9 +243,10 @@
 #search_icon {
 	position: absolute;
 	left: 1340px;
-	top: 10px;
+	top: 16px;
 	z-index: 1;
 }
+
 #bg {
 	top: 40px;
 	width: 1200px;
@@ -250,6 +256,8 @@
 </style>
 <script src="scripts/jquery-1.11.0.min.js"></script>
 <script src="scripts/jquery-ui-1.10.4.custom.min.js"></script>
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
 <script>
 	const
 	STATE_PLAIN = 0;
@@ -323,8 +331,8 @@
 			remote_bar = 1;
 
 			//InsertDB		
-			 if (isNewFrame)
-				saveContentPosition(content1); 
+			if (isNewFrame)
+				saveContentPosition(content1);
 		});
 
 		//remote_div를 content에 붙임
@@ -717,14 +725,17 @@
 </head>
 <body style="overflow-x: hidden; overflow-y: hidden">
 
-	<!-- 상단 바 부분 -->
+	<!-- 상단 바 부분	 -->
 	<div id="bar">
-		<img src="img/bg_bar.png" />
+		<div align="center" style="margin-top: 7px;">
+			<img src="img/bg_barlogo.png" />
+		</div>
 	</div>
+
 	<div id="search">
 		<form onsubmit="getPage(); return false;">
 			<input type="text" id="input_url" name="input_url"
-				style="background: url(img/bg_search1.png); background-repeat: no-repeat; width: 225px; height: 31px; border: 0px; padding-left: 6px; padding-right: 40px;">
+				style="background: url(img/bg_search1.png); background-repeat: no-repeat; width: 225px; height: 34px; border: 0px; padding-left: 6px; padding-right: 40px;">
 		</form>
 
 	</div>
@@ -736,8 +747,8 @@
 
 	<!-- 좌측 슬라이드 부분 -->
 	<div id="effect">
-		<div id="content">
-			<div id="real_content">
+		<div id="left_slide_content">
+			<div id="left_slide_real_content">
 				<div style="float: right;">
 					<a href="#" onclick="fb_logout();"><img
 						src="img/btn_logout.png" border="0"></a> <br>
@@ -780,7 +791,7 @@
 
 	<!-- 우측 슬라이드 부분 -->
 	<div id="effect2">
-		<div id="content2">
+		<div id="right_slide_content">
 			<div id="bg_select_slide">
 				<br> <Br> <br>
 				<!--  img
@@ -801,8 +812,11 @@
 		</div>
 	</div>
 
-
-
+	<!-- bg는 배경화면 테스트를위한 div임.. 나중에 contents_cont가 bg안에 들어가있어야함 bg:1200x800, contents_cont:1100x700 -->
+	<div id="bg" align="center">
+		
+	</div>
+	<!-- contents_cont에 내용들이 보일꺼고, 위치 수정해줘야함..시작위치가 바 부분 밑일수 있게 -->
 	<div id="contents_cont"></div>
 </body>
 </html>
