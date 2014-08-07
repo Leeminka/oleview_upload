@@ -1,55 +1,62 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*, java.io.*"%>
 <%
-	Connection conn = null; // null·Î ÃÊ±âÈ­ ÇÑ´Ù.
+	Connection conn = null; // nullë¡œ ì´ˆê¸°í™” í•œë‹¤.
 	PreparedStatement pstmt = null;
+	ResultSet rs = null;
 
 	try {
-		String url = "jdbc:mysql://localhost:3306/leeminka2"; // »ç¿ëÇÏ·Á´Â µ¥ÀÌÅÍº£ÀÌ½º¸íÀ» Æ÷ÇÔÇÑ URL ±â¼ú
-		String id = "leeminka2"; // »ç¿ëÀÚ °èÁ¤
-		String pw = "oleview1"; // »ç¿ëÀÚ °èÁ¤ÀÇ ÆÐ½º¿öµå
+		String url = "jdbc:mysql://localhost:3306/leeminka2"; // ì‚¬ìš©í•˜ë ¤ëŠ” ë°ì´í„°ë² ì´ìŠ¤ëª…ì„ í¬í•¨í•œ URL ê¸°ìˆ 
+		String id = "leeminka2"; // ì‚¬ìš©ìž ê³„ì •
+		String pw = "oleview1"; // ì‚¬ìš©ìž ê³„ì •ì˜ íŒ¨ìŠ¤ì›Œë“œ
 
-		Class.forName("com.mysql.jdbc.Driver"); // µ¥ÀÌÅÍº£ÀÌ½º¿Í ¿¬µ¿ÇÏ±â À§ÇØ DriverManager¿¡ µî·ÏÇÑ´Ù.
-		conn = DriverManager.getConnection(url, id, pw); // DriverManager °´Ã¼·ÎºÎÅÍ Connection °´Ã¼¸¦ ¾ò¾î¿Â´Ù.
+		Class.forName("com.mysql.jdbc.Driver"); // ë°ì´í„°ë² ì´ìŠ¤ì™€ ì—°ë™í•˜ê¸° ìœ„í•´ DriverManagerì— ë“±ë¡í•œë‹¤.
+		conn = DriverManager.getConnection(url, id, pw); // DriverManager ê°ì²´ë¡œë¶€í„° Connection ê°ì²´ë¥¼ ì–»ì–´ì˜¨ë‹¤.
 		String userIDString = request.getParameter("user_id");
-		//Ä«Å×°í¸® °¹¼öÈ®ÀÎ
+		//ì¹´í…Œê³ ë¦¬ ê°¯ìˆ˜í™•ì¸
 		String cnt_sql = "select count(*) from my_category where ID="
 				+ userIDString;
 		pstmt = conn.prepareStatement(cnt_sql);
-		ResultSet rs = pstmt.executeQuery();
+		rs = pstmt.executeQuery();
 		int rowcount = 0;
-		while (rs.next()) {
-			rowcount++;
-		}
+		rs.next();
+		rowcount = rs.getInt(1);
+		out.println("rowcount = " + rowcount + "\n");
 		if (rowcount == 3) {
-			out.println("Ä«Å×°í¸®´Â ÃÖ´ë 3°³±îÁö!!");
-		} else {
+%>
+<script type="text/javascript">
+	alert("ì¹´í…Œê³ ë¦¬ëŠ” ìµœëŒ€ 3ê°œê¹Œì§€!");
+</script>
+<%
+	} else {
 
 			String categoryID = request.getParameter("input_category");
 			String insert_sql = "insert into my_category values('"
 					+ userIDString + "', '" + categoryID + "')";
-			out.println(insert_sql);
 			pstmt = conn.prepareStatement(insert_sql);
 			pstmt.executeUpdate();
-			out.println("successssssssss");
-
 			//int userID= request.getParameter(arg0); 
-			//String insert_sql = "insert user value('ÀÌ¼ö¹Î', '"+ +"')";
+			//String insert_sql = "insert user value('ì´ìˆ˜ë¯¼', '"+ +"')";
 		}
 	} catch (Exception e) {
 		e.printStackTrace();
 	} finally {
-
+		if (rs != null)
+			try {
+				rs.close();
+			} catch (SQLException sqle) {
+			} // Resultset ê°ì²´ í•´ì œ
+		if (pstmt != null)
+			try {
+				pstmt.close();
+			} catch (SQLException sqle) {
+			} // PreparedStatement ê°ì²´ í•´ì œ
+		if (conn != null)
+			try {
+				conn.close();
+			} catch (SQLException sqle) {
+			} // Connection í•´ì œ
+		pageContext.forward("index.jsp");
 	}
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
-</html>
