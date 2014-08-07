@@ -179,10 +179,9 @@ javax.naming.Context"%>
 			cookie : true,
 			xfbml : true
 		});
-		FB.login(function(response){
+		FB.login(function(response) {
 			user_id = response.authResponse.userID; //get FB UID
-			document.getElementById('userID').innerHTML = ''
-					+ user_id;
+			document.getElementById('userID').innerHTML = '' + user_id;
 		});
 	};
 	function fb_logout() {
@@ -299,11 +298,11 @@ javax.naming.Context"%>
 
 <script type="text/javascript">
 	$(function() {
-		 $("#btn_skin1").click(function() {
+		$("#btn_skin1").click(function() {
 			//document.getElementById(
 			return true;
-		}); 
-		
+		});
+
 		$("#btn_before").click(function() {
 			alert("before button!");
 
@@ -325,11 +324,11 @@ javax.naming.Context"%>
 						function() {
 							//var pf = parent.opener.document;
 							document.getElementById("bg").style.backgroundImage = "url(img/background/bg_1.png)";
-							document.getElementById("btn_skin0").src="img/background/btn_no-skin.png";
-							document.getElementById("btn_skin1").src="img/background/btn_skin1_c.png";
-							document.getElementById("btn_skin2").src="img/background/btn_skin2.png";
-							document.getElementById("btn_skin3").src="img/background/btn_skin3.png";
-							
+							document.getElementById("btn_skin0").src = "img/background/btn_no-skin.png";
+							document.getElementById("btn_skin1").src = "img/background/btn_skin1_c.png";
+							document.getElementById("btn_skin2").src = "img/background/btn_skin2.png";
+							document.getElementById("btn_skin3").src = "img/background/btn_skin3.png";
+
 							//pf.getElementById('count').innerHTML="1";
 						});
 	});
@@ -339,11 +338,11 @@ javax.naming.Context"%>
 						function() {
 							//var pf = parent.opener.document;
 							document.getElementById("bg").style.backgroundImage = "url(img/background/bg_2.png)";
-							document.getElementById("btn_skin0").src="img/background/btn_no-skin.png";
-							document.getElementById("btn_skin1").src="img/background/btn_skin1.png";
-							document.getElementById("btn_skin2").src="img/background/btn_skin2_c.png";
-							document.getElementById("btn_skin3").src="img/background/btn_skin3.png";
-							
+							document.getElementById("btn_skin0").src = "img/background/btn_no-skin.png";
+							document.getElementById("btn_skin1").src = "img/background/btn_skin1.png";
+							document.getElementById("btn_skin2").src = "img/background/btn_skin2_c.png";
+							document.getElementById("btn_skin3").src = "img/background/btn_skin3.png";
+
 							//pf.getElementById('count').innerHTML="2";
 						});
 	});
@@ -353,25 +352,27 @@ javax.naming.Context"%>
 						function() {
 							//var pf = parent.opener.document;
 							document.getElementById("bg").style.backgroundImage = "url(img/background/bg_3.png)";
-							document.getElementById("btn_skin0").src="img/background/btn_no-skin.png";
-							document.getElementById("btn_skin1").src="img/background/btn_skin1.png";
-							document.getElementById("btn_skin2").src="img/background/btn_skin2.png";
-							document.getElementById("btn_skin3").src="img/background/btn_skin3_c.png";
-							
+							document.getElementById("btn_skin0").src = "img/background/btn_no-skin.png";
+							document.getElementById("btn_skin1").src = "img/background/btn_skin1.png";
+							document.getElementById("btn_skin2").src = "img/background/btn_skin2.png";
+							document.getElementById("btn_skin3").src = "img/background/btn_skin3_c.png";
+
 							//pf.getElementById('count').innerHTML="3";
 						});
 	});
 	$(function() {
-		$("#btn_skin0").click(function() {
-			//var pf = parent.opener.document;
-			document.getElementById("bg").style.backgroundImage = "url()";
-			document.getElementById("btn_skin0").src="img/background/btn_no-skin_c.png";
-			document.getElementById("btn_skin1").src="img/background/btn_skin1.png";
-			document.getElementById("btn_skin2").src="img/background/btn_skin2.png";
-			document.getElementById("btn_skin3").src="img/background/btn_skin3.png";
-			
-			//pf.getElementById('count').innerHTML="0";
-		});
+		$("#btn_skin0")
+				.click(
+						function() {
+							//var pf = parent.opener.document;
+							document.getElementById("bg").style.backgroundImage = "url()";
+							document.getElementById("btn_skin0").src = "img/background/btn_no-skin_c.png";
+							document.getElementById("btn_skin1").src = "img/background/btn_skin1.png";
+							document.getElementById("btn_skin2").src = "img/background/btn_skin2.png";
+							document.getElementById("btn_skin3").src = "img/background/btn_skin3.png";
+
+							//pf.getElementById('count').innerHTML="0";
+						});
 	});
 	$(function() {
 		$("#btn_skin4").click(function() {
@@ -417,6 +418,12 @@ javax.naming.Context"%>
 						<br>
 						<div id="status"></div>
 						<div onlogin="checkLoginState();" id="userID"></div>
+						<form onsubmit="getCategory(); return false;">
+							<input type="text" id="input_category" name="input_category"
+								style="background: url(img/left_slide/bg_add-list1.png); background-repeat: no-repeat; width: 190px; height: 33px; border: 0px; padding-left: 6px; padding-right: 30px;" />
+							<input type="image" src="img/left_slide/btn_add-list_btn.png"
+								name="submit" id="category_add_btn" border="0" />
+						</form>
 					</div>
 				</div>
 			</div>
@@ -432,13 +439,12 @@ javax.naming.Context"%>
 	<div id="effect2">
 		<div id="content2">
 			<div id="bg_select_slide">
-				<br> <Br> <br> 
+				<br> <Br> <br>
 				<!--  img
 					src="img/background/btn_beforepage.png" id="btn_before" /> <span
 					id="count">1</span> / 4 <img src="img/background/btn_nextpage.png"
 					id="btn_next" /> -->
-					<br> <img
-					src="img/background/btn_no-skin_c.png" id="btn_skin0" /><br>
+				<br> <img src="img/background/btn_no-skin_c.png" id="btn_skin0" /><br>
 				<img src="img/background/btn_skin1.png" id="btn_skin1" /><br>
 				<img src="img/background/btn_skin2.png" id="btn_skin2" /><br>
 				<img src="img/background/btn_skin3.png" id="btn_skin3" /><br>
