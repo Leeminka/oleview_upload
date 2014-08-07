@@ -323,8 +323,8 @@
 			remote_bar = 1;
 
 			//InsertDB		
-			/* if (isNewFrame)
-				saveContentPosition(content1);  */
+			 if (isNewFrame)
+				saveContentPosition(content1); 
 		});
 
 		//remote_div를 content에 붙임
