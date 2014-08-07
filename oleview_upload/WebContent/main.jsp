@@ -15,8 +15,8 @@
 
 .draggable_div {
 	position: absolute;
-	border-width: 1px; 
-	border-color: rgb(167,204,18); 
+	border-width: 1px;
+	border-color: rgb(167, 204, 18);
 	border-style: solid;
 }
 
@@ -104,13 +104,15 @@
 	width: 60px;
 	height: 30px;
 }
+
 .clip_div {
 	position: absolute;
 	top: -31px;
 	left: -1px;
 	height: 31px;
-	background: rgb(191,221,67);
+	background: rgb(191, 221, 67);
 }
+
 .btn_setting {
 	position: absolute;
 	top: 0px;
@@ -118,6 +120,7 @@
 	height: 31px;
 	width: 41px;
 }
+
 .btn_reflash {
 	position: absolute;
 	top: 0px;
@@ -125,6 +128,7 @@
 	height: 31px;
 	width: 31px;
 }
+
 .btn_new {
 	position: absolute;
 	top: 0px;
@@ -140,12 +144,117 @@
 	height: 37px;
 	width: 37px;
 }
+.toggler {
+	width: 500px;
+	height: 200px;
+	position: relative;
+}
+#button {
+	float: left;
+	/*버튼 이미지 사이즈 만큼*/
+	width: 37px;
+	height: 33px;
+	background: url(img/btn_slide.png);
+	text-indent: -9999px;
+	cursor: pointer; /*버튼위에 마우스 올리면 손가락 모양으로!*/
+	position: fixed;
+	top: 7px;
+	left: 2px;
+}
+
+#bgbutton {
+	float: right;
+	width: 37px;
+	height: 33px;
+	background: url(img/background/btn_bgskin.png);
+	text-indent: -9999px;
+	cursor: pointer;
+	position: fixed;
+	top: 7px;
+	right: 2px;
+}
+
+#effect {
+	width: 500px;
+	height: 135px;
+	position: fixed;
+	left: -250px;
+	top: 48px;
+	z-index: 1;
+}
+
+#effect2 {
+	width: 500px;
+	height: 135px;
+	position: fixed;
+	right: -200px;
+	top: 48px;
+	z-index: 1;
+}
+
+#content {
+	width: 243px;
+	height: 2000px;
+	float: left;
+	font: 18px/1.6 NanumBrushWeb;
+	background: url(img/bg_slide.png);
+	z-index: 1;
+	margin: auto;
+}
+
+#content2 {
+	width: 93px;
+	height: 793px;
+	float: right;
+	background: url(img/background/bg_bgskin.png);
+	z-index: 1;
+	margin: auto;
+}
+
+#real_content {
+	margin_left: 10px;
+	text-align: center;
+}
+
+#bg_select_slide {
+	margin_right: 10px;
+	text-align: center;
+}
+
+#bar {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	z-index: 1;
+}
+
+#search {
+	position: absolute;
+	top: 3px;
+	left: 1100px;
+	z-index: 1;
+}
+
+#search_icon {
+	position: absolute;
+	left: 1340px;
+	top: 10px;
+	z-index: 1;
+}
+#bg {
+	top: 40px;
+	width: 1200px;
+	height: 800px;
+	background: url(img/background/bg_1.png)
+}
 </style>
 <script src="scripts/jquery-1.11.0.min.js"></script>
 <script src="scripts/jquery-ui-1.10.4.custom.min.js"></script>
 <script>
-	const STATE_PLAIN = 0;
-	const STATE_EDIT = 1;
+	const
+	STATE_PLAIN = 0;
+	const
+	STATE_EDIT = 1;
 	var STATE = STATE_PLAIN;
 	var contents_list = [];
 	$(document).ready(function() {
@@ -153,12 +262,12 @@
 		getAllContents();
 
 		//편집 상태 (Select Page -> main 으로 Query와 함께 넘어옴) - serch
-		if (isAnyQuery())	
+		if (isAnyQuery())
 			if (makeNewFrame())
 				STATE = STATE_EDIT;
 
 		//평소 로그인 했을때의 상태 
-		if (STATE == STATE_PLAIN)	
+		if (STATE == STATE_PLAIN)
 			alert('메인페이지 환영');
 
 		if (STATE == STATE_EDIT) {
@@ -171,7 +280,7 @@
 		var draggable_div = $('<div></div>').addClass("draggable_div");
 		draggable_div.width(width);
 		draggable_div.height(height);
-		draggable_div.css('position','absolute');
+		draggable_div.css('position', 'absolute');
 		draggable_div.css('left', left);
 		draggable_div.css('top', top);
 
@@ -190,7 +299,7 @@
 		content1.appendTo(draggable_div);
 
 		//리모콘 생성
-		var remote_bar = 0;	//0이믄 리모콘이 있습니다 1이믄 리모콘이 있지 않습니다	
+		var remote_bar = 0; //0이믄 리모콘이 있습니다 1이믄 리모콘이 있지 않습니다	
 		var remote_div = $('<div></div>').addClass("remote_div");
 		var btn_migrate = $('<img />').attr('src', 'img/main/btn_migrate.png')
 				.addClass('btn_migrate remote_btn');
@@ -209,7 +318,8 @@
 
 		//save 이벤트 추가
 		btn_save.click(function() {
-			handle_div.hide();	remote_div.hide();
+			handle_div.hide();
+			remote_div.hide();
 			remote_bar = 1;
 
 			//InsertDB		
@@ -226,7 +336,8 @@
 		handle_div.height(height);
 
 		//핸들에 들어가는 이미지 생성
-		var handle_img = $('<img />').attr('src', 'img/main/handle_img.png').addClass("handle_img");
+		var handle_img = $('<img />').attr('src', 'img/main/handle_img.png')
+				.addClass("handle_img");
 
 		//핸들 이미지 사이즈 생성
 		if (width >= height) {
@@ -256,10 +367,10 @@
 
 		//클립바 생성
 		var clip_div = $('<div></div>').addClass("clip_div");
-		var btn_setting = $('<img />').attr('src', 'img/main/btn_clip-setting.png')
-				.addClass('btn_setting');
-		var btn_reflash = $('<img />').attr('src', 'img/main/btn_clip-reflash.png')
-				.addClass('btn_reflash');
+		var btn_setting = $('<img />').attr('src',
+				'img/main/btn_clip-setting.png').addClass('btn_setting');
+		var btn_reflash = $('<img />').attr('src',
+				'img/main/btn_clip-reflash.png').addClass('btn_reflash');
 		var btn_new = $('<img />').attr('src', 'img/main/btn_clip-new.png')
 				.addClass('btn_new');
 
@@ -267,12 +378,12 @@
 		clip_div.width(width);
 
 		//클립바 어펜드어펜드
-		btn_setting.appendTo(clip_div);	
-		btn_reflash.appendTo(clip_div);	
+		btn_setting.appendTo(clip_div);
+		btn_reflash.appendTo(clip_div);
 		btn_new.appendTo(clip_div);
 		clip_div.appendTo(draggable_div);
 
-		clip_div.hide();	//첨에는 클립바를 숨기고 리모컨바를 보여줘야해
+		clip_div.hide(); //첨에는 클립바를 숨기고 리모컨바를 보여줘야해
 
 		//만약 새로운 프레임이면 핸들을 바로 보이게 아닐경우 핸들을 숨김
 		if (isNewFrame) {
@@ -289,28 +400,28 @@
 		draggable_div.appendTo($('#contents_cont'));
 
 		//iframe 위에 커서를 올리믄 바가 나와용 위에 없으면 바가 없어져용
-		$(this).mousemove(function(event) {
-			var div_top = content1.offset().top;
-			var div_left = content1.offset().left;
-			var pointX = event.clientX + document.body.scrollLeft;	//커서x좌표
-			var pointY = event.clientY + document.body.scrollTop;	//커서y좌표
+		$(this).mousemove(
+				function(event) {
+					var div_top = content1.offset().top;
+					var div_left = content1.offset().left;
+					var pointX = event.clientX + document.body.scrollLeft; //커서x좌표
+					var pointY = event.clientY + document.body.scrollTop; //커서y좌표
 
-			if (remote_bar==1)
-			{
-				if ((div_top-31<pointY) && (pointY<div_top) && (div_left<pointX) && (pointX<div_left+Number(width)))
-				{
-					clip_div.show();
-				}
-				else
-				{	
-					clip_div.hide();
-				}	
-			}
-		});
+					if (remote_bar == 1) {
+						if ((div_top - 31 < pointY) && (pointY < div_top)
+								&& (div_left < pointX)
+								&& (pointX < div_left + Number(width))) {
+							clip_div.show();
+						} else {
+							clip_div.hide();
+						}
+					}
+				});
 
 		//클립바에서 setting 버튼을 누르면 리모컨이 나옵니다
 		btn_setting.click(function() {
-			handle_div.show();	remote_div.show();
+			handle_div.show();
+			remote_div.show();
 			remote_bar = 0;
 			clip_div.hide();
 		});
@@ -332,13 +443,17 @@
 
 		//delete 이벤트 추가
 		btn_delete.click(function() {
-			remote_div.hide();	handle_div.hide();	draggable_div.hide();
+			remote_div.hide();
+			handle_div.hide();
+			draggable_div.hide();
 			//db에서 content 삭제 
 		});
 
 		//crop 이벤트 추가
 		btn_crop.click(function() {
-			remote_div.hide();	handle_div.hide();	draggable_div.hide();
+			remote_div.hide();
+			handle_div.hide();
+			draggable_div.hide();
 			//db에서 content 삭제 
 
 			//주소만 똑같게 해서 index.jsp 복붙
@@ -353,8 +468,8 @@
 
 	//iframe 내에서 링크를 하믄 크기가 커져용 팝업팝업
 	//자식프레임에서 호출할끄얌
-	function wide_frame(title){
-		  alert(title);
+	function wide_frame(title) {
+		alert(title);
 	}
 
 	function makeNewFrame() {
@@ -450,8 +565,242 @@
 		});
 	}
 </script>
+<script type="text/javascript">
+	//좌측 슬라이드에 필요한 script
+	jQuery(function() {
+		jQuery("#button").toggle(function() {
+			jQuery("#effect").animate({
+				left : 0
+			}, 500);
+			jQuery("#button").css({
+				"background" : "url(img/btn_select-slide.png)"
+			});
+		}, function() {
+			jQuery("#effect").animate({
+				left : '-250px'
+			}, 500);
+			jQuery("#button").css({
+				"background" : "url(img/btn_slide.png)"
+			});
+		});
+	});
+
+	//우측 슬라이드 필요한 script
+	jQuery(function() {
+		jQuery("#bgbutton").toggle(function() {
+			jQuery("#effect2").animate({
+				right : 0
+			}, 500);
+			jQuery("#bgbutton").css({
+				"background" : "url(img/background/btn_select-bgskin.png)"
+			});
+		}, function() {
+			jQuery("#effect2").animate({
+				right : '-200px'
+			}, 500);
+			jQuery("#bgbutton").css({
+				"background" : "url(img/background/btn_bgskin.png)"
+			});
+		});
+	});
+</script>
+
+<script src="http://connect.facebook.net/en_US/all.js"
+	language="JavaScript" type="text/javascript"></script>
+<script>
+	//페이스북 초기화
+	window.fbAsyncInit = function() {
+		FB.init({
+			appId : '283897015123867',
+			status : true,
+			cookie : true,
+			xfbml : true
+		});
+		FB.login(function(response) {
+			fb_user_id = response.authResponse.userID; //get FB UID
+			document.addCategoryForm.user_id.value = fb_user_id;
+			document.getElementById('userID').innerHTML = '' + fb_user_id;
+		});
+	};
+	function fb_logout() {
+		FB.logout(function(response) {
+			window.alert('byebye!');
+			window.location.href = "";
+		});
+	}
+</script>
+<script type="text/javascript">
+	//오른쪽 배경 변경에 필요한 script
+	$(function() {
+		$("#btn_skin1").click(function() {
+			//document.getElementById(
+			return true;
+		});
+
+		$("#btn_before").click(function() {
+			alert("before button!");
+
+		});
+	});
+
+	$(function() {
+		$("#btn_next").click(function() {
+			var number = $("#count").text() + 1;
+			var pf = parent.opener.document;
+			console.log("number=" + number);
+			pf.getElementById('count').innerHTML = ""
+			alert("next button!");
+		});
+	});
+	$(function() {
+		$("#btn_skin1")
+				.click(
+						function() {
+							//var pf = parent.opener.document;
+							document.getElementById("bg").style.backgroundImage = "url(img/background/bg_1.png)";
+							document.getElementById("btn_skin0").src = "img/background/btn_no-skin.png";
+							document.getElementById("btn_skin1").src = "img/background/btn_skin1_c.png";
+							document.getElementById("btn_skin2").src = "img/background/btn_skin2.png";
+							document.getElementById("btn_skin3").src = "img/background/btn_skin3.png";
+
+							//pf.getElementById('count').innerHTML="1";
+						});
+	});
+	$(function() {
+		$("#btn_skin2")
+				.click(
+						function() {
+							//var pf = parent.opener.document;
+							document.getElementById("bg").style.backgroundImage = "url(img/background/bg_2.png)";
+							document.getElementById("btn_skin0").src = "img/background/btn_no-skin.png";
+							document.getElementById("btn_skin1").src = "img/background/btn_skin1.png";
+							document.getElementById("btn_skin2").src = "img/background/btn_skin2_c.png";
+							document.getElementById("btn_skin3").src = "img/background/btn_skin3.png";
+
+							//pf.getElementById('count').innerHTML="2";
+						});
+	});
+	$(function() {
+		$("#btn_skin3")
+				.click(
+						function() {
+							//var pf = parent.opener.document;
+							document.getElementById("bg").style.backgroundImage = "url(img/background/bg_3.png)";
+							document.getElementById("btn_skin0").src = "img/background/btn_no-skin.png";
+							document.getElementById("btn_skin1").src = "img/background/btn_skin1.png";
+							document.getElementById("btn_skin2").src = "img/background/btn_skin2.png";
+							document.getElementById("btn_skin3").src = "img/background/btn_skin3_c.png";
+
+							//pf.getElementById('count').innerHTML="3";
+						});
+	});
+	$(function() {
+		$("#btn_skin0")
+				.click(
+						function() {
+							//var pf = parent.opener.document;
+							document.getElementById("bg").style.backgroundImage = "url()";
+							document.getElementById("btn_skin0").src = "img/background/btn_no-skin_c.png";
+							document.getElementById("btn_skin1").src = "img/background/btn_skin1.png";
+							document.getElementById("btn_skin2").src = "img/background/btn_skin2.png";
+							document.getElementById("btn_skin3").src = "img/background/btn_skin3.png";
+
+							//pf.getElementById('count').innerHTML="0";
+						});
+	});
+	$(function() {
+		$("#btn_skin4").click(function() {
+			alert("구매 후 사용 가능합니다!");
+		});
+	});
+</script>
 </head>
-<body style="overflow-x:hidden; overflow-y:hidden">
+<body style="overflow-x: hidden; overflow-y: hidden">
+
+	<!-- 상단 바 부분 -->
+	<div id="bar">
+		<img src="img/bg_bar.png" />
+	</div>
+	<div id="search">
+		<form onsubmit="getPage(); return false;">
+			<input type="text" id="input_url" name="input_url"
+				style="background: url(img/bg_search1.png); background-repeat: no-repeat; width: 225px; height: 31px; border: 0px; padding-left: 6px; padding-right: 40px;">
+		</form>
+
+	</div>
+	<div id="search_icon">
+		<input type="image" src="img/btn_search.png" name="submit"
+			align="absmiddle" border="0">
+	</div>
+
+
+	<!-- 좌측 슬라이드 부분 -->
+	<div id="effect">
+		<div id="content">
+			<div id="real_content">
+				<div style="float: right;">
+					<a href="#" onclick="fb_logout();"><img
+						src="img/btn_logout.png" border="0"></a> <br>
+				</div>
+				<br>
+				<div style="margin: 0 auto;">
+					<div style="margin-top: 15px">
+						<!-- 로그인한 프로필 사진-->
+						<fb:profile-pic uid="loggedinuser" size="square"></fb:profile-pic>
+						<!-- 로그인한 이름 -->
+						<fb:name uid="loggedinuser" use-you="no"></fb:name>
+						<br>
+						<div id="status"></div>
+						<form method="post" action="add_category.jsp"
+							name="addCategoryForm">
+							<div onlogin="checkLoginState();" id="userID" name="userID"></div>
+							<input type="hidden" name="user_id" id="user_id" /> <br>
+							<table
+								style="border-collapse: collapse; padding: 0; border-spacing: 0px;">
+								<tr>
+									<td><input type="text" id="input_category"
+										name="input_category"
+										style="background: url(img/left_slide/bg_add-list1.png); background-repeat: no-repeat; width: 200px; height: 33px; border: 0px; padding-left: 6px; padding-right: 15px;"></td>
+									<td><input type="image"
+										src="img/left_slide/btn_add-list_btn.png" name="submit"
+										id="category_add_btn" border="0"></td>
+								</tr>
+							</table>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="button">
+			<p>
+				<a href="#">Toggle</a>
+			</p>
+		</div>
+	</div>
+
+	<!-- 우측 슬라이드 부분 -->
+	<div id="effect2">
+		<div id="content2">
+			<div id="bg_select_slide">
+				<br> <Br> <br>
+				<!--  img
+					src="img/background/btn_beforepage.png" id="btn_before" /> <span
+					id="count">1</span> / 4 <img src="img/background/btn_nextpage.png"
+					id="btn_next" /> -->
+				<br> <img src="img/background/btn_no-skin_c.png" id="btn_skin0" /><br>
+				<img src="img/background/btn_skin1.png" id="btn_skin1" /><br>
+				<img src="img/background/btn_skin2.png" id="btn_skin2" /><br>
+				<img src="img/background/btn_skin3.png" id="btn_skin3" /><br>
+				<img src="img/background/btn_skin4.png" id="btn_skin4" />
+			</div>
+		</div>
+		<div id="bgbutton">
+			<p>
+				<a href="#">Toggle</a>
+			</p>
+		</div>
+	</div>
+
 
 
 	<div id="contents_cont"></div>
