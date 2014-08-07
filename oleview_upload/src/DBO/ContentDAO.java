@@ -23,7 +23,7 @@ public class ContentDAO {
 		}
 		try {
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/oleview", "root", "1234");
+					"jdbc:mysql://localhost:3306/leeminka2", "leeminka2", "oleview1");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

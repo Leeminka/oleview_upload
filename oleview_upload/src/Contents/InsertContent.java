@@ -85,10 +85,8 @@ public class InsertContent extends HttpServlet {
 			e.printStackTrace();
 			retObject.put("result", "fail");
 		}
-		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
 		response.getWriter().print(retObject);
 	}
-
 }

@@ -152,13 +152,13 @@
 		//데이터베이스에서 모든 저장된 컨텐츠를 가져옴
 		getAllContents();
 
-		//편집 상태 (Select Page -> main 으로 Query와 함께 넘어옴)
-		if (isAnyQuery())
+		//편집 상태 (Select Page -> main 으로 Query와 함께 넘어옴) - serch
+		if (isAnyQuery())	
 			if (makeNewFrame())
 				STATE = STATE_EDIT;
 
-		//평소 로그인 했을때의 상태
-		if (STATE == STATE_PLAIN)
+		//평소 로그인 했을때의 상태 
+		if (STATE == STATE_PLAIN)	
 			alert('메인페이지 환영');
 
 		if (STATE == STATE_EDIT) {
@@ -179,12 +179,11 @@
 		var content1 = $('<iframe></iframe>');
 		content1.width(width);
 		content1.height(height);
-		content1.attr('src', '/oleview_upload/testGetPage?url=' + encodeURIComponent(url)
+		content1.attr('src', '/GetPage?url=' + encodeURIComponent(url)
 				+ '&dom_data=' + encodeURIComponent(dom_data));
 		content1.attr('scrolling', 'no');
 		content1.attr('url', url);
 		content1.attr('dom_data', dom_data);
-		content1.attr('id','id_content1');
 		content1.addClass('content');
 
 		//컨텐츠를 DIV에 붙임
@@ -291,8 +290,8 @@
 
 		//iframe 위에 커서를 올리믄 바가 나와용 위에 없으면 바가 없어져용
 		$(this).mousemove(function(event) {
-			var div_top = $("#id_content1").offset().top;
-			var div_left = $("#id_content1").offset().left;
+			var div_top = content1.offset().top;
+			var div_left = content1.offset().left;
 			var pointX = event.clientX + document.body.scrollLeft;	//커서x좌표
 			var pointY = event.clientY + document.body.scrollTop;	//커서y좌표
 
@@ -318,14 +317,14 @@
 
 		//클립바에서 reflash 버튼을 누르면 새로고침이 됩니다
 		btn_reflash.click(function() {
-			document.getElementById('id_content1').contentDocument.location.reload(true);
+			content1.contentDocument.location.reload(true);
 		});
 
 		//클립바에서 new 버튼을 누르면 해당 프레임의 url로 새창을 엽니다
 		btn_new.click(function() {
 			window.open("http://" + url);
 
-			/* $("#id_content1").animate({width: '1303px', height: '721px', top: '20px', left: '20px'}, 300);
+			/* content1.animate({width: '1303px', height: '721px', top: '20px', left: '20px'}, 300);
 			var btn_x = $('<img />').attr('src', 'img/main/btn_x.png').addClass('btn_x');
 			btn_x.appendTo(content1); */
 
