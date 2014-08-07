@@ -50,7 +50,7 @@ javax.naming.Context"%>
 	width: 500px;
 	height: 135px;
 	position: fixed;
-	left: -200px;
+	left: -250px;
 	top: 48px;
 	z-index: 1;
 }
@@ -65,7 +65,7 @@ javax.naming.Context"%>
 }
 
 #content {
-	width: 195px;
+	width: 243px;
 	height: 2000px;
 	float: left;
 	font: 18px/1.6 NanumBrushWeb;
@@ -114,29 +114,18 @@ javax.naming.Context"%>
 	z-index: 1;
 }
 
-div.backLayer {
-	display: none;
-	background-color: black;
-	position: absolute;
-	left: 0px;
-	top: 0px;
-	z-index: 2;
+#show_content_area {
+	top: 40px;
+	width: 1100px;
+	height: 700px;
+	backgorund-color: black;
 }
 
-div#tutorialDiv {
-	background-color: skyblue;
-	display: none;
-	position: absolute;
-	width: 300px;
-	height: 300px;
-	z-index: 2;
-}
-
-div.start_bg {
-	position: relative;
-	top: -10px;
-	left: -10px;
-	z-index: 2;
+#bg {
+	top: 40px;
+	width: 1200px;
+	height: 800px;
+	background: url(img/background/bg_1.png)
 }
 </style>
 <script type="text/javascript"
@@ -152,7 +141,7 @@ div.start_bg {
 			});
 		}, function() {
 			jQuery("#effect").animate({
-				left : '-200px'
+				left : '-250px'
 			}, 500);
 			jQuery("#button").css({
 				"background" : "url(img/btn_slide.png)"
@@ -182,18 +171,6 @@ div.start_bg {
 <script src="http://connect.facebook.net/en_US/all.js"
 	language="JavaScript" type="text/javascript"></script>
 <script>
-	$(document).keydown(function(event) {
-		if (event.which == '27') {
-			$("#tutorialDiv").fadeOut(500);
-			$(".backLayer").fadeOut(1000);
-		}
-	});
-	function fb_logout() {
-		FB.logout(function(response) {
-			window.alert('byebye!');
-			window.location.href = "";
-		});
-	}
 	//페이스북 초기화
 	window.fbAsyncInit = function() {
 		FB.init({
@@ -202,51 +179,18 @@ div.start_bg {
 			cookie : true,
 			xfbml : true
 		});
+		FB.login(function(response) {
+			fb_user_id = response.authResponse.userID; //get FB UID
+			document.addCategoryForm.user_id.value=fb_user_id;
+			document.getElementById('userID').innerHTML = '' + fb_user_id;
+		});
 	};
-	function fb_login() {
-		FB
-				.login(function(response) {
-					if (response.authResponse) {
-						console.log('Welcome!  Fetching your information.... ');
-						//console.log(response); // dump complete info
-						access_token = response.authResponse.accessToken; //get access token
-						user_id = response.authResponse.userID; //get FB UID
-						document.getElementById('userID').innerHTML = ''
-								+ user_id;
-						FB.api('/me', function(response) {
-							user_email = response.email; //get user email
-							// you can store this data into your database             
-						});
-
-						var width = $(window).width();
-						var height = $(window).height();
-
-						$(".backLayer").width(width);
-						$(".backLayer").height(height);
-						$(".backLayer").fadeTo(500, 0.5);
-
-						var tutorialDiv = $("#tutorialDiv");
-						tutorialDiv.css("top", $(document).height() / 2 - 150);
-						tutorialDiv.css("left", $(document).width() / 2 - 150);
-						tutorialDiv.fadeIn(500);
-
-					} else {
-						//user hit cancel button
-						console
-								.log('User cancelled login or did not fully authorize.');
-
-					}
-				});
-		$(".start_bg").fadeOut(1000);
-
+	function fb_logout() {
+		FB.logout(function(response) {
+			window.alert('byebye!');
+			window.location.href = "";
+		});
 	}
-	(function() {
-		var e = document.createElement('script');
-		e.src = document.location.protocol
-				+ '//connect.facebook.net/en_US/all.js';
-		e.async = true;
-		document.getElementById('fb-root').appendChild(e);
-	}());
 </script>
 <script>
 	var getPage = function() {
@@ -355,20 +299,98 @@ div.start_bg {
 
 <script type="text/javascript">
 	$(function() {
-		 $("#btn_skin1").click(function() {
-			document.getElementById(
+		$("#btn_skin1").click(function() {
+			//document.getElementById(
 			return true;
-		}); 
-		
-		$("#btn_before").click(function() {
-			alert("btn_before!!!");
-			return false;
 		});
-		
+
+		$("#btn_before").click(function() {
+			alert("before button!");
+
+		});
 	});
+
+	$(function() {
+		$("#btn_next").click(function() {
+			var number = $("#count").text() + 1;
+			var pf = parent.opener.document;
+			console.log("number=" + number);
+			pf.getElementById('count').innerHTML = ""
+			alert("next button!");
+		});
+	});
+	$(function() {
+		$("#btn_skin1")
+				.click(
+						function() {
+							//var pf = parent.opener.document;
+							document.getElementById("bg").style.backgroundImage = "url(img/background/bg_1.png)";
+							document.getElementById("btn_skin0").src = "img/background/btn_no-skin.png";
+							document.getElementById("btn_skin1").src = "img/background/btn_skin1_c.png";
+							document.getElementById("btn_skin2").src = "img/background/btn_skin2.png";
+							document.getElementById("btn_skin3").src = "img/background/btn_skin3.png";
+
+							//pf.getElementById('count').innerHTML="1";
+						});
+	});
+	$(function() {
+		$("#btn_skin2")
+				.click(
+						function() {
+							//var pf = parent.opener.document;
+							document.getElementById("bg").style.backgroundImage = "url(img/background/bg_2.png)";
+							document.getElementById("btn_skin0").src = "img/background/btn_no-skin.png";
+							document.getElementById("btn_skin1").src = "img/background/btn_skin1.png";
+							document.getElementById("btn_skin2").src = "img/background/btn_skin2_c.png";
+							document.getElementById("btn_skin3").src = "img/background/btn_skin3.png";
+
+							//pf.getElementById('count').innerHTML="2";
+						});
+	});
+	$(function() {
+		$("#btn_skin3")
+				.click(
+						function() {
+							//var pf = parent.opener.document;
+							document.getElementById("bg").style.backgroundImage = "url(img/background/bg_3.png)";
+							document.getElementById("btn_skin0").src = "img/background/btn_no-skin.png";
+							document.getElementById("btn_skin1").src = "img/background/btn_skin1.png";
+							document.getElementById("btn_skin2").src = "img/background/btn_skin2.png";
+							document.getElementById("btn_skin3").src = "img/background/btn_skin3_c.png";
+
+							//pf.getElementById('count').innerHTML="3";
+						});
+	});
+	$(function() {
+		$("#btn_skin0")
+				.click(
+						function() {
+							//var pf = parent.opener.document;
+							document.getElementById("bg").style.backgroundImage = "url()";
+							document.getElementById("btn_skin0").src = "img/background/btn_no-skin_c.png";
+							document.getElementById("btn_skin1").src = "img/background/btn_skin1.png";
+							document.getElementById("btn_skin2").src = "img/background/btn_skin2.png";
+							document.getElementById("btn_skin3").src = "img/background/btn_skin3.png";
+
+							//pf.getElementById('count').innerHTML="0";
+						});
+	});
+	$(function() {
+		$("#btn_skin4").click(function() {
+			alert("구매 후 사용 가능합니다!");
+		});
+	});
+</script>
+<script type="text/javascript">
+	var getCategory = function() {
+		var userId = document.getElementById('userID').value;
+		var input_value = document.getElementById('input_category').value;
+	return false;
+	}
 </script>
 </head>
 <body>
+
 	<!-- 상단 바 부분 -->
 	<div id="bar">
 		<img src="img/bg_bar.png" />
@@ -385,14 +407,8 @@ div.start_bg {
 			align="absmiddle" border="0">
 	</div>
 
-	<div class="start_bg">
-		<img src="img/bg_1st-bg2.png"
-			style="position: absolute; left: 0px; top: 0px" /> <a href="#"
-			onclick="fb_login();"><img src="img/btn_start.png" border="0"
-			alt="" style="position: absolute; left: 700px; top: 560px"></a>
-	</div>
-	<div class='backLayer'></div>
 
+	<!-- 좌측 슬라이드 부분 -->
 	<div id="effect">
 		<div id="content">
 			<div id="real_content">
@@ -409,7 +425,22 @@ div.start_bg {
 						<fb:name uid="loggedinuser" use-you="no"></fb:name>
 						<br>
 						<div id="status"></div>
-						<div onlogin="checkLoginState();" id="userID"></div>
+						<form method="post" action="add_category.jsp" name="addCategoryForm">
+							<div onlogin="checkLoginState();" id="userID" name="userID"></div>
+							<input type="hidden" name="user_id" id="user_id"/>
+							<br>
+							<table
+								style="border-collapse: collapse; padding: 0; border-spacing: 0px;">
+								<tr>
+									<td><input type="text" id="input_category"
+										name="input_category"
+										style="background: url(img/left_slide/bg_add-list1.png); background-repeat: no-repeat; width: 200px; height: 33px; border: 0px; padding-left: 6px; padding-right: 15px;"></td>
+									<td><input type="image"
+										src="img/left_slide/btn_add-list_btn.png" name="submit"
+										id="category_add_btn" border="0"></td>
+								</tr>
+							</table>
+						</form>
 					</div>
 				</div>
 			</div>
@@ -421,17 +452,20 @@ div.start_bg {
 		</div>
 	</div>
 
+	<!-- 우측 슬라이드 부분 -->
 	<div id="effect2">
 		<div id="content2">
 			<div id="bg_select_slide">
 				<br> <Br> <br>
-				<img src="img/background/btn_beforepage.png" id="btn_before">
-				<span id="count" value=1></span> / 4 <img src="img/background/btn_nextpage.png" id="btn_next"><br>
-				<img src="img/background/btn_no-skin_c.png"><br>
-				<img src="img/background/btn_skin1.png"
-					id="btn_skin1"><br> <img
-					src="img/background/btn_skin2.png"><br> <img
-					src="img/background/btn_skin3.png"><br>
+				<!--  img
+					src="img/background/btn_beforepage.png" id="btn_before" /> <span
+					id="count">1</span> / 4 <img src="img/background/btn_nextpage.png"
+					id="btn_next" /> -->
+				<br> <img src="img/background/btn_no-skin_c.png" id="btn_skin0" /><br>
+				<img src="img/background/btn_skin1.png" id="btn_skin1" /><br>
+				<img src="img/background/btn_skin2.png" id="btn_skin2" /><br>
+				<img src="img/background/btn_skin3.png" id="btn_skin3" /><br>
+				<img src="img/background/btn_skin4.png" id="btn_skin4" />
 			</div>
 		</div>
 		<div id="bgbutton">
@@ -440,7 +474,7 @@ div.start_bg {
 			</p>
 		</div>
 	</div>
-	<div id="tutorialDiv">tutorial Div!</div>
+
 	<div id="page"></div>
 
 	<br>
@@ -448,7 +482,8 @@ div.start_bg {
 	<br>
 	<Br>
 	<!-- show_content_area에 내용들이 보일꺼고, 위치 수정해줘야함..시작위치가 바 부분 밑일수 있게 -->
-	<div id="show_content_area">
+	<div id="bg" align="center">
+		<div id="show_content_area"></div>
 	</div>
 </body>
 </html>
