@@ -41,8 +41,7 @@ public class GetPage extends HttpServlet {
 		String url = request.getParameter("url");
 		String dom_data = request.getParameter("dom_data");
 		URLDecoder.decode(url.replace("+", "%2B"), "UTF-8").replace("%2B", "+");
-		URLDecoder.decode(dom_data.replace("+", "%2B"), "UTF-8").replace("%2B",
-				"+");
+		URLDecoder.decode(dom_data.replace("+", "%2B"), "UTF-8").replace("%2B","+");
 
 		String res = "잘못된 URL 입니다.";
 		int fromIndex = -1;
@@ -113,11 +112,12 @@ public class GetPage extends HttpServlet {
 			for (Iterator<Element> Iter = body_els.iterator(); Iter.hasNext();) {
 				Element e = Iter.next();
 				String tagName = e.tagName().toLowerCase();
-				if (tagName.equals("a")) {		//새창띄워임마
-					String target_url = e.attr("target");					
-					//if (!target_url.equals("_blank"))
-						target_url = "_self";
+				if (tagName.equals("a")) {		
+					String target_url = "_self";	//링크 새창띄우지 말긔								
 					e.attr("target",target_url);
+					
+					target_url = "parent.wide_frame(\"title\");";	//프레임 내에서 링크되면 이벤트주긔 - title을 임의로 주엇어 - title 프레임이 커져야돼
+					e.attr("onclick",target_url);
 				}
 			}
 			
@@ -150,11 +150,11 @@ public class GetPage extends HttpServlet {
 				if (tagName != "body")
 					e.remove();
 			}
-
+	
 			// 선택한 부분 추가 + 스크립트 등 추가
 			body.append(selected_body.toString());
 			body.append(script_els.toString());
-
+			
 			res = doc.html();
 		} catch (Exception e) {
 			e.printStackTrace();
