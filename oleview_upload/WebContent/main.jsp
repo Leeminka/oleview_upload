@@ -317,7 +317,7 @@
 
 		//클립바에서 reflash 버튼을 누르면 새로고침이 됩니다
 		btn_reflash.click(function() {
-			document.content1.contentDocument.location.reload(true);
+			content1.contentDocument.location.reload(true);
 		});
 
 		//클립바에서 new 버튼을 누르면 해당 프레임의 url로 새창을 엽니다
