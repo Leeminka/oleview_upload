@@ -765,7 +765,14 @@
 						<form method="post" action="add_category.jsp"
 							name="addCategoryForm">
 							<div onlogin="checkLoginState();" id="userID" name="userID"></div>
-							<input type="hidden" name="user_id" id="user_id" /> <br>
+							<input type="hidden" name="user_id" id="user_id" />
+							<% String ID = (String) session.getAttribute("user_id");
+							if(ID == null) ID="nullll";
+							
+							out.println("session value=" + ID);
+							%>
+							<br> 
+							<br>
 							<table
 								style="border-collapse: collapse; padding: 0; border-spacing: 0px;">
 								<tr>

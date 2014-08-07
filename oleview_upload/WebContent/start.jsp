@@ -41,7 +41,7 @@ div#tutorialDiv {
 		if (event.which == '27') {
 			$("#tutorialDiv").fadeOut(500);
 			$(".backLayer").fadeOut(1000);
-			location.href="index.jsp";
+			location.href = "main.jsp";
 		}
 	});
 
@@ -64,6 +64,18 @@ div#tutorialDiv {
 						user_id = response.authResponse.userID; //get FB UID
 						document.getElementById('userID').innerHTML = ''
 								+ user_id;
+						var userID = response.authResponse.userID;
+						$.ajax({
+							url : "Login",
+						}).done(function() {
+
+							String
+							str = (String)
+							session.getAttribute("userID");
+							alert("in session!! userID = " + str);
+						}).fail(function() {
+							alert("fail.....?");
+						});
 						FB.api('/me', function(response) {
 							user_email = response.email; //get user email
 							// you can store this data into your database             
