@@ -8,12 +8,8 @@
     <servlet-name>GetPage</servlet-name>
     <servlet-class>page.GetPage</servlet-class>
   </servlet>
-
-  
   <servlet>
     <servlet-name>GetSelectPage</servlet-name>
     <servlet-class>page.GetSelectPage</servlet-class>
   </servlet>
-
-  
 </web-app>
