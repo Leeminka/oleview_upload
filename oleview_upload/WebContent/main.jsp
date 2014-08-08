@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+	pageEncoding="EUC-KR" session="true"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -766,7 +766,8 @@
 							name="addCategoryForm">
 							<div onlogin="checkLoginState();" id="userID" name="userID"></div>
 							<input type="hidden" name="user_id" id="user_id" />
-							<% String ID = (String) session.getAttribute("user_id");
+							<!-- 세션에 아이디들어있는거 확인할때! -->
+							<% String ID = (String) session.getAttribute("userID");
 							if(ID == null) ID="nullll";
 							
 							out.println("session value=" + ID);
