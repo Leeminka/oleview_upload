@@ -152,7 +152,6 @@
 }
 
 #button {
-	
 	/*버튼 이미지 사이즈 만큼*/
 	width: 37px;
 	height: 33px;
@@ -767,13 +766,14 @@
 							<div onlogin="checkLoginState();" id="userID" name="userID"></div>
 							<input type="hidden" name="user_id" id="user_id" />
 							<!-- 세션에 아이디들어있는거 확인할때! -->
-							<% String ID = (String) session.getAttribute("userID");
-							if(ID == null) ID="nullll";
-							
-							out.println("session value=" + ID);
+							<%
+								String ID = (String) session.getAttribute("userID");
+								if (ID == null)
+									ID = "nullll";
+
+								out.println("session value=" + ID);
 							%>
-							<br> 
-							<br>
+							<br> <br>
 							<table
 								style="border-collapse: collapse; padding: 0; border-spacing: 0px;">
 								<tr>
@@ -806,11 +806,16 @@
 					src="img/background/btn_beforepage.png" id="btn_before" /> <span
 					id="count">1</span> / 4 <img src="img/background/btn_nextpage.png"
 					id="btn_next" /> -->
-				<br> <img src="img/background/btn_no-skin_c.png" id="btn_skin0" /><br>
-				<img src="img/background/btn_skin1.png" id="btn_skin1" /><br>
-				<img src="img/background/btn_skin2.png" id="btn_skin2" /><br>
-				<img src="img/background/btn_skin3.png" id="btn_skin3" /><br>
-				<img src="img/background/btn_skin4.png" id="btn_skin4" />
+				<form method="post" action="change_bg.jsp" name="change_bg_Form">
+					<input type="hidden" id=bgNumber name=bgNumber /> <br> <img
+						src="img/background/btn_no-skin_c.png" id="btn_skin0" /><br>
+					<img src="img/background/btn_skin1.png" id="btn_skin1" /><br>
+					<img src="img/background/btn_skin2.png" id="btn_skin2" /><br>
+					<img src="img/background/btn_skin3.png" id="btn_skin3" /><br>
+					<img src="img/background/btn_skin4.png" id="btn_skin4" /> <br>
+					<input type="image" src="img/background/btn_bgsave.png"
+						name="submit" id="bg_save_btn" border="0">
+				</form>
 			</div>
 		</div>
 		<div id="bgbutton">
@@ -821,8 +826,9 @@
 	</div>
 
 	<!-- bg는 배경화면 테스트를위한 div임.. 나중에 contents_cont가 bg안에 들어가있어야함 bg:1200x800, contents_cont:1100x700 -->
-	<div id="bg" align="center">
-		
+	<div id="bg" align="center"
+		style="background: url(img/background/bg_<%=session.getAttribute("userBG")%>.png);">
+
 	</div>
 	<!-- contents_cont에 내용들이 보일꺼고, 위치 수정해줘야함..시작위치가 바 부분 밑일수 있게 -->
 	<div id="contents_cont"></div>

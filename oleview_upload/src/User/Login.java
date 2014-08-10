@@ -54,36 +54,50 @@ public class Login extends HttpServlet {
 		session.setAttribute("userID", facebookID);
 
 		// DB에 넣기
-		Connection conn = null;
+		Connection conn = null; // null로 초기화 한다.
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		String driverName = "com.mysql.jdbc.Driver";
-		try {
-			Class.forName(driverName);
-			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/leeminka2", "leeminka2",
-					"oleview1");
 
-			// DB에 들어있는지 확인
-			String checksql = "select count (*) from user where id="
+		try {
+			String url = "jdbc:mysql://localhost:3306/leeminka2"; // 사용하려는
+																	// 데이터베이스명을
+																	// 포함한 URL
+																	// 기술
+			String id = "leeminka2"; // 사용자 계정
+			String pw = "oleview1"; // 사용자 계정의 패스워드
+
+			Class.forName("com.mysql.jdbc.Driver"); // 데이터베이스와 연동하기 위해
+													// DriverManager에 등록한다.
+			conn = DriverManager.getConnection(url, id, pw); // DriverManager
+																// 객체로부터
+																// Connection					// 객체를 얻어온다.
+			// 카테고리 갯수확인
+			String cnt_sql = "select count(*) from user where id="
 					+ facebookID;
-			stmt = conn.prepareStatement(checksql);
+			stmt = conn.prepareStatement(cnt_sql);
 			rs = stmt.executeQuery();
-			int rowcnt = 0;
+			int rowcount = 0;
 			rs.next();
-			rowcnt = rs.getInt(1);
-			if (rowcnt == 0) {
-				// DB에 등록되지 않은사용자
-				String insertsql = "insert into user value('" + facebookID
-						+ "')";
+			rowcount = rs.getInt(1);
+			out.println("rowcount = " + rowcount + "\n");
+			if (rowcount == 0) {
+				//처음 로그인하는 사람은 user테이블에 추가
+				String insertsql = "insert into user values('" + facebookID
+						+ "', '0')";
 				stmt = conn.prepareStatement(insertsql);
 				stmt.executeUpdate();
 			} else {
-				out.print("already regist user");
+				//로그인 한적 있는 사람은 user테이블에서 배경값 설정한거 가져오기
+				String checkbg = "select background from user where id=" + facebookID;
+				stmt = conn.prepareStatement(checkbg);
+				rs = stmt.executeQuery();
+				String background = rs.getString("background");
+				//가져온 배경값 세션에 넣기
+				session.setAttribute("userBG", background);
+				
 			}
-
-		} catch (Exception E) {
-			E.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		} finally {
 			if (rs != null)
 				try {
@@ -100,7 +114,6 @@ public class Login extends HttpServlet {
 					conn.close();
 				} catch (SQLException sqle) {
 				} // Connection 해제
-
 		}
 	}
 
