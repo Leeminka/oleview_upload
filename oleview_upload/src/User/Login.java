@@ -88,10 +88,12 @@ public class Login extends HttpServlet {
 				stmt.executeUpdate();
 			} else {
 				//로그인 한적 있는 사람은 user테이블에서 배경값 설정한거 가져오기
-				String checkbg = "select background from user where id=" + facebookID;
+				String checkbg = "select * from user where id=" + facebookID;
 				stmt = conn.prepareStatement(checkbg);
-				rs = stmt.executeQuery();
-				String background = rs.getString("background");
+				ResultSet rs2 = null;
+				rs2 = stmt.executeQuery();
+				rs2.next();
+				String background = rs2.getString("background");
 				//가져온 배경값 세션에 넣기
 				session.setAttribute("userBG", background);
 				

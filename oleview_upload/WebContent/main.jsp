@@ -768,11 +768,11 @@
 							<!-- 세션에 아이디들어있는거 확인할때! -->
 							<%
 								String ID = (String) session.getAttribute("userID");
-								if (ID == null)
-									ID = "nullll";
-
 								out.println("session value=" + ID);
+								String BG = (String) session.getAttribute("userBG");
+								out.println("session bgvalue333=" + BG);
 							%>
+							
 							<br> <br>
 							<table
 								style="border-collapse: collapse; padding: 0; border-spacing: 0px;">
@@ -812,7 +812,7 @@
 					<img src="img/background/btn_skin1.png" id="btn_skin1" /><br>
 					<img src="img/background/btn_skin2.png" id="btn_skin2" /><br>
 					<img src="img/background/btn_skin3.png" id="btn_skin3" /><br>
-					<img src="img/background/btn_skin4.png" id="btn_skin4" /> <br>
+					<img src="img/background/btn_lock.png" id="btn_skin4" /> <br>
 					<input type="image" src="img/background/btn_bgsave.png"
 						name="submit" id="bg_save_btn" border="0">
 				</form>
