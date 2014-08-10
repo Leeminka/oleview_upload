@@ -772,7 +772,7 @@
 	</div>
 
 	<div id="search">
-		<form onsubmit="getPage(); return false;">
+		<form action="index.jsp" onsubmit="getPage(); return false;">
 			<input type="text" id="input_url" name="input_url"
 				style="background: url(img/bg_search1.png); background-repeat: no-repeat; width: 225px; height: 34px; border: 0px; padding-left: 6px; padding-right: 40px;">
 		</form>
