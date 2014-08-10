@@ -669,7 +669,8 @@
 							document.getElementById("btn_skin1").src = "img/background/btn_skin1_c.png";
 							document.getElementById("btn_skin2").src = "img/background/btn_skin2.png";
 							document.getElementById("btn_skin3").src = "img/background/btn_skin3.png";
-
+							//document.getElementById("bgNumber").innerHTML = "1";
+							document.change_bg_Form.bgNumber.value = 1;
 							//pf.getElementById('count').innerHTML="1";
 						});
 	});
@@ -683,6 +684,7 @@
 							document.getElementById("btn_skin1").src = "img/background/btn_skin1.png";
 							document.getElementById("btn_skin2").src = "img/background/btn_skin2_c.png";
 							document.getElementById("btn_skin3").src = "img/background/btn_skin3.png";
+							document.change_bg_Form.bgNumber.value = 2;
 
 							//pf.getElementById('count').innerHTML="2";
 						});
@@ -697,7 +699,8 @@
 							document.getElementById("btn_skin1").src = "img/background/btn_skin1.png";
 							document.getElementById("btn_skin2").src = "img/background/btn_skin2.png";
 							document.getElementById("btn_skin3").src = "img/background/btn_skin3_c.png";
-
+							document.change_bg_Form.bgNumber.value = 3;
+							//document.getElementById("bgNumber").innerHTML = "3";
 							//pf.getElementById('count').innerHTML="3";
 						});
 	});
@@ -711,7 +714,8 @@
 							document.getElementById("btn_skin1").src = "img/background/btn_skin1.png";
 							document.getElementById("btn_skin2").src = "img/background/btn_skin2.png";
 							document.getElementById("btn_skin3").src = "img/background/btn_skin3.png";
-
+							document.change_bg_Form.bgNumber.value = 0;
+							//document.getElementById("bgNumber").innerHTML = "0";
 							//pf.getElementById('count').innerHTML="0";
 						});
 	});
@@ -719,6 +723,42 @@
 		$("#btn_skin4").click(function() {
 			alert("구매 후 사용 가능합니다!");
 		});
+	});
+</script>
+<script>
+	//배경설정된거 확인후 오른쪽 사이드에서 클릭된 이미지 변경될때 사용할 스크립트
+	$(window).load(function() {
+		var backgroundNumber =
+<%=(String) session.getAttribute("userBG")%>
+	;
+		//document.getElementById("btn_skin1").src = "img/background/btn_skin1_c.png";
+		switch (backgroundNumber) {
+		case 0:
+			document.getElementById("btn_skin0").src = "img/background/btn_no-skin_c.png";
+			document.getElementById("btn_skin1").src = "img/background/btn_skin1.png";
+			document.getElementById("btn_skin2").src = "img/background/btn_skin2.png";
+			document.getElementById("btn_skin3").src = "img/background/btn_skin3.png";
+			break;
+		case 1:
+			document.getElementById("btn_skin0").src = "img/background/btn_no-skin.png";
+			document.getElementById("btn_skin1").src = "img/background/btn_skin1_c.png";
+			document.getElementById("btn_skin2").src = "img/background/btn_skin2.png";
+			document.getElementById("btn_skin3").src = "img/background/btn_skin3.png";
+			break;
+		case 2:
+			document.getElementById("btn_skin0").src = "img/background/btn_no-skin.png";
+			document.getElementById("btn_skin1").src = "img/background/btn_skin1.png";
+			document.getElementById("btn_skin2").src = "img/background/btn_skin2_c.png";
+			document.getElementById("btn_skin3").src = "img/background/btn_skin3.png";
+			break;
+		case 3:
+			document.getElementById("btn_skin0").src = "img/background/btn_no-skin.png";
+			document.getElementById("btn_skin1").src = "img/background/btn_skin1.png";
+			document.getElementById("btn_skin2").src = "img/background/btn_skin2.png";
+			document.getElementById("btn_skin3").src = "img/background/btn_skin3_c.png";
+			break;
+		}
+		
 	});
 </script>
 </head>
@@ -772,7 +812,7 @@
 								String BG = (String) session.getAttribute("userBG");
 								out.println("session bgvalue333=" + BG);
 							%>
-							
+
 							<br> <br>
 							<table
 								style="border-collapse: collapse; padding: 0; border-spacing: 0px;">
