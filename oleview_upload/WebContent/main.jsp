@@ -581,22 +581,41 @@
 		$.ajax({
 			url : "/GetCategory",
 			type : "Get"
-		}).done(function(data) {
-			for ( var i in data) {
-				showCategory(data[i].title);
-				alert("" + data[i].title);
-			}
-		}).fail(function(error) {
+		}).done(
+				function(data) {
+					for ( var i in data) {
+						showCategory(data[i].title);
+						var j = Number(i) + 1;
+						var divID = String("category");
+						divID += j;
+
+						document.getElementById('' + divID).innerHTML = ''
+								+ data[i].title;
+						alert("" + data[i].title + ", " + divID);
+					}
+				}).fail(function(error) {
 			alert("main get Categorys ajax error");
 			alert(JSON.stringify(error));
 			return false;
 		});
 	}
-	function showCategory(name){
-		
+	function showCategory(name) {
+
 	}
 </script>
+<script type="text/javascript">
+	function deletCategory() {
+		var form=document.forms['updateCategoryForm'];
+		form.action = 'delete_category.jsp';
+		form.submit();
+	}
 
+	function editCategory() {
+		var form=document.forms['updateCategoryForm'];
+		form.action = 'edit_category.jsp';
+		form.submit();		
+	}
+</script>
 
 <script type="text/javascript">
 	//좌측 슬라이드에 필요한 script
@@ -853,6 +872,28 @@
 										id="category_add_btn" border="0"></td>
 								</tr>
 							</table>
+							<!-- 카테고리 목록 -->
+							<form name="updateCategoryForm">
+								<table style="padding: 0px; border-spacing: 0px;">
+									<tr>
+										<td><image src="img/left_slide/btn_list-delete.png"
+												onclick="deletCategory()" id="category_1_delete_btn" name="category_1_delete_btn"></td>
+										<td><div id=category1></div></td>
+										<td><imgae src="img/left_slide/btn_list-edit.png"
+												onclick="editCategory()" id="category_1_edit_btn" name="category_1_eidt_btn"/></td>
+									</tr>
+									<tr>
+										<td><img src="img/left_slide/btn_list-delete.png"></td>
+										<td><div id=category2></div></td>
+										<td><img src="img/left_slide/btn_list-edit.png" /></td>
+									</tr>
+									<tr>
+										<td><img src="img/left_slide/btn_list-delete.png"></td>
+										<td><div id=category3></div></td>
+										<td><img src="img/left_slide/btn_list-edit.png" /></td>
+									</tr>
+								</table>
+							</form>
 						</form>
 					</div>
 				</div>
