@@ -268,6 +268,8 @@
 		//데이터베이스에서 모든 저장된 컨텐츠를 가져옴
 		getAllContents();
 
+		//데이터베이스에서 카테고리 이름을 가져옴
+		getAllCategory();
 		//편집 상태 (Select Page -> main 으로 Query와 함께 넘어옴) - serch
 		if (isAnyQuery())
 			if (makeNewFrame())
@@ -572,6 +574,30 @@
 		});
 	}
 </script>
+
+<script>
+	//카테고리 불러오는데 필요한것들!
+	function getAllCategory() {
+		$.ajax({
+			url : "/GetCategory",
+			type : "Get"
+		}).done(function(data) {
+			for ( var i in data) {
+				showCategory(data[i].title);
+				alert("" + data[i].title);
+			}
+		}).fail(function(error) {
+			alert("main get Categorys ajax error");
+			alert(JSON.stringify(error));
+			return false;
+		});
+	}
+	function showCategory(name){
+		
+	}
+</script>
+
+
 <script type="text/javascript">
 	//좌측 슬라이드에 필요한 script
 	jQuery(function() {
@@ -727,39 +753,41 @@
 </script>
 <script>
 	//배경설정된거 확인후 오른쪽 사이드에서 클릭된 이미지 변경될때 사용할 스크립트
-	$(window).load(function() {
-		var backgroundNumber =
+	$(window)
+			.load(
+					function() {
+						var backgroundNumber =
 <%=(String) session.getAttribute("userBG")%>
 	;
-		//document.getElementById("btn_skin1").src = "img/background/btn_skin1_c.png";
-		switch (backgroundNumber) {
-		case 0:
-			document.getElementById("btn_skin0").src = "img/background/btn_no-skin_c.png";
-			document.getElementById("btn_skin1").src = "img/background/btn_skin1.png";
-			document.getElementById("btn_skin2").src = "img/background/btn_skin2.png";
-			document.getElementById("btn_skin3").src = "img/background/btn_skin3.png";
-			break;
-		case 1:
-			document.getElementById("btn_skin0").src = "img/background/btn_no-skin.png";
-			document.getElementById("btn_skin1").src = "img/background/btn_skin1_c.png";
-			document.getElementById("btn_skin2").src = "img/background/btn_skin2.png";
-			document.getElementById("btn_skin3").src = "img/background/btn_skin3.png";
-			break;
-		case 2:
-			document.getElementById("btn_skin0").src = "img/background/btn_no-skin.png";
-			document.getElementById("btn_skin1").src = "img/background/btn_skin1.png";
-			document.getElementById("btn_skin2").src = "img/background/btn_skin2_c.png";
-			document.getElementById("btn_skin3").src = "img/background/btn_skin3.png";
-			break;
-		case 3:
-			document.getElementById("btn_skin0").src = "img/background/btn_no-skin.png";
-			document.getElementById("btn_skin1").src = "img/background/btn_skin1.png";
-			document.getElementById("btn_skin2").src = "img/background/btn_skin2.png";
-			document.getElementById("btn_skin3").src = "img/background/btn_skin3_c.png";
-			break;
-		}
-		
-	});
+						//document.getElementById("btn_skin1").src = "img/background/btn_skin1_c.png";
+						switch (backgroundNumber) {
+						case 0:
+							document.getElementById("btn_skin0").src = "img/background/btn_no-skin_c.png";
+							document.getElementById("btn_skin1").src = "img/background/btn_skin1.png";
+							document.getElementById("btn_skin2").src = "img/background/btn_skin2.png";
+							document.getElementById("btn_skin3").src = "img/background/btn_skin3.png";
+							break;
+						case 1:
+							document.getElementById("btn_skin0").src = "img/background/btn_no-skin.png";
+							document.getElementById("btn_skin1").src = "img/background/btn_skin1_c.png";
+							document.getElementById("btn_skin2").src = "img/background/btn_skin2.png";
+							document.getElementById("btn_skin3").src = "img/background/btn_skin3.png";
+							break;
+						case 2:
+							document.getElementById("btn_skin0").src = "img/background/btn_no-skin.png";
+							document.getElementById("btn_skin1").src = "img/background/btn_skin1.png";
+							document.getElementById("btn_skin2").src = "img/background/btn_skin2_c.png";
+							document.getElementById("btn_skin3").src = "img/background/btn_skin3.png";
+							break;
+						case 3:
+							document.getElementById("btn_skin0").src = "img/background/btn_no-skin.png";
+							document.getElementById("btn_skin1").src = "img/background/btn_skin1.png";
+							document.getElementById("btn_skin2").src = "img/background/btn_skin2.png";
+							document.getElementById("btn_skin3").src = "img/background/btn_skin3_c.png";
+							break;
+						}
+
+					});
 </script>
 </head>
 <body style="overflow-x: hidden; overflow-y: hidden">
