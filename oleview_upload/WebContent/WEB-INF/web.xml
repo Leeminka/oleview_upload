@@ -2,7 +2,7 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <display-name>serveltTest2</display-name>
   <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>start.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
     <servlet-name>GetPage</servlet-name>
@@ -11,5 +11,29 @@
   <servlet>
     <servlet-name>GetSelectPage</servlet-name>
     <servlet-class>page.GetSelectPage</servlet-class>
+  </servlet>
+ <servlet>
+    <servlet-name>Login</servlet-name>
+    <servlet-class>User.Login</servlet-class>
+  </servlet>
+ <servlet>
+    <servlet-name>DelectContent</servlet-name>
+    <servlet-class>Contents.DelectContent</servlet-class>
+  </servlet>
+ <servlet>
+    <servlet-name>GetContent</servlet-name>
+    <servlet-class>Contents.GetContent</servlet-class>
+  </servlet>
+ <servlet>
+    <servlet-name>InsertContent</servlet-name>
+    <servlet-class>Contents.InsertContent</servlet-class>
+  </servlet>
+ <servlet>
+    <servlet-name>SaveContent</servlet-name>
+    <servlet-class>Contents.SaveContent</servlet-class>
+  </servlet>
+  <servlet>
+      <servlet-name>GetCategory</servlet-name>
+      <servlet-class>User.GetCategory</servlet-class>
   </servlet>
 </web-app>
