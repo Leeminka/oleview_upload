@@ -592,9 +592,28 @@
 						var j = Number(i) + 1;
 						var divID = String("category");
 						divID += j;
-
+						document.getElementById('' + divID).style.display="block";
+						
+						var hiddenDivID = divID + "hidden";
+						var hiddenDivID_ = divID + "hidden_";
 						document.getElementById('' + divID).innerHTML = ''
 								+ data[i].title;
+						document.getElementById('' + hiddenDivID).value = ''
+								+ data[i].title;
+						document.getElementById('' + hiddenDivID_).value = ''
+								+ data[i].title;
+						
+						var deletebtn = String("category_");
+						deletebtn +=j;
+						deletebtn+="_delete_btn";
+						document.getElementById('' + deletebtn).style.display="block";
+						
+						var editbtn = String("category_");
+						editbtn +=j;
+						editbtn+="_edit_btn";
+						document.getElementById('' + editbtn).style.display="block";
+						
+
 						//alert("" + data[i].title + ", " + divID);
 					}
 				}).fail(function(error) {
@@ -605,19 +624,6 @@
 	}
 	function showCategory(name) {
 
-	}
-</script>
-<script type="text/javascript">
-	function deletCategory() {
-		var form = document.forms['updateCategoryForm'];
-		form.action = 'delete_category.jsp';
-		form.submit();
-	}
-
-	function editCategory() {
-		var form = document.forms['updateCategoryForm'];
-		form.action = 'edit_category.jsp';
-		form.submit();
 	}
 </script>
 
@@ -822,6 +828,7 @@
 
 					});
 </script>
+
 </head>
 <body style="overflow-x: hidden; overflow-y: hidden">
 
@@ -885,31 +892,73 @@
 										id="category_add_btn" border="0"></td>
 								</tr>
 							</table>
-							<!-- 카테고리 목록 -->
-							<form name="updateCategoryForm">
-								<table style="padding: 0px; border-spacing: 0px;">
-									<tr>
-										<td><image src="img/left_slide/btn_list-delete.png"
-												onclick="deletCategory()" id="category_1_delete_btn"
-												name="category_1_delete_btn"></td>
-										<td><div id=category1></div></td>
-										<td><imgae src="img/left_slide/btn_list-edit.png"
-												onclick="editCategory()" id="category_1_edit_btn"
-												name="category_1_eidt_btn" /></td>
-									</tr>
-									<tr>
-										<td><img src="img/left_slide/btn_list-delete.png"></td>
-										<td><div id=category2></div></td>
-										<td><img src="img/left_slide/btn_list-edit.png" /></td>
-									</tr>
-									<tr>
-										<td><img src="img/left_slide/btn_list-delete.png"></td>
-										<td><div id=category3></div></td>
-										<td><img src="img/left_slide/btn_list-edit.png" /></td>
-									</tr>
-								</table>
-							</form>
 						</form>
+						<!-- 카테고리 목록 -->
+
+						<table style="padding: 0px; border-spacing: 0px;">
+							<tr>
+								<td>
+									<form action="delete_category.jsp" method="post"
+										name=category1deleteForm>
+										<input type="hidden" name="categoryName" id="category1hidden" />
+										<input type="image" src="img/left_slide/btn_list-delete.png"
+											name="submit" id="category_1_delete_btn" style="display: none;" />
+									</form>
+								</td>
+								<td><div id=category1 style="display:none;"></div></td>
+
+								<td>
+									<form action="edit_category.jsp" method="post"
+										name=category1editForm>
+										<input type="hidden" name="categoryName" id="category1hidden_" />
+										<input type="image" src="img/left_slide/btn_list-edit.png"
+											id="category_1_edit_btn" name="category_1_eidt_btn"
+											style="display: none;" />
+									</form>
+								</td>
+							</tr>
+							<tr>
+
+								<td>
+									<form action="delete_category.jsp" method="post"
+										name=category2deleteForm>
+										<input type="hidden" name="categoryName" id="category2hidden" />
+										<input type="image" src="img/left_slide/btn_list-delete.png"
+											name="submit" id="category_2_delete_btn" style="display: none;">
+									</form>
+								</td>
+								<td><div id=category2 style="display:none;"></div></td>
+								<td>
+									<form action="edit_category.jsp" method="post"
+										name=category2editForm>
+										<input type="hidden" name="categoryName" id="category2hidden_" />
+										<input type="image" src="img/left_slide/btn_list-edit.png"
+											id="category_2_edit_btn" name="category_2_eidt_btn"
+											style="display: none;" />
+									</form>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<form action="delete_category.jsp" method="post"
+										name=category3deleteForm>
+										<input type="hidden" name="categoryName" id="category3hidden" />
+										<input type="image" src="img/left_slide/btn_list-delete.png"
+											name="submit" id="category_3_delete_btn" style="display: none;">
+									</form>
+								</td>
+								<td><div id=category3 style="display:none;"></div></td>
+								<td>
+									<form action="edit_category.jsp" method="post"
+										name=category3editForm>
+										<input type="hidden" name="categoryName" id="category3hidden_" />
+										<input type="image" src="img/left_slide/btn_list-edit.png"
+											id="category_3_edit_btn" name="category_3_eidt_btn"
+											style="display: none;" />
+									</form>
+								</td>
+							</tr>
+						</table>
 					</div>
 				</div>
 			</div>
