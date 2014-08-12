@@ -1,0 +1,133 @@
+@CHARSET "UTF-8";
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+.draggable_div {
+	position: absolute;
+	border-width: 1px; 
+	border-color: rgb(167,204,18); 
+	border-style: solid;
+}
+
+.remote_div {
+	position: absolute;
+	top: -36px;
+	left: 0px;
+	width: 148px;
+	height: 36px;
+}
+
+.remote_btn {
+	position: absolute;
+	width: 37px;
+	hegith: 36px;
+}
+
+.btn_migrate {
+	width: 39px;
+	hegith: 36px;
+	left: -2px;
+	top: 0px;
+}
+
+.btn_crop {
+	left: 37px;
+	top: 0px;
+}
+
+.btn_delete {
+	left: 74px;
+	top: 0px;
+}
+
+.btn_save {
+	left: 111px;
+	top: 0px;
+}
+
+.handle_div {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	background: rgba(167, 204, 18, 0.3);
+	cursor: move;
+	z-index: 10;
+	cursor: move;
+}
+
+.handle_img {
+	position: absolute;
+	z-index: 12;
+}
+
+.content {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	overflow: hidden;
+	z-index: 0;
+	border: none;
+	top: 0px;
+}
+
+#contents_cont {
+	position: relative;
+}
+
+.container_button {
+	z-index: 10;
+}
+
+#container_button_save {
+	position: absolute;
+	top: 0px;
+	right: 100px;
+	width: 60px;
+	height: 30px;
+}
+
+#container_button_cancel {
+	position: absolute;
+	top: 0px;
+	right: 20px;
+	width: 60px;
+	height: 30px;
+}
+.clip_div {
+	position: absolute;
+	top: -31px;
+	left: -1px;
+	height: 31px;
+	background: rgb(191,221,67);
+}
+.btn_setting {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	height: 31px;
+	width: 41px;
+}
+.btn_reflash {
+	position: absolute;
+	top: 0px;
+	right: 34px;
+	height: 31px;
+	width: 31px;
+}
+.btn_new {
+	position: absolute;
+	top: 0px;
+	right: -2px;
+	height: 31px;
+	width: 36px;
+}
+
+.btn_x {
+	position: absolute;
+	top: 37px;
+	right: -37px;
+	height: 37px;
+	width: 37px;
+}

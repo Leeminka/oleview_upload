@@ -57,6 +57,8 @@
 				conn.close();
 			} catch (SQLException sqle) {
 			} // Connection 해제
-		pageContext.forward("index.jsp");
+		%>
+		<script>location.href="main.jsp";</script>
+		<%
 	}
 %>

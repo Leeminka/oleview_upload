@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="EUC-KR"%>
+	pageEncoding="EUC-KR" session="true"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -41,7 +41,7 @@ div#tutorialDiv {
 		if (event.which == '27') {
 			$("#tutorialDiv").fadeOut(500);
 			$(".backLayer").fadeOut(1000);
-			location.href="index.jsp";
+			location.href = "main.jsp";
 		}
 	});
 
@@ -55,15 +55,34 @@ div#tutorialDiv {
 		});
 	};
 	function fb_login() {
+		var userID;
 		FB
 				.login(function(response) {
 					if (response.authResponse) {
 						console.log('Welcome!  Fetching your information.... ');
 						//console.log(response); // dump complete info
+						userID = response.authResponse.userID;
+
+						console.log("userhearrrrrrr="
+								+ response.authResponse.userID);
+						$.ajax({
+							url : "/Login",
+							type : "post",
+							data : "userID=" + userID
+						}).done(function() {
+							//String
+							//str = (String)
+							//session.getAttribute("userID");
+							//alert("in session!! userID = " + str);
+							console.log("success function");
+						}).fail(function() {
+							alert("fail.....?");
+						});
 						access_token = response.authResponse.accessToken; //get access token
 						user_id = response.authResponse.userID; //get FB UID
 						document.getElementById('userID').innerHTML = ''
 								+ user_id;
+
 						FB.api('/me', function(response) {
 							user_email = response.email; //get user email
 							// you can store this data into your database             
@@ -89,7 +108,19 @@ div#tutorialDiv {
 		tutorialDiv.css("left", $(document).width() / 2 - 150);
 		tutorialDiv.fadeIn(500);
 		console.log("ม๘วเม฿2");
-
+		console.log("useridhear! = " + userID);
+/* 		$.ajax({
+			url : "/Login",
+			type : "post",
+			data : "userID=" + userID
+		}).done(function() {
+			String
+			str = (String)
+			session.getAttribute("userID");
+			alert("in session!! userID = " + str);
+		}).fail(function() {
+			alert("fail.....?");
+		}); */
 	}
 	(function() {
 		var e = document.createElement('script');
