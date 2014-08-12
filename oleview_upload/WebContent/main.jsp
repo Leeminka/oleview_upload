@@ -266,40 +266,36 @@
 	STATE_EDIT = 1;
 	var STATE = STATE_PLAIN;
 	var contents_list = [];
-	$(document)
-			.ready(
-					function() {
-						//컨테이너 사이즈는 여기서해야지
-						$('#contents_cont').width(window.innerWidth);
-						$('#contents_cont').height(window.innerHeight);
-						//데이터베이스에서 모든 저장된 컨텐츠를 가져옴
-						getAllContents();
+	$(document).ready(function() {
+		//컨테이너 사이즈는 여기서해야지
+		$('#contents_cont').width(window.innerWidth);
+		$('#contents_cont').height(window.innerHeight);
+		//데이터베이스에서 모든 저장된 컨텐츠를 가져옴
 
-						//데이터베이스에서 카테고리 이름을 가져옴
-						getAllCategory();
-						//편집 상태 (Select Page -> main 으로 Query와 함께 넘어옴) - serch
-						if (isAnyQuery())
-							if (makeNewFrame())
-								STATE = STATE_EDIT;
+		//var search = String("search");
+		//if (categoryName != null) {
+		//	document.getElementById('' + search).style.display = "block";
+		//}
+		getAllContents();
 
-						//평소 로그인 했을때의 상태 
-						if (STATE == STATE_PLAIN) {
-							String
-							categoryName = ""
-									+
-<%=(String) session.getAttribute("categoryName")%>
-	;
-							//카테고리 눌렀는지안눌렀는지까지
-							if (categoryName == null)
-								alert('메인페이지 환영');
-							else
-								alert('catgoryName = ' + categoryName);
-						}
+		//데이터베이스에서 카테고리 이름을 가져옴
+		getAllCategory();
+		//편집 상태 (Select Page -> main 으로 Query와 함께 넘어옴) - serch
+		if (isAnyQuery())
+			if (makeNewFrame())
+				STATE = STATE_EDIT;
 
-						if (STATE == STATE_EDIT) {
+		//평소 로그인 했을때의 상태 
+		if (STATE == STATE_PLAIN) {
+			//카테고리 눌렀는지안눌렀는지까지 나눠야지!
+			document.getElementById("search").style.display = "block";
+			alert('메인페이지 환영');
+		}
 
-						}
-					});
+		if (STATE == STATE_EDIT) {
+
+		}
+	});
 
 	function makeFrame(width, height, url, dom_data, left, top, isNewFrame) {
 		//새로운 DIV 생성
@@ -601,6 +597,8 @@
 				})
 				.done(
 						function(data) {
+							if(data.length == 3)
+								document.getElementById("category_add_btn").src="img/left_slide/btn_hold-list.png";
 							for ( var i in data) {
 								//category 삭제와 수정하는데 필요한 쓰래기들 ㅠㅠㅠ
 								showCategory(data[i].title);
@@ -617,6 +615,8 @@
 								document.getElementById('' + hiddenDivID).value = ''
 										+ data[i].title;
 								document.getElementById('' + hiddenDivID_).value = ''
+										+ data[i].title;
+								document.getElementById('' + hiddenDivID_).innerHTML = ''
 										+ data[i].title;
 								document.getElementById('' + hiddenDivID__).value = ''
 										+ data[i].title;
@@ -807,6 +807,8 @@
 		});
 	});
 </script>
+
+
 <script>
 	//배경설정된거 확인후 오른쪽 사이드에서 클릭된 이미지 변경될때 사용할 스크립트
 	$(window)
@@ -815,6 +817,7 @@
 						var backgroundNumber =
 <%=(String) session.getAttribute("userBG")%>
 	;
+
 						//document.getElementById("btn_skin1").src = "img/background/btn_skin1_c.png";
 						switch (backgroundNumber) {
 						case 0:
@@ -845,15 +848,20 @@
 
 					});
 </script>
+<script language="JavaScript">
+	function test(e) {
+		//카테고리 이름변경을  위한 함수
+		var oldDiv = String("category" + e + "hidden_");
+		var newDiv = String("category" + e + "new");
+		var oldName = document.getElementById('' + oldDiv).value;
 
-<script>
-	function setCategorySession(item) {
-		var categoryName = String("" + $(item).val());
-		alert("" + categoryName);
-
+		var newName = prompt("새로운 제목을 입력하세요", "");
+		if (newName == null) {
+			document.getElementById('' + newDiv).value = '' + oldName;
+		}
+		document.getElementById('' + newDiv).value = '' + newName;
 	}
 </script>
-
 </head>
 <body style="overflow-x: hidden; overflow-y: hidden">
 
@@ -895,17 +903,9 @@
 						<div id="status"></div>
 						<form method="post" action="add_category.jsp"
 							name="addCategoryForm">
-							<div onlogin="checkLoginState();" id="userID" name="userID"></div>
-							<input type="hidden" name="user_id" id="user_id" />
-							<!-- 세션에 아이디들어있는거 확인할때! -->
-							<%
-								String ID = (String) session.getAttribute("userID");
-								out.println("session value=" + ID);
-								String BG = (String) session.getAttribute("userBG");
-								out.println("session bgvalue333=" + BG);
-							%>
-
-							<br> <br>
+							<div onlogin="checkLoginState();" id="userID" name="userID"
+								style="display: none;"></div>
+							<input type="hidden" name="user_id" id="user_id" /> <br> <br>
 							<table
 								style="border-collapse: collapse; padding: 0; border-spacing: 0px;">
 								<tr>
@@ -943,9 +943,10 @@
 									<form action="edit_category.jsp" method="post"
 										name=category1editForm>
 										<input type="hidden" name="categoryName" id="category1hidden_" />
+										<input type="hidden" name="categorynew" id="category1new" />
 										<input type="image" src="img/left_slide/btn_list-edit.png"
-											id="category_1_edit_btn" name="category_1_eidt_btn"
-											style="display: none;" />
+											onClick="test('1')" id="category_1_edit_btn"
+											name="category_1_edit_btn" style="display: none;" />
 									</form>
 								</td>
 							</tr>
@@ -966,15 +967,16 @@
 											id="category2hidden__" /><input type="submit" id="category2"
 											style="display: none;" />
 									</form>
-									</div>
+
 								</td>
 								<td>
 									<form action="edit_category.jsp" method="post"
 										name=category2editForm>
 										<input type="hidden" name="categoryName" id="category2hidden_" />
+										<input type="hidden" name="categorynew" id="category2new" />
 										<input type="image" src="img/left_slide/btn_list-edit.png"
-											id="category_2_edit_btn" name="category_2_eidt_btn"
-											style="display: none;" />
+											onClick="test('2')" id="category_2_edit_btn"
+											name="category_2_edit_btn" style="display: none;" />
 									</form>
 								</td>
 							</tr>
@@ -1000,9 +1002,10 @@
 									<form action="edit_category.jsp" method="post"
 										name=category3editForm>
 										<input type="hidden" name="categoryName" id="category3hidden_" />
+										<input type="hidden" name="categorynew" id="category3new" />
 										<input type="image" src="img/left_slide/btn_list-edit.png"
-											id="category_3_edit_btn" name="category_3_eidt_btn"
-											style="display: none;" />
+											onClick="test('3')" id="category_3_edit_btn"
+											name="category_3_edit_btn" style="display: none;" />
 									</form>
 								</td>
 							</tr>

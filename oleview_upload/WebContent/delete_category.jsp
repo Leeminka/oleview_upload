@@ -4,6 +4,7 @@
 <%
 	Connection conn = null; // null로 초기화 한다.
 	PreparedStatement pstmt = null;
+	PreparedStatement stmt = null;
 	ResultSet rs = null;
 
 	try {
@@ -19,14 +20,18 @@
 		//카테고리 갯수확인
 
 		String delete_sql = "delete from my_category where ID='" +ID +"' and title='" + categoryName + "'";
-		
+		String delete_content_sql = "delete from contents where user_id='" + ID + "' and categoryName='" + categoryName +"'";
+
 		pstmt = conn.prepareStatement(delete_sql);
+		stmt=conn.prepareStatement(delete_content_sql);
 		pstmt.executeUpdate();
+		stmt.executeUpdate();
 		
 	} catch (Exception e) {
 		e.printStackTrace();
 	}finally{
 		pstmt.close();
+		stmt.close();
 		conn.close();
 		%>
 		<script>location.href="main.jsp";</script>

@@ -22,7 +22,7 @@
 		int rowcount = 0;
 		rs.next();
 		rowcount = rs.getInt(1);
-		out.println("rowcount = " + rowcount + "\n");
+		//out.println("rowcount = " + rowcount + "\n");
 		if (rowcount == 3) {
 %>
 <script type="text/javascript">
