@@ -30,16 +30,17 @@ public class ContentDAO {
 		}
 	}
 
-	public ArrayList<ContentDTO> getAllContents(String user_id) {
+	public ArrayList<ContentDTO> getAllContents(String user_id, String categoryName) {
 		// 세션에서 아이디 가져오기
 		//String user_id = "gilyoung";
 
-		String sql = "select * from contents where user_id = ?"; // sql 쿼리
+		String sql = "select * from contents where user_id = ? and categoryName = ?"; // sql 쿼리
 		ArrayList<ContentDTO> retArray = new ArrayList<ContentDTO>();
 
 		try {
 			stmt = (PreparedStatement) conn.prepareStatement(sql);
 			stmt.setString(1, user_id);
+			stmt.setString(2, categoryName);
 			ResultSet rs = stmt.executeQuery(); // 쿼리를 실행하고 결과를 ResultSet 객체에
 												// 담는다.
 			while (rs.next()) {

@@ -46,7 +46,7 @@ public class GetContents extends HttpServlet {
 		
 		//디비에서 모든 컨텐츠들을 가지고오
 		HttpSession session = request.getSession();
-		List<ContentDTO> contents = dao.getAllContents((String) session.getAttribute("userID"));
+		List<ContentDTO> contents = dao.getAllContents((String) session.getAttribute("userID"), (String)session.getAttribute("categoryName"));
 		
 		//리턴할 JSON_ARRAY 오브젝트
 		JSONArray retObj = new JSONArray();
