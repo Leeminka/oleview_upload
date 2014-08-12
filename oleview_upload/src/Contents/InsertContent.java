@@ -66,6 +66,7 @@ public class InsertContent extends HttpServlet {
 			
 			//String user_id = (String) jsonObject.get("user_id");
 			String user_id = (String)session.getAttribute("userID");
+			String category_name = (String)session.getAttribute("categoryName");
 			//String user_id = "gilyoung"; //임시로
 			
 			String url = (String) jsonObject.get("url");
