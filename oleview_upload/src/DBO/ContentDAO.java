@@ -30,9 +30,9 @@ public class ContentDAO {
 		}
 	}
 
-	public ArrayList<ContentDTO> getAllContents() {
+	public ArrayList<ContentDTO> getAllContents(String user_id) {
 		// 세션에서 아이디 가져오기
-		String user_id = "gilyoung";
+		//String user_id = "gilyoung";
 
 		String sql = "select * from contents where user_id = ?"; // sql 쿼리
 		ArrayList<ContentDTO> retArray = new ArrayList<ContentDTO>();

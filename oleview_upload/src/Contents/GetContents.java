@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -38,12 +39,14 @@ public class GetContents extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		
 		// TODO Auto-generated method stub
 		//DB IO를 위한 객체
 		ContentDAO dao = new ContentDAO();
 		
 		//디비에서 모든 컨텐츠들을 가지고오
-		List<ContentDTO> contents = dao.getAllContents();
+		HttpSession session = request.getSession();
+		List<ContentDTO> contents = dao.getAllContents((String) session.getAttribute("userID"));
 		
 		//리턴할 JSON_ARRAY 오브젝트
 		JSONArray retObj = new JSONArray();

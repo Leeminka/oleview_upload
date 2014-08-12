@@ -18,10 +18,10 @@
 
 		//카테고리 갯수확인
 
-		String delete_sql = "delete from my_category where ID=" +ID +" and title=" + categoryName;
+		String delete_sql = "delete from my_category where ID='" +ID +"' and title='" + categoryName + "'";
 		
 		pstmt = conn.prepareStatement(delete_sql);
-		pstmt.executeQuery();
+		pstmt.executeUpdate();
 		
 	} catch (Exception e) {
 		e.printStackTrace();
