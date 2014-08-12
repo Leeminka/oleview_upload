@@ -83,8 +83,8 @@
 
 #contents_cont {
 	position: absolute;
-	top:0px;
-	left:0px;
+	top: 48px;
+	left: 0px;
 }
 
 .container_button {
@@ -163,6 +163,7 @@
 	position: fixed;
 	top: 7px;
 	left: 2px;
+	display: block;
 }
 
 #bgbutton {
@@ -620,44 +621,52 @@
 	}
 </script>
 
-<script type="text/javascript"
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
 <script type="text/javascript">
 	//좌측 슬라이드에 필요한 script
-	jQuery(function() {
-		jQuery("#button").toggle(function() {
-			jQuery("#effect").animate({
-				left : 0
-			}, 500);
-			jQuery("#button").css({
-				"background" : "url(img/btn_select-slide.png)"
-			});
-		}, function() {
-			jQuery("#effect").animate({
-				left : '-250px'
-			}, 500);
-			jQuery("#button").css({
-				"background" : "url(img/btn_slide.png)"
-			});
+	var left_toggle_flag = true;
+	$(function() {
+		$("#button").click(function() {
+			if (left_toggle_flag) {
+				$("#effect").animate({
+					left : 0
+				}, 500);
+				$("#button").css({
+					"background" : "url(img/btn_select-slide.png)"
+				});
+				left_toggle_flag = false;
+			} else {
+				$("#effect").animate({
+					left : '-250px'
+				}, 500);
+				$("#button").css({
+					"background" : "url(img/btn_slide.png)"
+				});
+				left_toggle_flag = true;
+			}
 		});
 	});
 
 	//우측 슬라이드 필요한 script
-	jQuery(function() {
-		jQuery("#bgbutton").toggle(function() {
-			jQuery("#effect2").animate({
-				right : 0
-			}, 500);
-			jQuery("#bgbutton").css({
-				"background" : "url(img/background/btn_select-bgskin.png)"
-			});
-		}, function() {
-			jQuery("#effect2").animate({
-				right : '-200px'
-			}, 500);
-			jQuery("#bgbutton").css({
-				"background" : "url(img/background/btn_bgskin.png)"
-			});
+	var right_toggle_flag = true;
+	$(function() {
+		$("#bgbutton").click(function() {
+			if (right_toggle_flag) {
+				$("#effect2").animate({
+					right : 0
+				}, 500);
+				$("#bgbutton").css({
+					"background" : "url(img/background/btn_select-bgskin.png)"
+				});
+				right_toggle_flag = false;
+			} else {
+				$("#effect2").animate({
+					right : '-200px'
+				}, 500);
+				$("#bgbutton").css({
+					"background" : "url(img/background/btn_bgskin.png)"
+				});
+				right_toggle_flag = true;
+			}
 		});
 	});
 </script>
@@ -828,7 +837,6 @@
 			<input type="text" id="input_url" name="input_url"
 				style="background: url(img/bg_search1.png); background-repeat: no-repeat; width: 225px; height: 34px; border: 0px; padding-left: 6px; padding-right: 40px;">
 		</form>
-
 	</div>
 	<div id="search_icon">
 		<input type="image" src="img/btn_search.png" name="submit"
@@ -906,7 +914,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="button">
+		<div id="button" style="display: block">
 			<p>
 				<a href="#">Toggle</a>
 			</p>

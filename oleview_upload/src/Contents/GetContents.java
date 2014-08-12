@@ -62,9 +62,10 @@ public class GetContents extends HttpServlet {
 			tmp.put("left", tmpDTO.getLeft());
 			retObj.add(tmp);
 		}
+		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
-		response.getWriter().print(retObj);
+		response.getWriter().write(retObj.toString());
 	}
 
 	/**
