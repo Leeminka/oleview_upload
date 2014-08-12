@@ -96,7 +96,7 @@ public class Login extends HttpServlet {
 				String background = rs2.getString("background");
 				//가져온 배경값 세션에 넣기
 				session.setAttribute("userBG", background);
-				session.setAttribute("category", null);
+				session.setAttribute("categoryName", null);
 				
 			}
 		} catch (Exception e) {

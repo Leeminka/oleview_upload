@@ -66,7 +66,7 @@ public class InsertContent extends HttpServlet {
 			
 			//String user_id = (String) jsonObject.get("user_id");
 			String user_id = (String)session.getAttribute("userID");
-			String category_name = (String)session.getAttribute("categoryName");
+			String categoryName = (String)session.getAttribute("categoryName");
 			//String user_id = "gilyoung"; //임시로
 			
 			String url = (String) jsonObject.get("url");
@@ -77,7 +77,7 @@ public class InsertContent extends HttpServlet {
 			int top = Integer.parseInt(jsonObject.get("top").toString());
 
 			// DATA 객채
-			ContentDTO dto = new ContentDTO(title, user_id, url, dom_data,
+			ContentDTO dto = new ContentDTO(title, user_id, categoryName, url, dom_data,
 					width, height, left, top);
 			
 			if(dao.insert(dto)){

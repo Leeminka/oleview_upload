@@ -266,28 +266,40 @@
 	STATE_EDIT = 1;
 	var STATE = STATE_PLAIN;
 	var contents_list = [];
-	$(document).ready(function() {
-		//컨테이너 사이즈는 여기서해야지
-		$('#contents_cont').width(window.innerWidth);
-		$('#contents_cont').height(window.innerHeight);
-		//데이터베이스에서 모든 저장된 컨텐츠를 가져옴
-		getAllContents();
+	$(document)
+			.ready(
+					function() {
+						//컨테이너 사이즈는 여기서해야지
+						$('#contents_cont').width(window.innerWidth);
+						$('#contents_cont').height(window.innerHeight);
+						//데이터베이스에서 모든 저장된 컨텐츠를 가져옴
+						getAllContents();
 
-		//데이터베이스에서 카테고리 이름을 가져옴
-		getAllCategory();
-		//편집 상태 (Select Page -> main 으로 Query와 함께 넘어옴) - serch
-		if (isAnyQuery())
-			if (makeNewFrame())
-				STATE = STATE_EDIT;
+						//데이터베이스에서 카테고리 이름을 가져옴
+						getAllCategory();
+						//편집 상태 (Select Page -> main 으로 Query와 함께 넘어옴) - serch
+						if (isAnyQuery())
+							if (makeNewFrame())
+								STATE = STATE_EDIT;
 
-		//평소 로그인 했을때의 상태 
-		if (STATE == STATE_PLAIN)
-			alert('메인페이지 환영');
+						//평소 로그인 했을때의 상태 
+						if (STATE == STATE_PLAIN) {
+							String
+							categoryName = ""
+									+
+<%=(String) session.getAttribute("categoryName")%>
+	;
+							//카테고리 눌렀는지안눌렀는지까지
+							if (categoryName == null)
+								alert('메인페이지 환영');
+							else
+								alert('catgoryName = ' + categoryName);
+						}
 
-		if (STATE == STATE_EDIT) {
+						if (STATE == STATE_EDIT) {
 
-		}
-	});
+						}
+					});
 
 	function makeFrame(width, height, url, dom_data, left, top, isNewFrame) {
 		//새로운 DIV 생성
@@ -582,45 +594,50 @@
 <script>
 	//카테고리 불러오는데 필요한것들!
 	function getAllCategory() {
-		$.ajax({
-			url : "/GetCategory",
-			type : "Get"
-		}).done(
-				function(data) {
-					for ( var i in data) {
-						showCategory(data[i].title);
-						var j = Number(i) + 1;
-						var divID = String("category");
-						divID += j;
-						document.getElementById('' + divID).style.display="block";
-						
-						var hiddenDivID = divID + "hidden";
-						var hiddenDivID_ = divID + "hidden_";
-						document.getElementById('' + divID).innerHTML = ''
-								+ data[i].title;
-						document.getElementById('' + hiddenDivID).value = ''
-								+ data[i].title;
-						document.getElementById('' + hiddenDivID_).value = ''
-								+ data[i].title;
-						
-						var deletebtn = String("category_");
-						deletebtn +=j;
-						deletebtn+="_delete_btn";
-						document.getElementById('' + deletebtn).style.display="block";
-						
-						var editbtn = String("category_");
-						editbtn +=j;
-						editbtn+="_edit_btn";
-						document.getElementById('' + editbtn).style.display="block";
-						
+		$
+				.ajax({
+					url : "/GetCategory",
+					type : "Get"
+				})
+				.done(
+						function(data) {
+							for ( var i in data) {
+								//category 삭제와 수정하는데 필요한 쓰래기들 ㅠㅠㅠ
+								showCategory(data[i].title);
+								var j = Number(i) + 1;
+								var divID = String("category");
+								divID += j;
+								document.getElementById('' + divID).style.display = "block";
 
-						//alert("" + data[i].title + ", " + divID);
-					}
-				}).fail(function(error) {
-			alert("main get Categorys ajax error");
-			alert(JSON.stringify(error));
-			return false;
-		});
+								var hiddenDivID = divID + "hidden";
+								var hiddenDivID_ = divID + "hidden_";
+								var hiddenDivID__ = divID + "hidden__";
+								document.getElementById('' + divID).value = ''
+										+ data[i].title;
+								document.getElementById('' + hiddenDivID).value = ''
+										+ data[i].title;
+								document.getElementById('' + hiddenDivID_).value = ''
+										+ data[i].title;
+								document.getElementById('' + hiddenDivID__).value = ''
+										+ data[i].title;
+
+								var deletebtn = String("category_");
+								deletebtn += j;
+								deletebtn += "_delete_btn";
+								document.getElementById('' + deletebtn).style.display = "block";
+
+								var editbtn = String("category_");
+								editbtn += j;
+								editbtn += "_edit_btn";
+								document.getElementById('' + editbtn).style.display = "block";
+
+								//alert("" + data[i].title + ", " + divID);
+							}
+						}).fail(function(error) {
+					alert("main get Categorys ajax error");
+					alert(JSON.stringify(error));
+					return false;
+				});
 	}
 	function showCategory(name) {
 
@@ -829,6 +846,14 @@
 					});
 </script>
 
+<script>
+	function setCategorySession(item) {
+		var categoryName = String("" + $(item).val());
+		alert("" + categoryName);
+
+	}
+</script>
+
 </head>
 <body style="overflow-x: hidden; overflow-y: hidden">
 
@@ -902,10 +927,17 @@
 										name=category1deleteForm>
 										<input type="hidden" name="categoryName" id="category1hidden" />
 										<input type="image" src="img/left_slide/btn_list-delete.png"
-											name="submit" id="category_1_delete_btn" style="display: none;" />
+											name="submit" id="category_1_delete_btn"
+											style="display: none;" />
 									</form>
 								</td>
-								<td><div id=category1 style="display:none;"></div></td>
+								<td>
+									<form action="SetCategory.jsp" method="post">
+										<input type="hidden" name="categoryName"
+											id="category1hidden__" /> <input type="submit"
+											id="category1" style="display: none;" />
+									</form>
+								</td>
 
 								<td>
 									<form action="edit_category.jsp" method="post"
@@ -924,10 +956,18 @@
 										name=category2deleteForm>
 										<input type="hidden" name="categoryName" id="category2hidden" />
 										<input type="image" src="img/left_slide/btn_list-delete.png"
-											name="submit" id="category_2_delete_btn" style="display: none;">
+											name="submit" id="category_2_delete_btn"
+											style="display: none;">
 									</form>
 								</td>
-								<td><div id=category2 style="display:none;"></div></td>
+								<td>
+									<form action="SetCategory.jsp" method="post">
+										<input type="hidden" name="categoryName"
+											id="category2hidden__" /><input type="submit" id="category2"
+											style="display: none;" />
+									</form>
+									</div>
+								</td>
 								<td>
 									<form action="edit_category.jsp" method="post"
 										name=category2editForm>
@@ -944,10 +984,18 @@
 										name=category3deleteForm>
 										<input type="hidden" name="categoryName" id="category3hidden" />
 										<input type="image" src="img/left_slide/btn_list-delete.png"
-											name="submit" id="category_3_delete_btn" style="display: none;">
+											name="submit" id="category_3_delete_btn"
+											style="display: none;">
 									</form>
 								</td>
-								<td><div id=category3 style="display:none;"></div></td>
+								<td>
+									<form action="SetCategory.jsp" method="post">
+										<input type="hidden" name="categoryName"
+											id="category3hidden__" /> <input type="submit"
+											id="category3" style="display: none;" />
+									</form>
+								</td>
+
 								<td>
 									<form action="edit_category.jsp" method="post"
 										name=category3editForm>

@@ -23,18 +23,21 @@ public class ContentDAO {
 		}
 		try {
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/leeminka2", "leeminka2", "oleview1");
+					"jdbc:mysql://localhost:3306/leeminka2", "leeminka2",
+					"oleview1");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	public ArrayList<ContentDTO> getAllContents(String user_id, String categoryName) {
+	public ArrayList<ContentDTO> getAllContents(String user_id,
+			String categoryName) {
 		// 세션에서 아이디 가져오기
-		//String user_id = "gilyoung";
+		// String user_id = "gilyoung";
 
-		String sql = "select * from contents where user_id = ? and categoryName = ?"; // sql 쿼리
+		String sql = "select * from contents where user_id = ? and categoryName = ?"; // sql
+																						// 쿼리
 		ArrayList<ContentDTO> retArray = new ArrayList<ContentDTO>();
 
 		try {
@@ -53,8 +56,8 @@ public class ContentDAO {
 				int height = rs.getInt("height_int");
 				int top = rs.getInt("top_int");
 				int left = rs.getInt("left_int");
-				ContentDTO tmp = new ContentDTO(title, user_id, url, dom_data,
-						width, height, left, top);
+				ContentDTO tmp = new ContentDTO(title, user_id, categoryName,
+						url, dom_data, width, height, left, top);
 				retArray.add(tmp);
 			}
 		} catch (SQLException e) {
@@ -65,17 +68,18 @@ public class ContentDAO {
 	}
 
 	public boolean insert(ContentDTO dto) {
-		String sql = "insert into contents(title,user_id,dom_data,width_int,height_int,left_int,top_int,url) value(?,?,?,?,?,?,?,?)";
+		String sql = "insert into contents(title,user_id,categoryName,dom_data,width_int,height_int,left_int,top_int,url) value(?,?,?,?,?,?,?,?,?)";
 		try {
 			stmt = (PreparedStatement) conn.prepareStatement(sql);
 			stmt.setString(1, dto.getTitle());
 			stmt.setString(2, dto.getUser_id());
-			stmt.setString(3, dto.getDom_data());
-			stmt.setInt(4, dto.getWidth());
-			stmt.setInt(5, dto.getHeight());
-			stmt.setInt(6, dto.getLeft());
-			stmt.setInt(7, dto.getTop());
-			stmt.setString(8, dto.getUrl());
+			stmt.setString(3, dto.getCategoryName());
+			stmt.setString(4, dto.getDom_data());
+			stmt.setInt(5, dto.getWidth());
+			stmt.setInt(6, dto.getHeight());
+			stmt.setInt(7, dto.getLeft());
+			stmt.setInt(8, dto.getTop());
+			stmt.setString(9, dto.getUrl());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -4,6 +4,7 @@ package DBO;
 public class ContentDTO {
 	private String title;
 	private String user_id;
+	private String categoryName;
 	private String url;
 	private String dom_data;
 	private int width;
@@ -11,11 +12,12 @@ public class ContentDTO {
 	private int left;
 	private int top;
 
-	public ContentDTO(String title, String user_id, String url, String dom_data, int width,
+	public ContentDTO(String title, String user_id, String categoryName, String url, String dom_data, int width,
 			int height, int left, int top) {
 		// TODO Auto-generated constructor stub
 		this.title = title;
 		this.user_id = user_id;
+		this.categoryName = categoryName;
 		this.url = url;
 		this.dom_data = dom_data;
 		this.width = width;
@@ -86,6 +88,13 @@ public class ContentDTO {
 
 	public void setTop(int top) {
 		this.top = top;
+	}
+
+	public String getCategoryName() {
+		return this.categoryName;
+	}
+	public void setCategoryName(String categoryName){
+		this.categoryName = categoryName;
 	}
 	
 }
