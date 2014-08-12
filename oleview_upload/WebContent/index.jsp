@@ -5,46 +5,50 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Oleview</title>
 <style>
-#page {
-	box-shadow: 0 0 0 5px blue inset;
+* {
+	margin: 0px;
+	padding: 0px;
+	cursor: pointer;
 }
+
 </style>
 <script type="text/javascript"
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
-
 <script>
+	$(document).ready(function() {
+		//URL 에서 쿼리를 가져와서 전역변수인 url에 입력
+		url = getQuery();
+		getPage();
+	});
+</script>
+<script>
+	var url;
 	var getPage = function() {
-		var url = $("#input_url").val();
 		var params = "url=" + url;
 		$.ajax({
 			url : "GetSelectPage",
 			data : "" + params
 		}).done(function(data) {
-			$('#page').empty();
 			$('#page').append(data);
-			$('#page').find("*").addClass('oleview_tag');
-			console.log("getPage안쪽");
 			add_event();
 		}).fail(function() {
 			alert('Fail?');
 		});
 		return false;
-	}
+	};
 </script>
 <script>
 	function add_event() {
-		// ele.addEventListener('hover', callback, false)
-		console.log("add-_event 처음");
-		$('.oleview_tag').mouseenter(function(event) {
-			console.log("add event inside");
+		$('#page').find("*").mouseenter(function(event) {
 			event.stopPropagation();
 			$('#page').find("*").css('box-shadow', 'none');
-			$('#page').find("*").css('background-color', 'none');
-			$(this).css('box-shadow', '0 0 0 5px blue inset');
-			$(this).css('background-color', 'rgba(0, 0, 0, 0.3)');
+			$('#page').find("*").css('background-color', 'rgba(0, 0, 0, 0)');
+			$(this).css('box-shadow', '0 0 0 3px #a7cc12 inset');
+			$(this).css('background-color', 'rgba(212, 255, 162, 0.6)');
 		});
+
 		//올리브 테그에 클릭이벤트 추가
-		$('.oleview_tag').click(
+		$('#page').find("*").click(
 				function(event) {
 					event.stopPropagation();
 
@@ -76,10 +80,6 @@
 			ret_str += tag_id;
 		}
 
-		//Class에 Oleview 테그 제거
-		tag_class = tag_class.replace(' oleview_tag', '');
-		tag_class = tag_class.replace('oleview_tag', '');
-
 		//Class가 존재할경우 추가
 		if (tag_class != '') {
 			var tag_class_arry = tag_class.split(" ");
@@ -107,13 +107,17 @@
 	function select_dom(element, dom_data) {
 		var width = element.width();
 		var height = element.height();
-		var url = $("#input_url").val();
 
 		var replace_url = "main.jsp?" + "width=" + width + "&height=" + height
 				+ "&url=" + encodeURIComponent(url) + "&dom_data="
 				+ encodeURIComponent(dom_data);
 		//main.jsp 페이지로 이동 + 파라미터 전달
 		window.location = replace_url;
+	}
+	function getQuery() {
+		var query = window.location.search.substring(1);
+		var pair = query.split('=');
+		return decodeURIComponent(pair[1]);
 	}
 </script>
 

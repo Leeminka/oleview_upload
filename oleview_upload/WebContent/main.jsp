@@ -512,6 +512,7 @@
 		for (var i = 0; i < vars.length; i++) {
 			var pair = vars[i].split('=');
 			if (decodeURIComponent(pair[0]) == variable) {
+				console.log(pair[1]);
 				return decodeURIComponent(pair[1]);
 			}
 		}
@@ -605,15 +606,15 @@
 </script>
 <script type="text/javascript">
 	function deletCategory() {
-		var form=document.forms['updateCategoryForm'];
+		var form = document.forms['updateCategoryForm'];
 		form.action = 'delete_category.jsp';
 		form.submit();
 	}
 
 	function editCategory() {
-		var form=document.forms['updateCategoryForm'];
+		var form = document.forms['updateCategoryForm'];
 		form.action = 'edit_category.jsp';
-		form.submit();		
+		form.submit();
 	}
 </script>
 
@@ -819,7 +820,7 @@
 	</div>
 
 	<div id="search">
-		<form action="index.jsp" onsubmit="getPage(); return false;">
+		<form action="index.jsp">
 			<input type="text" id="input_url" name="input_url"
 				style="background: url(img/bg_search1.png); background-repeat: no-repeat; width: 225px; height: 34px; border: 0px; padding-left: 6px; padding-right: 40px;">
 		</form>
@@ -877,10 +878,12 @@
 								<table style="padding: 0px; border-spacing: 0px;">
 									<tr>
 										<td><image src="img/left_slide/btn_list-delete.png"
-												onclick="deletCategory()" id="category_1_delete_btn" name="category_1_delete_btn"></td>
+												onclick="deletCategory()" id="category_1_delete_btn"
+												name="category_1_delete_btn"></td>
 										<td><div id=category1></div></td>
 										<td><imgae src="img/left_slide/btn_list-edit.png"
-												onclick="editCategory()" id="category_1_edit_btn" name="category_1_eidt_btn"/></td>
+												onclick="editCategory()" id="category_1_edit_btn"
+												name="category_1_eidt_btn" /></td>
 									</tr>
 									<tr>
 										<td><img src="img/left_slide/btn_list-delete.png"></td>
