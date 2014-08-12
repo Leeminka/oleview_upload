@@ -82,7 +82,9 @@
 }
 
 #contents_cont {
-	position: relative;
+	position: absolute;
+	top:0px;
+	left:0px;
 }
 
 .container_button {
@@ -263,6 +265,9 @@
 	var STATE = STATE_PLAIN;
 	var contents_list = [];
 	$(document).ready(function() {
+		//컨테이너 사이즈는 여기서해야지
+		$('#contents_cont').width(window.innerWidth);
+		$('#contents_cont').height(window.innerHeight);
 		//데이터베이스에서 모든 저장된 컨텐츠를 가져옴
 		getAllContents();
 
@@ -402,8 +407,6 @@
 
 		//DIV를 contents 컨테이너에 붙임
 		//컨테이너는 한 화면을 넘어가지 않습니다 그래서 스크롤도 숨김니다
-		$('#contents_cont').width(window.innerWidth);
-		$('#contents_cont').height(window.innerHeight);
 		draggable_div.appendTo($('#contents_cont'));
 
 		//iframe 위에 커서를 올리믄 바가 나와용 위에 없으면 바가 없어져용
