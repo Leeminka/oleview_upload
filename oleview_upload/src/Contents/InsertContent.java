@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -52,7 +53,7 @@ public class InsertContent extends HttpServlet {
 		System.out.print(jData);
 		JSONParser jsonParser = new JSONParser();
 		JSONObject retObject =new JSONObject();
-	
+		HttpSession session = request.getSession();
 		try {
 			//파싱 String -> JSON
 			JSONObject jsonObject = (JSONObject) jsonParser.parse(jData);
@@ -64,7 +65,8 @@ public class InsertContent extends HttpServlet {
 			String title = (String) jsonObject.get("title");
 			
 			//String user_id = (String) jsonObject.get("user_id");
-			String user_id = "gilyoung"; //임시로
+			String user_id = (String)session.getAttribute("userID");
+			//String user_id = "gilyoung"; //임시로
 			
 			String url = (String) jsonObject.get("url");
 			String dom_data = (String) jsonObject.get("dom_data");

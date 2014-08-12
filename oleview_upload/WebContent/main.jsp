@@ -257,6 +257,7 @@
 </style>
 <script src="scripts/jquery-1.11.0.min.js"></script>
 <script src="scripts/jquery-ui-1.10.4.custom.min.js"></script>
+
 <script>
 	const
 	STATE_PLAIN = 0;
@@ -593,7 +594,7 @@
 
 						document.getElementById('' + divID).innerHTML = ''
 								+ data[i].title;
-						alert("" + data[i].title + ", " + divID);
+						//alert("" + data[i].title + ", " + divID);
 					}
 				}).fail(function(error) {
 			alert("main get Categorys ajax error");
@@ -619,6 +620,8 @@
 	}
 </script>
 
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
 <script type="text/javascript">
 	//좌측 슬라이드에 필요한 script
 	jQuery(function() {
@@ -941,9 +944,9 @@
 	<!-- bg는 배경화면 테스트를위한 div임.. 나중에 contents_cont가 bg안에 들어가있어야함 bg:1200x800, contents_cont:1100x700 -->
 	<div id="bg" align="center"
 		style="background: url(img/background/bg_<%=session.getAttribute("userBG")%>.png);">
-
+		<div id="contents_cont"></div>
 	</div>
 	<!-- contents_cont에 내용들이 보일꺼고, 위치 수정해줘야함..시작위치가 바 부분 밑일수 있게 -->
-	<div id="contents_cont"></div>
+
 </body>
 </html>
