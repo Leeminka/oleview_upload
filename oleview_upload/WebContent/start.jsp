@@ -140,6 +140,8 @@ div#tutorialDiv {
 		});
 	}
 </script>
+<script src="scripts/jquery-1.11.0.min.js"></script>
+<script src="scripts/jquery-ui-1.10.4.custom.min.js"></script>
 <script type="text/javascript">
 	//tutorial 변경에 필요한 script
 	$(function() {
@@ -150,10 +152,25 @@ div#tutorialDiv {
 									.getElementById('currentTutorial').value;
 							if (num != 1) {
 								document.getElementById('currentTutorial').value = num - 1;
-								var bg = String("img/tutorial/tutorial");
-								bg = br + "" + document.getElementById('currentTutorial').value;
-								window.alert("" + bg);
-								document.getElementById('tutorialDiv').style.backgroundImage = "url(''+bg)";
+								var tutorialNum = Number(num) - 1;
+								switch (tutorialNum) {
+								case 1:
+									document.getElementById("tutorialDiv").style.backgroundImage = "url(img/tutorial/tutorial1.png)";
+									break;
+								case 2:
+									document.getElementById("tutorialDiv").style.backgroundImage = "url(img/tutorial/tutorial2.png)";
+									break;
+								case 3:
+									document.getElementById("tutorialDiv").style.backgroundImage = "url(img/tutorial/tutorial3.png)";
+									break;
+								case 4:
+									document.getElementById("tutorialDiv").style.backgroundImage = "url(img/tutorial/tutorial4.png)";
+									break;
+								case 5:
+									document.getElementById("tutorialDiv").style.backgroundImage = "url(img/tutorial/tutorial5.png)";
+									break;
+								}
+
 							}
 
 						});
@@ -163,14 +180,33 @@ div#tutorialDiv {
 		$("#btn_next")
 				.click(
 						function() {
+
 							var num = document
 									.getElementById('currentTutorial').value;
 							if (num != 5) {
 								document.getElementById('currentTutorial').value = Number(num) + 1;
-								var bg = String("img/tutorial/tutorial");
-								bg = br + "" + (num + 1);
-								document.getElementById("tutorialDiv").style.backgroundImage = "url(''+bg)";
+								var tutorialNum = Number(num) + 1;
+								switch (tutorialNum) {
+								case 1:
+									document.getElementById("tutorialDiv").style.backgroundImage = "url(img/tutorial/tutorial1.png)";
+									break;
+								case 2:
+									document.getElementById("tutorialDiv").style.backgroundImage = "url(img/tutorial/tutorial2.png)";
+									break;
+								case 3:
+									document.getElementById("tutorialDiv").style.backgroundImage = "url(img/tutorial/tutorial3.png)";
+									break;
+								case 4:
+									document.getElementById("tutorialDiv").style.backgroundImage = "url(img/tutorial/tutorial4.png)";
+									break;
+								case 5:
+									document.getElementById("tutorialDiv").style.backgroundImage = "url(img/tutorial/tutorial5.png)";
+									break;
+								}
+							} else {
+								location.href = "main.jsp";
 							}
+
 						});
 	});
 </script>
@@ -188,8 +224,10 @@ div#tutorialDiv {
 	<!--  div class='backLayer'></div> -->
 	<div id="tutorialDiv">
 		<input type="hidden" id="currentTutorial" value="1" /> <img
-			src="img/tutorial/btn_before.png" id="btn_before" /> <img
-			src="img/tutorial/btn_next.png" / id="btn_next" />
+			src="img/tutorial/btn_before.png" id="btn_before"
+			style="position: absolute; top: 400px; left: 20px;" /> <img
+			src="img/tutorial/btn_next.png" id="btn_next"
+			style="position: absolute; top: 400px; left: 1500px;" />
 
 	</div>
 
