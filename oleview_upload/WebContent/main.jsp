@@ -247,6 +247,7 @@
 	height: 800px;
 	background: url(img/background/bg_1.png)
 }
+
 .btn_x {
 	position: absolute;
 	top: -2px;
@@ -260,8 +261,10 @@
 <script src="scripts/jquery-ui-1.10.4.custom.min.js"></script>
 
 <script>
-	const STATE_PLAIN = 0;
-	const STATE_EDIT = 1;
+	const
+	STATE_PLAIN = 0;
+	const
+	STATE_EDIT = 1;
 	var STATE = STATE_PLAIN;
 	var contents_list = [];
 	$(document).ready(function() {
@@ -269,7 +272,7 @@
 		$('#contents_cont').width(window.innerWidth);
 		$('#contents_cont').height(window.innerHeight - 48);
 		//데이터베이스에서 모든 저장된 컨텐츠를 가져옴
-		
+
 		//var search = String("search");
 		//if (categoryName != null) {
 		//	document.getElementById('' + search).style.display = "block";
@@ -277,8 +280,8 @@
 		getAllContents();
 
 		//데이터베이스에서 카테고리 이름을 가져옴
-		getAllCategory(); 
-		
+		getAllCategory();
+
 		//편집 상태 (Select Page -> main 으로 Query와 함께 넘어옴) - serch
 		if (isAnyQuery())
 			if (makeNewFrame())
@@ -295,7 +298,7 @@
 
 		}
 	});
-	
+
 	function makeFrame(width, height, url, dom_data, left, top, isNewFrame) {
 		//새로운 DIV 생성
 		var draggable_div = $('<div></div>').addClass("draggable_div");
@@ -342,16 +345,15 @@
 			remote_div.hide();
 
 			//InsertDB		
-			if (isNewFrame)
-			{
+			if (isNewFrame) {
 				var title = saveContentPosition(content1);
-				content1.attr('id', 'ifr_' + title);	//iframe에 고유 id를 만들어죠
-				draggable_div.attr('id', "div_" + title);	//div에 고유 id를 만들어죠
-				content1.attr('onmouseover', "ClipVar(\"" + title + "\")");	//clip var를 보여주기위한 mouseover 이벤트 추가합니당
+				content1.attr('id', 'ifr_' + title); //iframe에 고유 id를 만들어죠
+				draggable_div.attr('id', "div_" + title); //div에 고유 id를 만들어죠
+				content1.attr('onmouseover', "ClipVar(\"" + title + "\")"); //clip var를 보여주기위한 mouseover 이벤트 추가합니당
 			}
 		});
-		
-	//remote_div를 content에 붙임
+
+		//remote_div를 content에 붙임
 		remote_div.appendTo(draggable_div);
 
 		//핸들 생성
@@ -437,25 +439,26 @@
 				}		
 		}); */	
 
+
 		/* //클립바에서 setting 버튼을 누르면 리모컨이 나옵니다
 		btn_setting.click(function() {
 			handle_div.show();
 			remote_div.show();
 			remote_bar = 0;
 			clip_div.hide();
+
 		}); 
 	
 		//클립바에서 reflash 버튼을 누르면 새로고침이 됩니다
 		btn_reflash.click(function() {
 			content1.contentDocument.location.reload(true);
 		});
-		
+
 		//클립바에서 new 버튼을 누르면 해당 프레임의 url로 새창을 엽니다
 		btn_new.click(function() {
 			if (url.toLowerCase().indexOf("http://") == -1) {
 				window.open("http://" + url);
-			}
-			else 
+			} else
 				window.open(url);
 		}); */
 
@@ -472,62 +475,86 @@
 
 	//remote_bar가 0이면 나타나도 됨 / 1이믄 안됨
 	var remote_bar = 1; //초기값
-	
+
 	//clip_bar가 0이면 나타나도 됨 / 1이믄 안됨
-	var clip_bar = 0;	//초기값
-	
+	var clip_bar = 0; //초기값
+
 	//iframe 내에서 링크를 하믄 크기가 커져용 팝업팝업
-	function wide_frame(dom_data){	
+	function wide_frame(dom_data) {
 		//link한 iframe의 title을 가져왕
 		$.ajax({
 			url : "/GetTitle",
 			type : "Get",
-			data : {"para_data" : dom_data},
-			success : function (data) 
-			{	
+			data : {
+				"para_data" : dom_data
+			},
+			success : function(data) {
 				//원본 position 저장
 				var div_top = $("#ifr_" + data).offset().top;
-				var div_left = $("#ifr_" + data).offset().left;	
+				var div_left = $("#ifr_" + data).offset().left;
 				var div_width = $("#ifr_" + data).width();
 				var div_height = $("#ifr_" + data).height();
 				var div_url = $("#ifr_" + data).attr('src');
-				
+
 				//wide 애니메이션
-				$("#div_" + data).animate({width: '1300px', height: '670px',  top: '25px', left: '150px', border: '3px rgb(191,221,67) solid'}, 300);
-				$("#ifr_" + data).animate({width: '1300px', height: '670px'}, 300);
-				
+				$("#div_" + data).animate({
+					width : '1300px',
+					height : '670px',
+					top : '25px',
+					left : '150px',
+					border : '3px rgb(191,221,67) solid'
+				}, 300);
+				$("#ifr_" + data).animate({
+					width : '1300px',
+					height : '670px'
+				}, 300);
+
 				//닫기(x) 버튼
-				var btn_x = $('<img />').attr('src', 'img/main/btn_x.png').addClass('btn_x');
-				btn_x.appendTo($("#div_" + data)); 
-				
+				var btn_x = $('<img />').attr('src', 'img/main/btn_x.png')
+						.addClass('btn_x');
+				btn_x.appendTo($("#div_" + data));
+
 				//닫기(x)	 버튼을 누르면 창이 원상태로 되돌아가지요
 				btn_x.click(function() {
-					$("#div_" + data).animate({width: div_width, height: div_height,  top: div_top, left: div_left, border: '1px rgb(191,221,67) solid'}, 300);
-					$("#ifr_" + data).animate({width: div_width, height: div_height}, 300);
+					$("#div_" + data).animate({
+						width : div_width,
+						height : div_height,
+						top : div_top,
+						left : div_left,
+						border : '1px rgb(191,221,67) solid'
+					}, 300);
+					$("#ifr_" + data).animate({
+						width : div_width,
+						height : div_height
+					}, 300);
 					btn_x.remove();
 					$("#ifr_" + data).attr('src', div_url);
-					
+
 					return true;
 				}); 
 			},
-			error : function (request, status, error) {
-				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			error : function(request, status, error) {
+				alert("code:" + request.status + "\n" + "message:"
+						+ request.responseText + "\n" + "error:" + error);
 			}
-		});  
-	}	
-	
+		});
+	}
+
 	//clip var 띄우기
 	function ClipVar(title)
 	{	
 		if (clip_bar==1)	//clip bar가 나오믄 안되는 상태
 			return true;
-		
+	
 		//클립바 생성
 		var clip_div = $('<div></div>').addClass("clip_div");
-		var btn_setting = $('<img />').attr('src','img/main/btn_clip-setting.png').addClass('btn_setting');
-		var btn_reflash = $('<img />').attr('src','img/main/btn_clip-reflash.png').addClass('btn_reflash');
-		var btn_new = $('<img />').attr('src', 'img/main/btn_clip-new.png').addClass('btn_new');
-		
+		var btn_setting = $('<img />').attr('src',
+				'img/main/btn_clip-setting.png').addClass('btn_setting');
+		var btn_reflash = $('<img />').attr('src',
+				'img/main/btn_clip-reflash.png').addClass('btn_reflash');
+		var btn_new = $('<img />').attr('src', 'img/main/btn_clip-new.png')
+				.addClass('btn_new');
+
 		//클립바 속성 설정
 		clip_div.width($("#ifr_" + title).width());
 
@@ -685,8 +712,8 @@
 				})
 				.done(
 						function(data) {
-							if(data.length == 3)
-								document.getElementById("category_add_btn").src="img/left_slide/btn_hold-list.png";
+							if (data.length == 3)
+								document.getElementById("category_add_btn").src = "img/left_slide/btn_hold-list.png";
 							for ( var i in data) {
 								//category 삭제와 수정하는데 필요한 쓰래기들 ㅠㅠㅠ
 								showCategory(data[i].title);
