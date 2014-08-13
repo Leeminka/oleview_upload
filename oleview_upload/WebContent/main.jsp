@@ -260,18 +260,16 @@
 <script src="scripts/jquery-ui-1.10.4.custom.min.js"></script>
 
 <script>
-	const
-	STATE_PLAIN = 0;
-	const
-	STATE_EDIT = 1;
+	const STATE_PLAIN = 0;
+	const STATE_EDIT = 1;
 	var STATE = STATE_PLAIN;
 	var contents_list = [];
 	$(document).ready(function() {
-		//컨테이너 사이즈는 여기서해야지
+		//컨테이너 사이즈
 		$('#contents_cont').width(window.innerWidth);
 		$('#contents_cont').height(window.innerHeight - 48);
 		//데이터베이스에서 모든 저장된 컨텐츠를 가져옴
-
+		
 		//var search = String("search");
 		//if (categoryName != null) {
 		//	document.getElementById('' + search).style.display = "block";
@@ -279,7 +277,8 @@
 		getAllContents();
 
 		//데이터베이스에서 카테고리 이름을 가져옴
-		getAllCategory();
+		getAllCategory(); 
+		
 		//편집 상태 (Select Page -> main 으로 Query와 함께 넘어옴) - serch
 		if (isAnyQuery())
 			if (makeNewFrame())
@@ -296,7 +295,7 @@
 
 		}
 	});
-
+	
 	function makeFrame(width, height, url, dom_data, left, top, isNewFrame) {
 		//새로운 DIV 생성
 		var draggable_div = $('<div></div>').addClass("draggable_div");
@@ -341,7 +340,6 @@
 		btn_save.click(function() {
 			handle_div.hide();
 			remote_div.hide();
-			remote_bar = 1;
 
 			//InsertDB		
 			if (isNewFrame)
@@ -349,10 +347,11 @@
 				var title = saveContentPosition(content1);
 				content1.attr('id', 'ifr_' + title);	//iframe에 고유 id를 만들어죠
 				draggable_div.attr('id', "div_" + title);	//div에 고유 id를 만들어죠
+				content1.attr('onmouseover', "ClipVar(\"" + title + "\")");	//clip var를 보여주기위한 mouseover 이벤트 추가합니당
 			}
 		});
-
-		//remote_div를 content에 붙임
+		
+	//remote_div를 content에 붙임
 		remote_div.appendTo(draggable_div);
 
 		//핸들 생성
@@ -390,7 +389,7 @@
 			scroll : false
 		});
 
-		//클립바 생성
+		/* //클립바 생성
 		var clip_div = $('<div></div>').addClass("clip_div");
 		var btn_setting = $('<img />').attr('src',
 				'img/main/btn_clip-setting.png').addClass('btn_setting');
@@ -408,7 +407,7 @@
 		btn_new.appendTo(clip_div);
 		clip_div.appendTo(draggable_div);
 
-		clip_div.hide(); //첨에는 클립바를 숨기고 리모컨바를 보여줘야해
+		clip_div.hide(); //첨에는 클립바를 숨기고 리모컨바를 보여줘야해 */
 
 		//만약 새로운 프레임이면 핸들을 바로 보이게 아닐경우 핸들을 숨김
 		if (isNewFrame) {
@@ -422,7 +421,7 @@
 		//컨테이너는 한 화면을 넘어가지 않습니다 그래서 스크롤도 숨김니다
 		draggable_div.appendTo($('#contents_cont'));
 
-		//iframe 위에 커서를 올리믄 바가 나와용 위에 없으면 바가 없어져용
+		/* //iframe 위에 커서를 올리믄 바가 나와용 위에 없으면 바가 없어져용
 		$(this).mousemove(function(event) {
 				var div_top = content1.offset().top;
 				var div_left = content1.offset().left;
@@ -436,15 +435,16 @@
 						clip_div.hide();
 					}
 				}		
-		});
+		}); */
+		
 
-		//클립바에서 setting 버튼을 누르면 리모컨이 나옵니다
+		/* //클립바에서 setting 버튼을 누르면 리모컨이 나옵니다
 		btn_setting.click(function() {
 			handle_div.show();
 			remote_div.show();
 			remote_bar = 0;
 			clip_div.hide();
-		});
+		}); */
 
 		
 		
@@ -470,22 +470,17 @@
 			//db에서 content 삭제 
 		});
 
-		//crop 이벤트 추가
-		btn_crop.click(function() {
-			
-		});
-
-		btn_migrate.click(function() {
-
-		});
-
 		return true;
 	}
 
+	//remote_bar가 0이면 나타나도 됨 / 1이믄 안됨
+	var remote_bar = 1; //초기값
+	
+	//clip_bar가 0이면 나타나도 됨 / 1이믄 안됨
+	var clip_bar = 0;	//초기값
+	
 	//iframe 내에서 링크를 하믄 크기가 커져용 팝업팝업
-	//자식프레임에서 호출할끄얌
-	function wide_frame(dom_data){
-		
+	function wide_frame(dom_data){	
 		//link한 iframe의 title을 가져왕
 		$.ajax({
 			url : "/GetTitle",
@@ -514,19 +509,52 @@
 					$("#ifr_" + data).animate({width: div_width, height: div_height}, 300);
 					btn_x.remove();
 					$("#ifr_" + data).attr('src', div_url);
+					
+					return true;
 				});
 			},
 			error : function (request, status, error) {
 				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 			}
 		});  
+	}	
+	
+	//clip var 띄우기
+	function ClipVar(title)
+	{	
+		//클립바 생성
+		var clip_div = $('<div></div>').addClass("clip_div");
+		var btn_setting = $('<img />').attr('src','img/main/btn_clip-setting.png').addClass('btn_setting');
+		var btn_reflash = $('<img />').attr('src','img/main/btn_clip-reflash.png').addClass('btn_reflash');
+		var btn_new = $('<img />').attr('src', 'img/main/btn_clip-new.png').addClass('btn_new');
+		
+		//클립바 속성 설정
+		clip_div.width($("#ifr_" + title).width());
+
+		//클립바 어펜드어펜드
+		btn_setting.appendTo(clip_div);
+		btn_reflash.appendTo(clip_div);
+		btn_new.appendTo(clip_div);
+		clip_div.appendTo($("#div_" + title));  
+		
+		//영역을 넘어가믄 clip_bar가 없어짐
+		$("#div_" + title).mousemove(function(event) {
+			var div_top = $("#ifr_" + title).offset().top;
+			var div_left = $("#ifr_" + title).offset().left;
+			var pointX = event.clientX + document.body.scrollLeft; //커서x좌표
+			var pointY = event.clientY + document.body.scrollTop; //커서y좌표 
+
+		  //	if (remote_bar == 1 && clip_bar == 0) {
+				if ((div_top - 31 < pointY) && (pointY < div_top) && (div_left < pointX) && (pointX < div_left + $("#ifr_" + title).width())) {
+					//clip_div.show();
+				} else {
+					clip_div.hide();
+				}
+		//	}  		
+		}); 
 	}
 	
-	//remote_bar가 0이면 나타나도 됨 / 1이믄 안됨
-	var remote_bar = 0; //초기값
 	
-	//clip_bar가 0이면 나타나도 됨 / 1이믄 안됨
-	var clip_bar = 1;	//초기값	
 
 	function makeNewFrame() {
 		//URL에서 파라미터를 받아온다
