@@ -296,7 +296,7 @@
 
 		if (STATE == STATE_EDIT) {
 
-		}
+		} 
 	});
 
 	function makeFrame(width, height, url, dom_data, left, top, isNewFrame) {
@@ -322,6 +322,12 @@
 		//컨텐츠를 DIV에 붙임
 		content1.appendTo(draggable_div);
 
+		//remote_bar가 0이면 나타나도 됨 / 1이믄 안됨
+		var remote_bar; 
+
+		//clip_bar가 0이면 나타나도 됨 / 1이믄 안됨
+		var clip_bar; 
+		
 		//리모콘 생성
 		var remote_div = $('<div></div>').addClass("remote_div");
 		var btn_migrate = $('<img />').attr('src', 'img/main/btn_migrate.png')
@@ -339,7 +345,7 @@
 		btn_delete.appendTo(remote_div);
 		btn_save.appendTo(remote_div);
 
-		//save 이벤트 추가
+		//remote _save 이벤트 추가
 		btn_save.click(function() {
 			handle_div.hide();
 			remote_div.hide();
@@ -349,8 +355,15 @@
 				var title = saveContentPosition(content1);
 				content1.attr('id', 'ifr_' + title); //iframe에 고유 id를 만들어죠
 				draggable_div.attr('id', "div_" + title); //div에 고유 id를 만들어죠
-				content1.attr('onmouseover', "ClipVar(\"" + title + "\")"); //clip var를 보여주기위한 mouseover 이벤트 추가합니당
 			}
+		});
+		
+		//delete 이벤트 추가
+		btn_delete.click(function() {
+			remote_div.hide();
+			handle_div.hide();
+			draggable_div.hide();
+			//db에서 content 삭제 
 		});
 
 		//remote_div를 content에 붙임
@@ -391,14 +404,11 @@
 			scroll : false
 		});
 
-		/* //클립바 생성
+		//클립바 생성
 		var clip_div = $('<div></div>').addClass("clip_div");
-		var btn_setting = $('<img />').attr('src',
-				'img/main/btn_clip-setting.png').addClass('btn_setting');
-		var btn_reflash = $('<img />').attr('src',
-				'img/main/btn_clip-reflash.png').addClass('btn_reflash');
-		var btn_new = $('<img />').attr('src', 'img/main/btn_clip-new.png')
-				.addClass('btn_new');
+		var btn_setting = $('<img />').attr('src','img/main/btn_clip-setting.png').addClass('btn_setting');
+		var btn_reflash = $('<img />').attr('src','img/main/btn_clip-reflash.png').addClass('btn_reflash');
+		var btn_new = $('<img />').attr('src', 'img/main/btn_clip-new.png').addClass('btn_new');
 
 		//클립바 속성 설정
 		clip_div.width(width);
@@ -408,45 +418,13 @@
 		btn_reflash.appendTo(clip_div);
 		btn_new.appendTo(clip_div);
 		clip_div.appendTo(draggable_div);
-
-		clip_div.hide(); //첨에는 클립바를 숨기고 리모컨바를 보여줘야해 */
-
-		//만약 새로운 프레임이면 핸들을 바로 보이게 아닐경우 핸들을 숨김
-		if (isNewFrame) {
-
-		} else {
-			handle_div.hide();
-			remote_div.hide();
-		}
-
-		//DIV를 contents 컨테이너에 붙임
-		//컨테이너는 한 화면을 넘어가지 않습니다 그래서 스크롤도 숨김니다
-		draggable_div.appendTo($('#contents_cont'));
-
-		/* //iframe 위에 커서를 올리믄 바가 나와용 위에 없으면 바가 없어져용
-		$(this).mousemove(function(event) {
-				var div_top = content1.offset().top;
-				var div_left = content1.offset().left;
-				var pointX = event.clientX + document.body.scrollLeft; //커서x좌표
-				var pointY = event.clientY + document.body.scrollTop; //커서y좌표
-
-				if (remote_bar == 1 && clip_bar == 0) {
-					if ((div_top - 31 < pointY) && (pointY < div_top) && (div_left < pointX) && (pointX < div_left + Number(width))) {
-						clip_div.show();
-					} else {
-						clip_div.hide();
-					}
-				}		
-		}); */	
-
-
-		/* //클립바에서 setting 버튼을 누르면 리모컨이 나옵니다
+		
+		//클립바에서 setting 버튼을 누르면 리모컨이 나옵니다
 		btn_setting.click(function() {
 			handle_div.show();
 			remote_div.show();
 			remote_bar = 0;
 			clip_div.hide();
-
 		}); 
 	
 		//클립바에서 reflash 버튼을 누르면 새로고침이 됩니다
@@ -460,24 +438,38 @@
 				window.open("http://" + url);
 			} else
 				window.open(url);
-		}); */
+		}); 
+		
+		//만약 새로운 프레임이면 핸들을 바로 보이게 아닐경우 핸들을 숨김
+		if (isNewFrame) {
 
-		//delete 이벤트 추가
-		btn_delete.click(function() {
-			remote_div.hide();
+		} else {
 			handle_div.hide();
-			draggable_div.hide();
-			//db에서 content 삭제 
-		});
+			remote_div.hide();
+		}
+
+		//DIV를 contents 컨테이너에 붙임
+		//컨테이너는 한 화면을 넘어가지 않습니다 그래서 스크롤도 숨김니다
+		draggable_div.appendTo($('#contents_cont'));
+
+		//iframe 위에 커서를 올리믄 바가 나와용 위에 없으면 바가 없어져용
+		$(this).mousemove(function(event) {
+				var div_top = content1.offset().top;
+				var div_left = content1.offset().left;
+				var pointX = event.clientX + document.body.scrollLeft; //커서x좌표
+				var pointY = event.clientY + document.body.scrollTop; //커서y좌표
+
+				if (remote_bar == 1 && clip_bar == 0) {
+					if ((div_top - 31 < pointY) && (pointY < div_top) && (div_left < pointX) && (pointX < div_left + Number(width))) {
+						clip_div.show();
+					} else {
+						clip_div.hide();
+					}
+				}		
+		}); 
 
 		return true;
 	}
-
-	//remote_bar가 0이면 나타나도 됨 / 1이믄 안됨
-	var remote_bar = 1; //초기값
-
-	//clip_bar가 0이면 나타나도 됨 / 1이믄 안됨
-	var clip_bar = 0; //초기값
 
 	//iframe 내에서 링크를 하믄 크기가 커져용 팝업팝업
 	function wide_frame(dom_data) {
@@ -537,73 +529,6 @@
 				alert("code:" + request.status + "\n" + "message:"
 						+ request.responseText + "\n" + "error:" + error);
 			}
-		});
-	}
-
-	//clip var 띄우기
-	function ClipVar(title)
-	{	
-		if (clip_bar==1)	//clip bar가 나오믄 안되는 상태
-			return true;
-	
-		//클립바 생성
-		var clip_div = $('<div></div>').addClass("clip_div");
-		var btn_setting = $('<img />').attr('src',
-				'img/main/btn_clip-setting.png').addClass('btn_setting');
-		var btn_reflash = $('<img />').attr('src',
-				'img/main/btn_clip-reflash.png').addClass('btn_reflash');
-		var btn_new = $('<img />').attr('src', 'img/main/btn_clip-new.png')
-				.addClass('btn_new');
-
-		//클립바 속성 설정
-		clip_div.width($("#ifr_" + title).width());
-
-		//클립바 어펜드어펜드
-		btn_setting.appendTo(clip_div);
-		btn_reflash.appendTo(clip_div);
-		btn_new.appendTo(clip_div);
-		clip_div.appendTo($("#div_" + title));  
-		
-		//영역을 넘어가믄 clip_bar가 없어짐
- 		$("#div_" + title).mousemove(function(event) {
-			$("#div_" + title).mouseout(function(event) {
-				clip_div.hide();
-				return true;
-			});		
-		}); 
-		
- 		//클립바에서 setting 버튼을 누르면 리모컨이 나옵니다
-		btn_setting.click(function() {
-			clip_div.hide();	clip_bar =1;
-		}); 
-	
-		//클립바에서 reflash 버튼을 누르면 새로고침이 됩니다
-		btn_reflash.click(function() {
-			document.getElementById('ifr_' + title).contentDocument.location.reload(true);
-		});
-		
-		//클립바에서 new 버튼을 누르면 해당 프레임의 url로 새창을 엽니다
-		btn_new.click(function() {
-			var url = $("#ifr_" + title).attr('src');
-			if (url.toLowerCase().indexOf("http://") == -1) 
-				window.open("http://" + data[0].url);
-			else 
-				window.open(data[0].url);
-			/* $.ajax({
-				url : "/GetUrl",
-				type : "Get",
-				data : {"para_data" : url},
-				success : function (data) 
-				{	
-					if (url.toLowerCase().indexOf("http://") == -1) 
-						window.open("http://" + data[0].url);
-					else 
-						window.open(data[0].url);
-				},
-				error : function (request, status, error) {
-					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-				}
-			});   */
 		});
 	}
 

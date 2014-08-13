@@ -38,16 +38,11 @@ public class GetUrl extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
-			String para_data = request.getParameter("para_data");
-			//String ret_url = "";
-			
 			Connection conn = null;
 			PreparedStatement stmt = null;
 			String driverName = "com.mysql.jdbc.Driver";
 			Class.forName(driverName);
-			String sql = "select * from contents where title= " + para_data; 
-			System.out.println(para_data);
-			
+			String sql = "select * from contents"; 
 			ArrayList<ContentDTO> retArray = new ArrayList<ContentDTO>();
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/leeminka2", "leeminka2", "oleview1");
 			
@@ -67,18 +62,21 @@ public class GetUrl extends HttpServlet {
 				retArray.add(tmp);
 			}
 			
-			/*Iterator<ContentDTO> iter = retArray.iterator();
+			String para_data = request.getParameter("para_data");
+			String ret_url = "";
+			
+			Iterator<ContentDTO> iter = retArray.iterator();
 			while (iter.hasNext()) {
 				ContentDTO tmpDTO = iter.next();
-				if (tmpDTO.getDom_data().equals(para_data)) {
-					ret_url = tmpDTO.getTitle();
+				System.out.println(tmpDTO.getTitle());
+				if (tmpDTO.getTitle().equals(para_data)) {
+					ret_url = tmpDTO.getUrl();
 				}
-			}*/
+			}
 			
-			response.setContentType("application/json");
-//			response.setContentType("text/html");
+			response.setContentType("text/html");
 			response.setCharacterEncoding("utf-8");
-			response.getWriter().print(retArray);
+			response.getWriter().print(ret_url);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
