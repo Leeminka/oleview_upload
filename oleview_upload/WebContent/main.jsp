@@ -249,10 +249,11 @@
 }
 .btn_x {
 	position: absolute;
-	top: 200px;
-	left: 0px;
+	top: -2px;
+	right: -37px;
 	height: 37px;
 	width: 37px;
+	z-index: 10;
 }
 </style>
 <script src="scripts/jquery-1.11.0.min.js"></script>
@@ -422,23 +423,20 @@
 		draggable_div.appendTo($('#contents_cont'));
 
 		//iframe 위에 커서를 올리믄 바가 나와용 위에 없으면 바가 없어져용
-		$(this).mousemove(
-				function(event) {
-					var div_top = content1.offset().top;
-					var div_left = content1.offset().left;
-					var pointX = event.clientX + document.body.scrollLeft; //커서x좌표
-					var pointY = event.clientY + document.body.scrollTop; //커서y좌표
+		$(this).mousemove(function(event) {
+				var div_top = content1.offset().top;
+				var div_left = content1.offset().left;
+				var pointX = event.clientX + document.body.scrollLeft; //커서x좌표
+				var pointY = event.clientY + document.body.scrollTop; //커서y좌표
 
-					if (remote_bar == 1 && clip_bar == 0) {
-						if ((div_top - 31 < pointY) && (pointY < div_top)
-								&& (div_left < pointX)
-								&& (pointX < div_left + Number(width))) {
-							clip_div.show();
-						} else {
-							clip_div.hide();
-						}
+				if (remote_bar == 1 && clip_bar == 0) {
+					if ((div_top - 31 < pointY) && (pointY < div_top) && (div_left < pointX) && (pointX < div_left + Number(width))) {
+						clip_div.show();
+					} else {
+						clip_div.hide();
 					}
-				});
+				}		
+		});
 
 		//클립바에서 setting 버튼을 누르면 리모컨이 나옵니다
 		btn_setting.click(function() {
@@ -497,22 +495,25 @@
 			{	
 				//원본 position 저장
 				var div_top = $("#ifr_" + data).offset().top;
-				var div_left = $("#ifr_" + data).offset().left;			
+				var div_left = $("#ifr_" + data).offset().left;	
+				var div_width = $("#ifr_" + data).width();
+				var div_height = $("#ifr_" + data).height();
+				var div_url = $("#ifr_" + data).attr('src');
+				
 				//wide 애니메이션
-				$("#div_" + data).animate({width: '1303px', height: '650px',  top: '50px', left: '150px', border: '3px rgb(191,221,67) solid'}, 300);
-				$("#ifr_" + data).animate({width: '1303px', height: '650px'}, 300);
-				//clip bar 숨기기
-				clip_bar = 1;	$("#div_" + data).clip_div.hide();
+				$("#div_" + data).animate({width: '1300px', height: '670px',  top: '25px', left: '150px', border: '3px rgb(191,221,67) solid'}, 300);
+				$("#ifr_" + data).animate({width: '1300px', height: '670px'}, 300);
+				
 				//닫기(x) 버튼
 				var btn_x = $('<img />').attr('src', 'img/main/btn_x.png').addClass('btn_x');
-				//btn_x.appendTo($("#div_" + data)); 
+				btn_x.appendTo($("#div_" + data)); 
+				
 				//닫기(x)	 버튼을 누르면 창이 원상태로 되돌아가지요
 				btn_x.click(function() {
-					$("#div_" + data).animate({width: width, height: height,  top: div_top, left: div_left, border: '1px rgb(191,221,67) solid'}, 200);
-					$("#ifr_" + data).animate({width: width, height: height}, 300);
-					clip_bar = 1;
+					$("#div_" + data).animate({width: div_width, height: div_height,  top: div_top, left: div_left, border: '1px rgb(191,221,67) solid'}, 300);
+					$("#ifr_" + data).animate({width: div_width, height: div_height}, 300);
 					btn_x.remove();
-					$("#ifr_" + data).attr('src', '/oleview_upload/GetPage?url=' + encodeURIComponent(url) + '&dom_data=' + encodeURIComponent(dom_data));
+					$("#ifr_" + data).attr('src', div_url);
 				});
 			},
 			error : function (request, status, error) {
