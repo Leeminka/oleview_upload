@@ -21,11 +21,14 @@ div.backLayer {
 }
 
 div#tutorialDiv {
-	background-color: skyblue;
+	background: url(img/tutorial/tutorial1.png);
 	display: none;
-	position: absolute;
-	width: 300px;
-	height: 300px;
+	position: fix;
+	top: 0px;
+	left: 0px;
+	width: 1600px;
+	height: 842px;
+	width: 1600px;
 }
 </style>
 
@@ -40,7 +43,7 @@ div#tutorialDiv {
 	$(document).keydown(function(event) {
 		if (event.which == '27') {
 			$("#tutorialDiv").fadeOut(500);
-			$(".backLayer").fadeOut(1000);
+			//$(".backLayer").fadeOut(1000);
 			location.href = "main.jsp";
 		}
 	});
@@ -99,28 +102,28 @@ div#tutorialDiv {
 		var width = $(window).width();
 		var height = $(window).height();
 
-		$(".backLayer").width(width);
-		$(".backLayer").height(height);
-		$(".backLayer").fadeTo(500, 0.5);
+		//$(".backLayer").width(width);
+		//$(".backLayer").height(height);
+		//$(".backLayer").fadeTo(500, 0.5);
 		console.log("진행중");
 		var tutorialDiv = $("#tutorialDiv");
-		tutorialDiv.css("top", $(document).height() / 2 - 150);
-		tutorialDiv.css("left", $(document).width() / 2 - 150);
+		//tutorialDiv.css("top", $(document).height() / 2 - 150);
+		//tutorialDiv.css("left", $(document).width() / 2 - 150);
 		tutorialDiv.fadeIn(500);
 		console.log("진행중2");
 		console.log("useridhear! = " + userID);
-/* 		$.ajax({
-			url : "/Login",
-			type : "post",
-			data : "userID=" + userID
-		}).done(function() {
-			String
-			str = (String)
-			session.getAttribute("userID");
-			alert("in session!! userID = " + str);
-		}).fail(function() {
-			alert("fail.....?");
-		}); */
+		/* 		$.ajax({
+		 url : "/Login",
+		 type : "post",
+		 data : "userID=" + userID
+		 }).done(function() {
+		 String
+		 str = (String)
+		 session.getAttribute("userID");
+		 alert("in session!! userID = " + str);
+		 }).fail(function() {
+		 alert("fail.....?");
+		 }); */
 	}
 	(function() {
 		var e = document.createElement('script');
@@ -137,6 +140,40 @@ div#tutorialDiv {
 		});
 	}
 </script>
+<script type="text/javascript">
+	//tutorial 변경에 필요한 script
+	$(function() {
+		$("#btn_before")
+				.click(
+						function() {
+							var num = document
+									.getElementById('currentTutorial').value;
+							if (num != 1) {
+								document.getElementById('currentTutorial').value = num - 1;
+								var bg = String("img/tutorial/tutorial");
+								bg = br + "" + document.getElementById('currentTutorial').value;
+								window.alert("" + bg);
+								document.getElementById('tutorialDiv').style.backgroundImage = "url(''+bg)";
+							}
+
+						});
+
+	});
+	$(function() {
+		$("#btn_next")
+				.click(
+						function() {
+							var num = document
+									.getElementById('currentTutorial').value;
+							if (num != 5) {
+								document.getElementById('currentTutorial').value = Number(num) + 1;
+								var bg = String("img/tutorial/tutorial");
+								bg = br + "" + (num + 1);
+								document.getElementById("tutorialDiv").style.backgroundImage = "url(''+bg)";
+							}
+						});
+	});
+</script>
 </head>
 <body>
 	<div class="start_bg">
@@ -148,8 +185,14 @@ div#tutorialDiv {
 	</div>
 
 
-	<div class='backLayer'></div>
-	<div id="tutorialDiv">tutorial Div!</div>
+	<!--  div class='backLayer'></div> -->
+	<div id="tutorialDiv">
+		<input type="hidden" id="currentTutorial" value="1" /> <img
+			src="img/tutorial/btn_before.png" id="btn_before" /> <img
+			src="img/tutorial/btn_next.png" / id="btn_next" />
+
+	</div>
+
 
 </body>
 </html>
