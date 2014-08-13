@@ -435,8 +435,7 @@
 						clip_div.hide();
 					}
 				}		
-		}); */
-		
+		}); */	
 
 		/* //클립바에서 setting 버튼을 누르면 리모컨이 나옵니다
 		btn_setting.click(function() {
@@ -444,10 +443,8 @@
 			remote_div.show();
 			remote_bar = 0;
 			clip_div.hide();
-		}); */
-
-		
-		
+		}); 
+	
 		//클립바에서 reflash 버튼을 누르면 새로고침이 됩니다
 		btn_reflash.click(function() {
 			content1.contentDocument.location.reload(true);
@@ -460,7 +457,7 @@
 			}
 			else 
 				window.open(url);
-		});
+		}); */
 
 		//delete 이벤트 추가
 		btn_delete.click(function() {
@@ -511,7 +508,7 @@
 					$("#ifr_" + data).attr('src', div_url);
 					
 					return true;
-				});
+				}); 
 			},
 			error : function (request, status, error) {
 				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -522,6 +519,9 @@
 	//clip var 띄우기
 	function ClipVar(title)
 	{	
+		if (clip_bar==1)	//clip bar가 나오믄 안되는 상태
+			return true;
+		
 		//클립바 생성
 		var clip_div = $('<div></div>').addClass("clip_div");
 		var btn_setting = $('<img />').attr('src','img/main/btn_clip-setting.png').addClass('btn_setting');
@@ -538,23 +538,47 @@
 		clip_div.appendTo($("#div_" + title));  
 		
 		//영역을 넘어가믄 clip_bar가 없어짐
-		$("#div_" + title).mousemove(function(event) {
-			var div_top = $("#ifr_" + title).offset().top;
-			var div_left = $("#ifr_" + title).offset().left;
-			var pointX = event.clientX + document.body.scrollLeft; //커서x좌표
-			var pointY = event.clientY + document.body.scrollTop; //커서y좌표 
-
-		  //	if (remote_bar == 1 && clip_bar == 0) {
-				if ((div_top - 31 < pointY) && (pointY < div_top) && (div_left < pointX) && (pointX < div_left + $("#ifr_" + title).width())) {
-					//clip_div.show();
-				} else {
-					clip_div.hide();
-				}
-		//	}  		
+ 		$("#div_" + title).mousemove(function(event) {
+			$("#div_" + title).mouseout(function(event) {
+				clip_div.hide();
+				return true;
+			});		
 		}); 
+		
+ 		//클립바에서 setting 버튼을 누르면 리모컨이 나옵니다
+		btn_setting.click(function() {
+			clip_div.hide();	clip_bar =1;
+		}); 
+	
+		//클립바에서 reflash 버튼을 누르면 새로고침이 됩니다
+		btn_reflash.click(function() {
+			document.getElementById('ifr_' + title).contentDocument.location.reload(true);
+		});
+		
+		//클립바에서 new 버튼을 누르면 해당 프레임의 url로 새창을 엽니다
+		btn_new.click(function() {
+			var url = $("#ifr_" + title).attr('src');
+			if (url.toLowerCase().indexOf("http://") == -1) 
+				window.open("http://" + data[0].url);
+			else 
+				window.open(data[0].url);
+			/* $.ajax({
+				url : "/GetUrl",
+				type : "Get",
+				data : {"para_data" : url},
+				success : function (data) 
+				{	
+					if (url.toLowerCase().indexOf("http://") == -1) 
+						window.open("http://" + data[0].url);
+					else 
+						window.open(data[0].url);
+				},
+				error : function (request, status, error) {
+					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				}
+			});   */
+		});
 	}
-	
-	
 
 	function makeNewFrame() {
 		//URL에서 파라미터를 받아온다
