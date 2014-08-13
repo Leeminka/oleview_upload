@@ -37,10 +37,6 @@
     <servlet-class>Contents.GetTitle</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>GetUrl</servlet-name>
-    <servlet-class>Contents.GetUrl</servlet-class>
-  </servlet>
-  <servlet>
     <servlet-name>GetCategory</servlet-name>
     <servlet-class>User.GetCategory</servlet-class>
   </servlet>

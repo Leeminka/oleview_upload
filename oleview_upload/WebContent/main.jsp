@@ -321,12 +321,9 @@
 
 		//컨텐츠를 DIV에 붙임
 		content1.appendTo(draggable_div);
-
-		//remote_bar가 0이면 나타나도 됨 / 1이믄 안됨
-		var remote_bar; 
-
-		//clip_bar가 0이면 나타나도 됨 / 1이믄 안됨
-		var clip_bar; 
+		
+		//0이면 remote_bar / 1이믄 clip_bar
+		var toggle_bar; 
 		
 		//리모콘 생성
 		var remote_div = $('<div></div>').addClass("remote_div");
@@ -352,7 +349,7 @@
 
 			//InsertDB		
 			if (isNewFrame) {
-				var title = saveContentPosition(content1);
+				title = saveContentPosition(content1);
 				content1.attr('id', 'ifr_' + title); //iframe에 고유 id를 만들어죠
 				draggable_div.attr('id', "div_" + title); //div에 고유 id를 만들어죠
 			}
@@ -360,10 +357,37 @@
 		
 		//delete 이벤트 추가
 		btn_delete.click(function() {
-			remote_div.hide();
-			handle_div.hide();
-			draggable_div.hide();
-			//db에서 content 삭제 
+			var temp = confirm("지울꺼야?-3-");
+			if (temp) {
+				remote_div.hide();
+				handle_div.hide();
+				draggable_div.hide();
+				
+				$.ajax({
+					url : "/GetTitle",
+					type : "Get",
+					data : {
+						"para_data" : dom_data
+					},
+					success : function(data) {
+						$.ajax({
+							url : "/DelectContent",
+							type : "Get",
+							data : {
+								"para_data" : data
+							},
+							error : function(request, status, error) {
+								alert("code:" + request.status + "\n" + "message:"
+										+ request.responseText + "\n" + "error:" + error);
+							}
+						});
+					},
+					error : function(request, status, error) {
+						alert("code:" + request.status + "\n" + "message:"
+								+ request.responseText + "\n" + "error:" + error);
+					}
+				});
+			}
 		});
 
 		//remote_div를 content에 붙임
@@ -421,9 +445,8 @@
 		
 		//클립바에서 setting 버튼을 누르면 리모컨이 나옵니다
 		btn_setting.click(function() {
-			handle_div.show();
-			remote_div.show();
-			remote_bar = 0;
+			handle_div.show();	remote_div.show();
+			toggle_bar = 0;
 			clip_div.hide();
 		}); 
 	
@@ -440,10 +463,11 @@
 				window.open(url);
 		}); 
 		
-		//만약 새로운 프레임이면 핸들을 바로 보이게 아닐경우 핸들을 숨김
-		if (isNewFrame) {
-
-		} else {
+		if (isNewFrame) {	//새 프레임의 경우
+			toggle_bar = 0;
+			clip_div.hide();
+		} else {	//저장되어 있는 프레임의 경우
+			toggle_bar = 1;
 			handle_div.hide();
 			remote_div.hide();
 		}
@@ -459,7 +483,7 @@
 				var pointX = event.clientX + document.body.scrollLeft; //커서x좌표
 				var pointY = event.clientY + document.body.scrollTop; //커서y좌표
 
-				if (remote_bar == 1 && clip_bar == 0) {
+				if (toggle_bar == 1) {
 					if ((div_top - 31 < pointY) && (pointY < div_top) && (div_left < pointX) && (pointX < div_left + Number(width))) {
 						clip_div.show();
 					} else {
