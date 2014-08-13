@@ -116,8 +116,15 @@ public class GetPage extends HttpServlet {
 					String target_url = "_self";	//링크 새창띄우지 말긔								
 					e.attr("target",target_url);
 					
-					target_url = "parent.wide_frame(\"title\");";	//프레임 내에서 링크되면 이벤트주긔 - title을 임의로 주엇어 - title 프레임이 커져야돼
+					target_url = "parent.wide_frame(\"" + dom_data + "\");";	//프레임 내에서 링크되면 이벤트주긔 - wide
 					e.attr("onclick",target_url);
+				}
+				if (tagName.equals("img")) {		//img 태그 src 경로 수정
+					String src_url = e.attr("src");
+					if (src_url.toLowerCase().indexOf("http") == -1) {
+						src_url = root_url + src_url;
+						e.attr("src", src_url);
+					}
 				}
 			}
 			

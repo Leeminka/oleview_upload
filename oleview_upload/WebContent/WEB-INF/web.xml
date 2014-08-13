@@ -33,6 +33,10 @@
     <servlet-class>Contents.SaveContent</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>GetTitle</servlet-name>
+    <servlet-class>Contents.GetTitle</servlet-class>
+  </servlet>
+  <servlet>
       <servlet-name>GetCategory</servlet-name>
       <servlet-class>User.GetCategory</servlet-class>
   </servlet>

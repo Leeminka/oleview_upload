@@ -139,14 +139,6 @@
 	width: 36px;
 }
 
-.btn_x {
-	position: absolute;
-	top: 37px;
-	right: -37px;
-	height: 37px;
-	width: 37px;
-}
-
 .toggler {
 	width: 500px;
 	height: 200px;
@@ -255,6 +247,13 @@
 	height: 800px;
 	background: url(img/background/bg_1.png)
 }
+.btn_x {
+	position: absolute;
+	top: 200px;
+	left: 0px;
+	height: 37px;
+	width: 37px;
+}
 </style>
 <script src="scripts/jquery-1.11.0.min.js"></script>
 <script src="scripts/jquery-ui-1.10.4.custom.min.js"></script>
@@ -269,7 +268,7 @@
 	$(document).ready(function() {
 		//컨테이너 사이즈는 여기서해야지
 		$('#contents_cont').width(window.innerWidth);
-		$('#contents_cont').height(window.innerHeight);
+		$('#contents_cont').height(window.innerHeight - 48);
 		//데이터베이스에서 모든 저장된 컨텐츠를 가져옴
 
 		//var search = String("search");
@@ -321,7 +320,6 @@
 		content1.appendTo(draggable_div);
 
 		//리모콘 생성
-		var remote_bar = 0; //0이믄 리모콘이 있습니다 1이믄 리모콘이 있지 않습니다	
 		var remote_div = $('<div></div>').addClass("remote_div");
 		var btn_migrate = $('<img />').attr('src', 'img/main/btn_migrate.png')
 				.addClass('btn_migrate remote_btn');
@@ -346,7 +344,11 @@
 
 			//InsertDB		
 			if (isNewFrame)
-				saveContentPosition(content1);
+			{
+				var title = saveContentPosition(content1);
+				content1.attr('id', 'ifr_' + title);	//iframe에 고유 id를 만들어죠
+				draggable_div.attr('id', "div_" + title);	//div에 고유 id를 만들어죠
+			}
 		});
 
 		//remote_div를 content에 붙임
@@ -427,7 +429,7 @@
 					var pointX = event.clientX + document.body.scrollLeft; //커서x좌표
 					var pointY = event.clientY + document.body.scrollTop; //커서y좌표
 
-					if (remote_bar == 1) {
+					if (remote_bar == 1 && clip_bar == 0) {
 						if ((div_top - 31 < pointY) && (pointY < div_top)
 								&& (div_left < pointX)
 								&& (pointX < div_left + Number(width))) {
@@ -446,19 +448,20 @@
 			clip_div.hide();
 		});
 
+		
+		
 		//클립바에서 reflash 버튼을 누르면 새로고침이 됩니다
 		btn_reflash.click(function() {
 			content1.contentDocument.location.reload(true);
 		});
-
+		
 		//클립바에서 new 버튼을 누르면 해당 프레임의 url로 새창을 엽니다
 		btn_new.click(function() {
-			window.open("http://" + url);
-
-			/* content1.animate({width: '1303px', height: '721px', top: '20px', left: '20px'}, 300);
-			var btn_x = $('<img />').attr('src', 'img/main/btn_x.png').addClass('btn_x');
-			btn_x.appendTo(content1); */
-
+			if (url.toLowerCase().indexOf("http://") == -1) {
+				window.open("http://" + url);
+			}
+			else 
+				window.open(url);
 		});
 
 		//delete 이벤트 추가
@@ -471,12 +474,7 @@
 
 		//crop 이벤트 추가
 		btn_crop.click(function() {
-			remote_div.hide();
-			handle_div.hide();
-			draggable_div.hide();
-			//db에서 content 삭제 
-
-			//주소만 똑같게 해서 index.jsp 복붙
+			
 		});
 
 		btn_migrate.click(function() {
@@ -488,9 +486,46 @@
 
 	//iframe 내에서 링크를 하믄 크기가 커져용 팝업팝업
 	//자식프레임에서 호출할끄얌
-	function wide_frame(title) {
-		alert(title);
+	function wide_frame(dom_data){
+		
+		//link한 iframe의 title을 가져왕
+		$.ajax({
+			url : "/GetTitle",
+			type : "Get",
+			data : {"para_data" : dom_data},
+			success : function (data) 
+			{	
+				//원본 position 저장
+				var div_top = $("#ifr_" + data).offset().top;
+				var div_left = $("#ifr_" + data).offset().left;			
+				//wide 애니메이션
+				$("#div_" + data).animate({width: '1303px', height: '650px',  top: '50px', left: '150px', border: '3px rgb(191,221,67) solid'}, 300);
+				$("#ifr_" + data).animate({width: '1303px', height: '650px'}, 300);
+				//clip bar 숨기기
+				clip_bar = 1;	$("#div_" + data).clip_div.hide();
+				//닫기(x) 버튼
+				var btn_x = $('<img />').attr('src', 'img/main/btn_x.png').addClass('btn_x');
+				//btn_x.appendTo($("#div_" + data)); 
+				//닫기(x)	 버튼을 누르면 창이 원상태로 되돌아가지요
+				btn_x.click(function() {
+					$("#div_" + data).animate({width: width, height: height,  top: div_top, left: div_left, border: '1px rgb(191,221,67) solid'}, 200);
+					$("#ifr_" + data).animate({width: width, height: height}, 300);
+					clip_bar = 1;
+					btn_x.remove();
+					$("#ifr_" + data).attr('src', '/oleview_upload/GetPage?url=' + encodeURIComponent(url) + '&dom_data=' + encodeURIComponent(dom_data));
+				});
+			},
+			error : function (request, status, error) {
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+		});  
 	}
+	
+	//remote_bar가 0이면 나타나도 됨 / 1이믄 안됨
+	var remote_bar = 0; //초기값
+	
+	//clip_bar가 0이면 나타나도 됨 / 1이믄 안됨
+	var clip_bar = 1;	//초기값	
 
 	function makeNewFrame() {
 		//URL에서 파라미터를 받아온다
@@ -566,7 +601,7 @@
 			alert(JSON.stringify(error));
 			return false;
 		});
-		return true;
+		return title;
 	}
 	function getAllContents() {
 		$.ajax({
