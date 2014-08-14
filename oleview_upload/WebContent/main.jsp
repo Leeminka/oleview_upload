@@ -296,7 +296,7 @@
 
 		if (STATE == STATE_EDIT) {
 
-		} 
+		}
 	});
 
 	function makeFrame(width, height, url, dom_data, left, top, isNewFrame) {
@@ -321,10 +321,10 @@
 
 		//컨텐츠를 DIV에 붙임
 		content1.appendTo(draggable_div);
-		
+
 		//0이면 remote_bar / 1이믄 clip_bar
-		var toggle_bar; 
-		
+		var toggle_bar;
+
 		//리모콘 생성
 		var remote_div = $('<div></div>').addClass("remote_div");
 		var btn_migrate = $('<img />').attr('src', 'img/main/btn_migrate.png')
@@ -346,6 +346,7 @@
 		btn_save.click(function() {
 			handle_div.hide();
 			remote_div.hide();
+			toggle_bar = 1;
 
 			//InsertDB		
 			if (isNewFrame) {
@@ -353,8 +354,45 @@
 				content1.attr('id', 'ifr_' + title); //iframe에 고유 id를 만들어죠
 				draggable_div.attr('id', "div_" + title); //div에 고유 id를 만들어죠
 			}
+			//SaveDB
+			else {
+				var para_top = content1.offset().top;
+				var para_left = content1.offset().left;
+				
+				$.ajax({
+					url : "/GetTitle",
+					type : "Get",
+					data : {
+						"para_data" : dom_data
+					},
+					success : function(data) {
+						$.ajax({
+							url : "/SaveContent",
+							type : "Get",
+							data : {
+								"para_data" : data,
+								"para_top" : para_top - 48,
+								"para_left" : para_left,
+							},
+							error : function(request, status, error) {
+								alert("code:" + request.status + "\n"
+										+ "message:" + request.responseText
+										+ "\n" + "error:" + error);
+							}
+						});
+					},
+					error : function(request, status, error) {
+						alert("code:" + request.status + "\n" + "message:"
+								+ request.responseText + "\n" + "error:"
+								+ error);
+					}
+				});
+				
+				location.refresh;
+			}
+
 		});
-		
+
 		//delete 이벤트 추가
 		btn_delete.click(function() {
 			var temp = confirm("지울꺼야?-3-");
@@ -362,7 +400,7 @@
 				remote_div.hide();
 				handle_div.hide();
 				draggable_div.hide();
-				
+
 				$.ajax({
 					url : "/GetTitle",
 					type : "Get",
@@ -377,14 +415,16 @@
 								"para_data" : data
 							},
 							error : function(request, status, error) {
-								alert("code:" + request.status + "\n" + "message:"
-										+ request.responseText + "\n" + "error:" + error);
+								alert("code:" + request.status + "\n"
+										+ "message:" + request.responseText
+										+ "\n" + "error:" + error);
 							}
 						});
 					},
 					error : function(request, status, error) {
 						alert("code:" + request.status + "\n" + "message:"
-								+ request.responseText + "\n" + "error:" + error);
+								+ request.responseText + "\n" + "error:"
+								+ error);
 					}
 				});
 			}
@@ -430,9 +470,12 @@
 
 		//클립바 생성
 		var clip_div = $('<div></div>').addClass("clip_div");
-		var btn_setting = $('<img />').attr('src','img/main/btn_clip-setting.png').addClass('btn_setting');
-		var btn_reflash = $('<img />').attr('src','img/main/btn_clip-reflash.png').addClass('btn_reflash');
-		var btn_new = $('<img />').attr('src', 'img/main/btn_clip-new.png').addClass('btn_new');
+		var btn_setting = $('<img />').attr('src',
+				'img/main/btn_clip-setting.png').addClass('btn_setting');
+		var btn_reflash = $('<img />').attr('src',
+				'img/main/btn_clip-reflash.png').addClass('btn_reflash');
+		var btn_new = $('<img />').attr('src', 'img/main/btn_clip-new.png')
+				.addClass('btn_new');
 
 		//클립바 속성 설정
 		clip_div.width(width);
@@ -442,14 +485,15 @@
 		btn_reflash.appendTo(clip_div);
 		btn_new.appendTo(clip_div);
 		clip_div.appendTo(draggable_div);
-		
+
 		//클립바에서 setting 버튼을 누르면 리모컨이 나옵니다
 		btn_setting.click(function() {
-			handle_div.show();	remote_div.show();
+			handle_div.show();
+			remote_div.show();
 			toggle_bar = 0;
 			clip_div.hide();
-		}); 
-	
+		});
+
 		//클립바에서 reflash 버튼을 누르면 새로고침이 됩니다
 		btn_reflash.click(function() {
 			content1.contentDocument.location.reload(true);
@@ -461,12 +505,12 @@
 				window.open("http://" + url);
 			} else
 				window.open(url);
-		}); 
-		
-		if (isNewFrame) {	//새 프레임의 경우
+		});
+
+		if (isNewFrame) { //새 프레임의 경우
 			toggle_bar = 0;
 			clip_div.hide();
-		} else {	//저장되어 있는 프레임의 경우
+		} else { //저장되어 있는 프레임의 경우
 			toggle_bar = 1;
 			handle_div.hide();
 			remote_div.hide();
@@ -477,20 +521,23 @@
 		draggable_div.appendTo($('#contents_cont'));
 
 		//iframe 위에 커서를 올리믄 바가 나와용 위에 없으면 바가 없어져용
-		$(this).mousemove(function(event) {
-				var div_top = content1.offset().top;
-				var div_left = content1.offset().left;
-				var pointX = event.clientX + document.body.scrollLeft; //커서x좌표
-				var pointY = event.clientY + document.body.scrollTop; //커서y좌표
+		$(this).mousemove(
+				function(event) {
+					var div_top = content1.offset().top;
+					var div_left = content1.offset().left;
+					var pointX = event.clientX + document.body.scrollLeft; //커서x좌표
+					var pointY = event.clientY + document.body.scrollTop; //커서y좌표
 
-				if (toggle_bar == 1) {
-					if ((div_top - 31 < pointY) && (pointY < div_top) && (div_left < pointX) && (pointX < div_left + Number(width))) {
-						clip_div.show();
-					} else {
-						clip_div.hide();
+					if (toggle_bar == 1) {
+						if ((div_top - 31 < pointY) && (pointY < div_top)
+								&& (div_left < pointX)
+								&& (pointX < div_left + Number(width))) {
+							clip_div.show();
+						} else {
+							clip_div.hide();
+						}
 					}
-				}		
-		}); 
+				});
 
 		return true;
 	}
@@ -524,6 +571,7 @@
 					width : '1300px',
 					height : '670px'
 				}, 300);
+				//$("#div_" + data).css('z-index', '10');	//맨앞으로
 
 				//닫기(x) 버튼
 				var btn_x = $('<img />').attr('src', 'img/main/btn_x.png')
@@ -535,7 +583,7 @@
 					$("#div_" + data).animate({
 						width : div_width,
 						height : div_height,
-						top : div_top,
+						top : div_top - 48,
 						left : div_left,
 						border : '1px rgb(191,221,67) solid'
 					}, 300);
@@ -547,7 +595,7 @@
 					$("#ifr_" + data).attr('src', div_url);
 
 					return true;
-				}); 
+				});
 			},
 			error : function(request, status, error) {
 				alert("code:" + request.status + "\n" + "message:"
