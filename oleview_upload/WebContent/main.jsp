@@ -34,25 +34,17 @@
 	hegith: 36px;
 }
 
-.btn_migrate {
-	width: 39px;
-	hegith: 36px;
-	left: -2px;
-	top: 0px;
-}
-
-.btn_crop {
-	left: 37px;
-	top: 0px;
-}
-
 .btn_delete {
-	left: 74px;
+	width: 37px;
+	hegith: 36px;
+	left: 0px;
 	top: 0px;
 }
 
 .btn_save {
-	left: 111px;
+	width: 37px;
+	hegith: 36px;
+	left: 36px;
 	top: 0px;
 }
 
@@ -250,7 +242,7 @@
 
 .btn_x {
 	position: absolute;
-	top: -2px;
+	top: -1px;
 	right: -37px;
 	height: 37px;
 	width: 37px;
@@ -327,18 +319,12 @@
 
 		//리모콘 생성
 		var remote_div = $('<div></div>').addClass("remote_div");
-		var btn_migrate = $('<img />').attr('src', 'img/main/btn_migrate.png')
-				.addClass('btn_migrate remote_btn');
-		var btn_crop = $('<img />').attr('src', 'img/main/btn_crop.png')
-				.addClass('btn_crop remote_btn');
 		var btn_delete = $('<img />').attr('src', 'img/main/btn_delete.png')
 				.addClass('btn_delete remote_btn');
 		var btn_save = $('<img />').attr('src', 'img/main/btn_save.png')
 				.addClass('btn_save remote_btn');
 
 		//각 생성된 버튼들을 remote_div에 붙임
-		btn_migrate.appendTo(remote_div);
-		btn_crop.appendTo(remote_div);
 		btn_delete.appendTo(remote_div);
 		btn_save.appendTo(remote_div);
 
@@ -387,8 +373,6 @@
 								+ error);
 					}
 				});
-				
-				location.refresh;
 			}
 
 		});
@@ -496,7 +480,8 @@
 
 		//클립바에서 reflash 버튼을 누르면 새로고침이 됩니다
 		btn_reflash.click(function() {
-			content1.contentDocument.location.reload(true);
+			//content1.contentDocument.location.reload(true);
+			content1.location.refresh;
 		});
 
 		//클립바에서 new 버튼을 누르면 해당 프레임의 url로 새창을 엽니다
@@ -571,7 +556,7 @@
 					width : '1300px',
 					height : '670px'
 				}, 300);
-				//$("#div_" + data).css('z-index', '10');	//맨앞으로
+				$("#div_" + data).css('zIndex', '10');	//맨앞으로
 
 				//닫기(x) 버튼
 				var btn_x = $('<img />').attr('src', 'img/main/btn_x.png')
