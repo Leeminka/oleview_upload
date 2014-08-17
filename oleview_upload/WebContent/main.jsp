@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="EUC-KR" session="true"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Oleview</title>
 <link rel="stylesheet"
 	href="css/ui-lightness/jquery-ui-1.10.4.custom.min.css">
@@ -38,14 +38,18 @@
 	width: 37px;
 	hegith: 36px;
 	left: 0px;
-	top: 0px;
+	top: 36px;
+	position: absolute;
+	z-index: 15;
 }
 
 .btn_save {
 	width: 37px;
 	hegith: 36px;
 	left: 36px;
-	top: 0px;
+	top: 36px;
+	position: absolute;
+	z-index: 15;
 }
 
 .handle_div {
@@ -71,6 +75,7 @@
 	z-index: 0;
 	border: none;
 	top: 0px;
+	background-color: rgb(255, 255, 255);
 }
 
 #contents_cont {
@@ -101,6 +106,7 @@
 
 .clip_div {
 	position: absolute;
+	z-index: 10;
 	top: -31px;
 	left: -1px;
 	height: 31px;
@@ -109,6 +115,7 @@
 
 .btn_setting {
 	position: absolute;
+	z-index: 10;
 	top: 0px;
 	left: 0px;
 	height: 31px;
@@ -117,6 +124,7 @@
 
 .btn_reflash {
 	position: absolute;
+	z-index: 10;
 	top: 0px;
 	right: 34px;
 	height: 31px;
@@ -125,6 +133,7 @@
 
 .btn_new {
 	position: absolute;
+	z-index: 10;
 	top: 0px;
 	right: -2px;
 	height: 31px;
@@ -138,12 +147,12 @@
 }
 
 #button {
-	/*¹öÆ° ÀÌ¹ÌÁö »çÀÌÁî ¸¸Å­*/
+	/*ë²„íŠ¼ ì´ë¯¸ì§€ ì‚¬ì´ì¦ˆ ë§Œí¼*/
 	width: 37px;
 	height: 33px;
 	background: url(img/btn_slide.png);
 	text-indent: -9999px;
-	cursor: pointer; /*¹öÆ°À§¿¡ ¸¶¿ì½º ¿Ã¸®¸é ¼Õ°¡¶ô ¸ğ¾çÀ¸·Î!*/
+	cursor: pointer; /*ë²„íŠ¼ìœ„ì— ë§ˆìš°ìŠ¤ ì˜¬ë¦¬ë©´ ì†ê°€ë½ ëª¨ì–‘ìœ¼ë¡œ!*/
 	position: fixed;
 	top: 7px;
 	left: 2px;
@@ -242,7 +251,7 @@
 
 .btn_x {
 	position: absolute;
-	top: -1px;
+	top: -4px;
 	right: -37px;
 	height: 37px;
 	width: 37px;
@@ -260,10 +269,10 @@
 	var STATE = STATE_PLAIN;
 	var contents_list = [];
 	$(document).ready(function() {
-		//ÄÁÅ×ÀÌ³Ê »çÀÌÁî
+		//ì»¨í…Œì´ë„ˆ ì‚¬ì´ì¦ˆ
 		$('#contents_cont').width(window.innerWidth);
 		$('#contents_cont').height(window.innerHeight - 48);
-		//µ¥ÀÌÅÍº£ÀÌ½º¿¡¼­ ¸ğµç ÀúÀåµÈ ÄÁÅÙÃ÷¸¦ °¡Á®¿È
+		//ë°ì´í„°ë² ì´ìŠ¤ì—ì„œ ëª¨ë“  ì €ì¥ëœ ì»¨í…ì¸ ë¥¼ ê°€ì ¸ì˜´
 
 		//var search = String("search");
 		//if (categoryName != null) {
@@ -271,19 +280,19 @@
 		//}
 		getAllContents();
 
-		//µ¥ÀÌÅÍº£ÀÌ½º¿¡¼­ Ä«Å×°í¸® ÀÌ¸§À» °¡Á®¿È
+		//ë°ì´í„°ë² ì´ìŠ¤ì—ì„œ ì¹´í…Œê³ ë¦¬ ì´ë¦„ì„ ê°€ì ¸ì˜´
 		getAllCategory();
 
-		//ÆíÁı »óÅÂ (Select Page -> main À¸·Î Query¿Í ÇÔ²² ³Ñ¾î¿È) - serch
+		//í¸ì§‘ ìƒíƒœ (Select Page -> main ìœ¼ë¡œ Queryì™€ í•¨ê»˜ ë„˜ì–´ì˜´) - serch
 		if (isAnyQuery())
 			if (makeNewFrame())
 				STATE = STATE_EDIT;
 
-		//Æò¼Ò ·Î±×ÀÎ ÇßÀ»¶§ÀÇ »óÅÂ 
+		//í‰ì†Œ ë¡œê·¸ì¸ í–ˆì„ë•Œì˜ ìƒíƒœ 
 		if (STATE == STATE_PLAIN) {
-			//Ä«Å×°í¸® ´­·¶´ÂÁö¾È´­·¶´ÂÁö±îÁö ³ª´²¾ßÁö!
+			//ì¹´í…Œê³ ë¦¬ ëˆŒë €ëŠ”ì§€ì•ˆëˆŒë €ëŠ”ì§€ê¹Œì§€ ë‚˜ëˆ ì•¼ì§€!
 			document.getElementById("search").style.display = "block";
-			alert('¸ŞÀÎÆäÀÌÁö È¯¿µ');
+			alert('ë©”ì¸í˜ì´ì§€ í™˜ì˜');
 		}
 
 		if (STATE == STATE_EDIT) {
@@ -292,7 +301,7 @@
 	});
 
 	function makeFrame(width, height, url, dom_data, left, top, isNewFrame) {
-		//»õ·Î¿î DIV »ı¼º
+		//ìƒˆë¡œìš´ DIV ìƒì„±
 		var draggable_div = $('<div></div>').addClass("draggable_div");
 		draggable_div.width(width);
 		draggable_div.height(height);
@@ -300,7 +309,7 @@
 		draggable_div.css('left', left);
 		draggable_div.css('top', top);
 
-		//iframe ÄÁÅÙÃ÷»ı¼º ³ªÁß¿¡ »ç¿ëÇÏ±â À§ÇØ ¼Ó¼ºÀ¸·Î ´Ù ³Ö¾î¹ö·Á
+		//iframe ì»¨í…ì¸ ìƒì„± ë‚˜ì¤‘ì— ì‚¬ìš©í•˜ê¸° ìœ„í•´ ì†ì„±ìœ¼ë¡œ ë‹¤ ë„£ì–´ë²„ë ¤
 		var content1 = $('<iframe></iframe>');
 		content1.width(width);
 		content1.height(height);
@@ -311,24 +320,24 @@
 		content1.attr('dom_data', dom_data);
 		content1.addClass('content');
 
-		//ÄÁÅÙÃ÷¸¦ DIV¿¡ ºÙÀÓ
+		//ì»¨í…ì¸ ë¥¼ DIVì— ë¶™ì„
 		content1.appendTo(draggable_div);
 
-		//0ÀÌ¸é remote_bar / 1ÀÌ¹È clip_bar
+		//0ì´ë©´ remote_bar / 1ì´ë¯„ clip_bar
 		var toggle_bar;
 
-		//¸®¸ğÄÜ »ı¼º
+		//ë¦¬ëª¨ì½˜ ìƒì„±
 		var remote_div = $('<div></div>').addClass("remote_div");
 		var btn_delete = $('<img />').attr('src', 'img/main/btn_delete.png')
 				.addClass('btn_delete remote_btn');
 		var btn_save = $('<img />').attr('src', 'img/main/btn_save.png')
 				.addClass('btn_save remote_btn');
 
-		//°¢ »ı¼ºµÈ ¹öÆ°µéÀ» remote_div¿¡ ºÙÀÓ
+		//ê° ìƒì„±ëœ ë²„íŠ¼ë“¤ì„ remote_divì— ë¶™ì„
 		btn_delete.appendTo(remote_div);
 		btn_save.appendTo(remote_div);
 
-		//remote _save ÀÌº¥Æ® Ãß°¡
+		//remote _save ì´ë²¤íŠ¸ ì¶”ê°€
 		btn_save.click(function() {
 			handle_div.hide();
 			remote_div.hide();
@@ -337,8 +346,8 @@
 			//InsertDB		
 			if (isNewFrame) {
 				title = saveContentPosition(content1);
-				content1.attr('id', 'ifr_' + title); //iframe¿¡ °íÀ¯ id¸¦ ¸¸µé¾îÁÒ
-				draggable_div.attr('id', "div_" + title); //div¿¡ °íÀ¯ id¸¦ ¸¸µé¾îÁÒ
+				content1.attr('id', 'ifr_' + title); //iframeì— ê³ ìœ  idë¥¼ ë§Œë“¤ì–´ì£ 
+				draggable_div.attr('id', "div_" + title); //divì— ê³ ìœ  idë¥¼ ë§Œë“¤ì–´ì£ 
 			}
 			//SaveDB
 			else {
@@ -377,9 +386,9 @@
 
 		});
 
-		//delete ÀÌº¥Æ® Ãß°¡
+		//delete ì´ë²¤íŠ¸ ì¶”ê°€
 		btn_delete.click(function() {
-			var temp = confirm("Áö¿ï²¨¾ß?-3-");
+			var temp = confirm("ì§€ìš¸êº¼ì•¼?-3-");
 			if (temp) {
 				remote_div.hide();
 				handle_div.hide();
@@ -414,19 +423,19 @@
 			}
 		});
 
-		//remote_div¸¦ content¿¡ ºÙÀÓ
+		//remote_divë¥¼ contentì— ë¶™ì„
 		remote_div.appendTo(draggable_div);
 
-		//ÇÚµé »ı¼º
+		//í•¸ë“¤ ìƒì„±
 		var handle_div = $('<div></div>').addClass("handle_div");
 		handle_div.width(width);
 		handle_div.height(height);
 
-		//ÇÚµé¿¡ µé¾î°¡´Â ÀÌ¹ÌÁö »ı¼º
+		//í•¸ë“¤ì— ë“¤ì–´ê°€ëŠ” ì´ë¯¸ì§€ ìƒì„±
 		var handle_img = $('<img />').attr('src', 'img/main/handle_img.png')
 				.addClass("handle_img");
 
-		//ÇÚµé ÀÌ¹ÌÁö »çÀÌÁî »ı¼º
+		//í•¸ë“¤ ì´ë¯¸ì§€ ì‚¬ì´ì¦ˆ ìƒì„±
 		if (width >= height) {
 			handle_img.width(height * 0.5);
 			handle_img.height(height * 0.5);
@@ -434,25 +443,29 @@
 			handle_img.width(width * 0.5);
 			handle_img.height(width * 0.5);
 		}
+		if (handle_img.width()>60)
+			handle_img.width(60);
+		if (handle_img.height()>60)
+			handle_img.height(60);
 
-		//ÇÚµé À§Ä¡ »ı¼º °¡¿îµ¥¿¡ ¸¸µë
+		//í•¸ë“¤ ìœ„ì¹˜ ìƒì„± ê°€ìš´ë°ì— ë§Œë“¬
 		handle_img.css("top", (height * 0.5) - (handle_img.height() * 0.5));
 		handle_img.css("left", (width * 0.5) - (handle_img.width() * 0.5));
 
-		//ÇÚµé DIV¿¡ ÇÚµé img Ãß°¡
+		//í•¸ë“¤ DIVì— í•¸ë“¤ img ì¶”ê°€
 		handle_div.append(handle_img);
 
-		//ÇÚµé DIV¸¦ CONTENT¿¡ Ãß°¡
+		//í•¸ë“¤ DIVë¥¼ CONTENTì— ì¶”ê°€
 		draggable_div.append(handle_div);
 
-		//µå·¡±× °¡´É
+		//ë“œë˜ê·¸ ê°€ëŠ¥
 		draggable_div.draggable({
 			handle : handle_div,
 			containment : "#contents_cont",
 			scroll : false
 		});
 
-		//Å¬¸³¹Ù »ı¼º
+		//í´ë¦½ë°” ìƒì„±
 		var clip_div = $('<div></div>').addClass("clip_div");
 		var btn_setting = $('<img />').attr('src',
 				'img/main/btn_clip-setting.png').addClass('btn_setting');
@@ -461,16 +474,16 @@
 		var btn_new = $('<img />').attr('src', 'img/main/btn_clip-new.png')
 				.addClass('btn_new');
 
-		//Å¬¸³¹Ù ¼Ó¼º ¼³Á¤
+		//í´ë¦½ë°” ì†ì„± ì„¤ì •
 		clip_div.width(width);
 
-		//Å¬¸³¹Ù ¾îÆæµå¾îÆæµå
+		//í´ë¦½ë°” ì–´íœë“œì–´íœë“œ
 		btn_setting.appendTo(clip_div);
 		btn_reflash.appendTo(clip_div);
 		btn_new.appendTo(clip_div);
 		clip_div.appendTo(draggable_div);
 
-		//Å¬¸³¹Ù¿¡¼­ setting ¹öÆ°À» ´©¸£¸é ¸®¸ğÄÁÀÌ ³ª¿É´Ï´Ù
+		//í´ë¦½ë°”ì—ì„œ setting ë²„íŠ¼ì„ ëˆ„ë¥´ë©´ ë¦¬ëª¨ì»¨ì´ ë‚˜ì˜µë‹ˆë‹¤
 		btn_setting.click(function() {
 			handle_div.show();
 			remote_div.show();
@@ -478,13 +491,32 @@
 			clip_div.hide();
 		});
 
-		//Å¬¸³¹Ù¿¡¼­ reflash ¹öÆ°À» ´©¸£¸é »õ·Î°íÄ§ÀÌ µË´Ï´Ù
+		//í´ë¦½ë°”ì—ì„œ reflash ë²„íŠ¼ì„ ëˆ„ë¥´ë©´ ìƒˆë¡œê³ ì¹¨ì´ ë©ë‹ˆë‹¤
 		btn_reflash.click(function() {
+			/* $.ajax({
+				url : "/GetTitle",
+				type : "Get",
+				data : {
+					"para_data" : dom_data
+				},
+				success : function(data) {
+					alert(data);
+					document.getElementById("ifr_" + data).contentDocument.location.reload(true);
+				},
+				error : function(request, status, error) {
+					alert("code:" + request.status + "\n" + "message:"
+							+ request.responseText + "\n" + "error:"
+							+ error);
+				}
+			}); */
+			//document.getElementById('ifr_' + title).contentDocument.location.reload(true);
 			//content1.contentDocument.location.reload(true);
-			content1.location.refresh;
+			alert("ë‚˜ì™€ë¼");
+			document.getElementById('ifr_ë¹„ë¹„').contentDocument.location.reload(true);
+			alert("ì«Œ");
 		});
 
-		//Å¬¸³¹Ù¿¡¼­ new ¹öÆ°À» ´©¸£¸é ÇØ´ç ÇÁ·¹ÀÓÀÇ url·Î »õÃ¢À» ¿±´Ï´Ù
+		//í´ë¦½ë°”ì—ì„œ new ë²„íŠ¼ì„ ëˆ„ë¥´ë©´ í•´ë‹¹ í”„ë ˆì„ì˜ urlë¡œ ìƒˆì°½ì„ ì—½ë‹ˆë‹¤
 		btn_new.click(function() {
 			if (url.toLowerCase().indexOf("http://") == -1) {
 				window.open("http://" + url);
@@ -492,26 +524,26 @@
 				window.open(url);
 		});
 
-		if (isNewFrame) { //»õ ÇÁ·¹ÀÓÀÇ °æ¿ì
+		if (isNewFrame) { //ìƒˆ í”„ë ˆì„ì˜ ê²½ìš°
 			toggle_bar = 0;
 			clip_div.hide();
-		} else { //ÀúÀåµÇ¾î ÀÖ´Â ÇÁ·¹ÀÓÀÇ °æ¿ì
+		} else { //ì €ì¥ë˜ì–´ ìˆëŠ” í”„ë ˆì„ì˜ ê²½ìš°
 			toggle_bar = 1;
 			handle_div.hide();
 			remote_div.hide();
 		}
 
-		//DIV¸¦ contents ÄÁÅ×ÀÌ³Ê¿¡ ºÙÀÓ
-		//ÄÁÅ×ÀÌ³Ê´Â ÇÑ È­¸éÀ» ³Ñ¾î°¡Áö ¾Ê½À´Ï´Ù ±×·¡¼­ ½ºÅ©·Ñµµ ¼û±è´Ï´Ù
+		//DIVë¥¼ contents ì»¨í…Œì´ë„ˆì— ë¶™ì„
+		//ì»¨í…Œì´ë„ˆëŠ” í•œ í™”ë©´ì„ ë„˜ì–´ê°€ì§€ ì•ŠìŠµë‹ˆë‹¤ ê·¸ë˜ì„œ ìŠ¤í¬ë¡¤ë„ ìˆ¨ê¹€ë‹ˆë‹¤
 		draggable_div.appendTo($('#contents_cont'));
 
-		//iframe À§¿¡ Ä¿¼­¸¦ ¿Ã¸®¹È ¹Ù°¡ ³ª¿Í¿ë À§¿¡ ¾øÀ¸¸é ¹Ù°¡ ¾ø¾îÁ®¿ë
+		//iframe ìœ„ì— ì»¤ì„œë¥¼ ì˜¬ë¦¬ë¯„ ë°”ê°€ ë‚˜ì™€ìš© ìœ„ì— ì—†ìœ¼ë©´ ë°”ê°€ ì—†ì–´ì ¸ìš©
 		$(this).mousemove(
 				function(event) {
 					var div_top = content1.offset().top;
 					var div_left = content1.offset().left;
-					var pointX = event.clientX + document.body.scrollLeft; //Ä¿¼­xÁÂÇ¥
-					var pointY = event.clientY + document.body.scrollTop; //Ä¿¼­yÁÂÇ¥
+					var pointX = event.clientX + document.body.scrollLeft; //ì»¤ì„œxì¢Œí‘œ
+					var pointY = event.clientY + document.body.scrollTop; //ì»¤ì„œyì¢Œí‘œ
 
 					if (toggle_bar == 1) {
 						if ((div_top - 31 < pointY) && (pointY < div_top)
@@ -527,9 +559,9 @@
 		return true;
 	}
 
-	//iframe ³»¿¡¼­ ¸µÅ©¸¦ ÇÏ¹È Å©±â°¡ Ä¿Á®¿ë ÆË¾÷ÆË¾÷
+	//iframe ë‚´ì—ì„œ ë§í¬ë¥¼ í•˜ë¯„ í¬ê¸°ê°€ ì»¤ì ¸ìš© íŒì—…íŒì—…
 	function wide_frame(dom_data) {
-		//linkÇÑ iframeÀÇ titleÀ» °¡Á®¿Õ
+		//linkí•œ iframeì˜ titleì„ ê°€ì ¸ì™•
 		$.ajax({
 			url : "/GetTitle",
 			type : "Get",
@@ -537,33 +569,37 @@
 				"para_data" : dom_data
 			},
 			success : function(data) {
-				//¿øº» position ÀúÀå
+				//ì›ë³¸ position ì €ì¥
 				var div_top = $("#ifr_" + data).offset().top;
 				var div_left = $("#ifr_" + data).offset().left;
 				var div_width = $("#ifr_" + data).width();
 				var div_height = $("#ifr_" + data).height();
 				var div_url = $("#ifr_" + data).attr('src');
 
-				//wide ¾Ö´Ï¸ŞÀÌ¼Ç
+				//wide ì• ë‹ˆë©”ì´ì…˜
 				$("#div_" + data).animate({
 					width : '1300px',
 					height : '670px',
 					top : '25px',
 					left : '150px',
-					border : '3px rgb(191,221,67) solid'
 				}, 300);
 				$("#ifr_" + data).animate({
 					width : '1300px',
 					height : '670px'
 				}, 300);
-				$("#div_" + data).css('zIndex', '10');	//¸Ç¾ÕÀ¸·Î
+				$("#div_" + data).css('border','3px rgb(191,221,67) solid');	//border bold
+				$("#div_" + data).css('zIndex', '20');	//ë§¨ì•ìœ¼ë¡œ
+				$("#ifr_" + data).attr('scrolling', 'yes'); //scroll on
 
-				//´İ±â(x) ¹öÆ°
+				//clip var ì•ˆë‚˜ì˜¤ê²Œ 
+
+				
+				//ë‹«ê¸°(x) ë²„íŠ¼
 				var btn_x = $('<img />').attr('src', 'img/main/btn_x.png')
 						.addClass('btn_x');
 				btn_x.appendTo($("#div_" + data));
 
-				//´İ±â(x)	 ¹öÆ°À» ´©¸£¸é Ã¢ÀÌ ¿ø»óÅÂ·Î µÇµ¹¾Æ°¡Áö¿ä
+				//ë‹«ê¸°(x)	 ë²„íŠ¼ì„ ëˆ„ë¥´ë©´ ì°½ì´ ì›ìƒíƒœë¡œ ë˜ëŒì•„ê°€ì§€ìš”
 				btn_x.click(function() {
 					$("#div_" + data).animate({
 						width : div_width,
@@ -578,6 +614,8 @@
 					}, 300);
 					btn_x.remove();
 					$("#ifr_" + data).attr('src', div_url);
+					$("#div_" + data).css('border','1px rgb(191,221,67) solid');	//border restore
+					$("#ifr_" + data).attr('scrolling', 'no'); //scroll off
 
 					return true;
 				});
@@ -590,18 +628,18 @@
 	}
 
 	function makeNewFrame() {
-		//URL¿¡¼­ ÆÄ¶ó¹ÌÅÍ¸¦ ¹Ş¾Æ¿Â´Ù
+		//URLì—ì„œ íŒŒë¼ë¯¸í„°ë¥¼ ë°›ì•„ì˜¨ë‹¤
 		var width = getQueryVariable("width");
 		var height = getQueryVariable("height");
 		var url = getQueryVariable("url");
 		var dom_data = getQueryVariable("dom_data");
 
-		//¸¸¾à ÆÄ¶ó¹ÌÅÍÁß ÇÏ³ª¶óµµ ºñ¾îÀÖ´Ù¸é
+		//ë§Œì•½ íŒŒë¼ë¯¸í„°ì¤‘ í•˜ë‚˜ë¼ë„ ë¹„ì–´ìˆë‹¤ë©´
 		if (width == '' || height == '' || url == '' || dom_data == '') {
 			return false;
 		}
 
-		//ÇÁ·¹ÀÓ »ı¼º width, heigth, url, dom_data, left, top , isNewFrame
+		//í”„ë ˆì„ ìƒì„± width, heigth, url, dom_data, left, top , isNewFrame
 		if (makeFrame(width, height, url, dom_data, 0, 0, true))
 			return true;
 		return false;
@@ -627,7 +665,7 @@
 		return '';
 	}
 
-	//ÄÁÅ×ÀÌ³Ê ¾È¿¡ ÀÖ´Â ÄÁÅÙÃ÷µéÀÇ Æ÷Áö¼ÇÀ» ÀúÀåÇÔ
+	//ì»¨í…Œì´ë„ˆ ì•ˆì— ìˆëŠ” ì»¨í…ì¸ ë“¤ì˜ í¬ì§€ì…˜ì„ ì €ì¥í•¨
 	function saveContentPosition(content) {
 		var content_json = {};
 		content_json["left"] = content.parent().position().left;
@@ -638,7 +676,7 @@
 		content_json["url"] = content.attr("url");
 
 		if (typeof content.attr("title") == "undefined") {
-			var title = prompt("ÄÁÅÙÃ÷ÀÇ Á¦¸ñÀ» ÀÔ·ÂÇÏ¼¼¿ä", "");
+			var title = prompt("ì»¨í…ì¸ ì˜ ì œëª©ì„ ì…ë ¥í•˜ì„¸ìš”", "");
 			if (title == null) {
 				return false;
 			}
@@ -685,7 +723,7 @@
 </script>
 
 <script>
-	//Ä«Å×°í¸® ºÒ·¯¿À´Âµ¥ ÇÊ¿äÇÑ°Íµé!
+	//ì¹´í…Œê³ ë¦¬ ë¶ˆëŸ¬ì˜¤ëŠ”ë° í•„ìš”í•œê²ƒë“¤!
 	function getAllCategory() {
 		$
 				.ajax({
@@ -697,7 +735,7 @@
 							if (data.length == 3)
 								document.getElementById("category_add_btn").src = "img/left_slide/btn_hold-list.png";
 							for ( var i in data) {
-								//category »èÁ¦¿Í ¼öÁ¤ÇÏ´Âµ¥ ÇÊ¿äÇÑ ¾²·¡±âµé ¤Ğ¤Ğ¤Ğ
+								//category ì‚­ì œì™€ ìˆ˜ì •í•˜ëŠ”ë° í•„ìš”í•œ ì“°ë˜ê¸°ë“¤ ã… ã… ã… 
 								showCategory(data[i].title);
 								var j = Number(i) + 1;
 								var divID = String("category");
@@ -742,7 +780,7 @@
 </script>
 
 <script type="text/javascript">
-	//ÁÂÃø ½½¶óÀÌµå¿¡ ÇÊ¿äÇÑ script
+	//ì¢Œì¸¡ ìŠ¬ë¼ì´ë“œì— í•„ìš”í•œ script
 	var left_toggle_flag = true;
 	$(function() {
 		$("#button").click(function() {
@@ -766,7 +804,7 @@
 		});
 	});
 
-	//¿ìÃø ½½¶óÀÌµå ÇÊ¿äÇÑ script
+	//ìš°ì¸¡ ìŠ¬ë¼ì´ë“œ í•„ìš”í•œ script
 	var right_toggle_flag = true;
 	$(function() {
 		$("#bgbutton").click(function() {
@@ -794,7 +832,7 @@
 <script src="http://connect.facebook.net/en_US/all.js"
 	language="JavaScript" type="text/javascript"></script>
 <script>
-	//ÆäÀÌ½ººÏ ÃÊ±âÈ­
+	//í˜ì´ìŠ¤ë¶ ì´ˆê¸°í™”
 	window.fbAsyncInit = function() {
 		FB.init({
 			appId : '283897015123867',
@@ -816,7 +854,7 @@
 	}
 </script>
 <script type="text/javascript">
-	//¿À¸¥ÂÊ ¹è°æ º¯°æ¿¡ ÇÊ¿äÇÑ script
+	//ì˜¤ë¥¸ìª½ ë°°ê²½ ë³€ê²½ì— í•„ìš”í•œ script
 	$(function() {
 		$("#btn_skin1").click(function() {
 			//document.getElementById(
@@ -900,14 +938,14 @@
 	});
 	$(function() {
 		$("#btn_skin4").click(function() {
-			alert("±¸¸Å ÈÄ »ç¿ë °¡´ÉÇÕ´Ï´Ù!");
+			alert("êµ¬ë§¤ í›„ ì‚¬ìš© ê°€ëŠ¥í•©ë‹ˆë‹¤!");
 		});
 	});
 </script>
 
 
 <script>
-	//¹è°æ¼³Á¤µÈ°Å È®ÀÎÈÄ ¿À¸¥ÂÊ »çÀÌµå¿¡¼­ Å¬¸¯µÈ ÀÌ¹ÌÁö º¯°æµÉ¶§ »ç¿ëÇÒ ½ºÅ©¸³Æ®
+	//ë°°ê²½ì„¤ì •ëœê±° í™•ì¸í›„ ì˜¤ë¥¸ìª½ ì‚¬ì´ë“œì—ì„œ í´ë¦­ëœ ì´ë¯¸ì§€ ë³€ê²½ë ë•Œ ì‚¬ìš©í•  ìŠ¤í¬ë¦½íŠ¸
 	$(window)
 			.load(
 					function() {
@@ -947,12 +985,12 @@
 </script>
 <script language="JavaScript">
 	function test(e) {
-		//Ä«Å×°í¸® ÀÌ¸§º¯°æÀ»  À§ÇÑ ÇÔ¼ö
+		//ì¹´í…Œê³ ë¦¬ ì´ë¦„ë³€ê²½ì„  ìœ„í•œ í•¨ìˆ˜
 		var oldDiv = String("category" + e + "hidden_");
 		var newDiv = String("category" + e + "new");
 		var oldName = document.getElementById('' + oldDiv).value;
 
-		var newName = prompt("»õ·Î¿î Á¦¸ñÀ» ÀÔ·ÂÇÏ¼¼¿ä", "");
+		var newName = prompt("ìƒˆë¡œìš´ ì œëª©ì„ ì…ë ¥í•˜ì„¸ìš”", "");
 		if (newName == null) {
 			document.getElementById('' + newDiv).value = '' + oldName;
 		}
@@ -962,7 +1000,7 @@
 </head>
 <body style="overflow-x: hidden; overflow-y: hidden">
 
-	<!-- »ó´Ü ¹Ù ºÎºĞ	 -->
+	<!-- ìƒë‹¨ ë°” ë¶€ë¶„	 -->
 	<div id="bar">
 		<div align="center" style="margin-top: 7px;">
 			<img src="img/bg_barlogo.png" />
@@ -981,7 +1019,7 @@
 	</div>
 
 
-	<!-- ÁÂÃø ½½¶óÀÌµå ºÎºĞ -->
+	<!-- ì¢Œì¸¡ ìŠ¬ë¼ì´ë“œ ë¶€ë¶„ -->
 	<div id="effect">
 		<div id="left_slide_content">
 			<div id="left_slide_real_content">
@@ -992,9 +1030,9 @@
 				<br>
 				<div style="margin: 0 auto;">
 					<div style="margin-top: 15px">
-						<!-- ·Î±×ÀÎÇÑ ÇÁ·ÎÇÊ »çÁø-->
+						<!-- ë¡œê·¸ì¸í•œ í”„ë¡œí•„ ì‚¬ì§„-->
 						<fb:profile-pic uid="loggedinuser" size="square"></fb:profile-pic>
-						<!-- ·Î±×ÀÎÇÑ ÀÌ¸§ -->
+						<!-- ë¡œê·¸ì¸í•œ ì´ë¦„ -->
 						<fb:name uid="loggedinuser" use-you="no"></fb:name>
 						<br>
 						<div id="status"></div>
@@ -1015,7 +1053,7 @@
 								</tr>
 							</table>
 						</form>
-						<!-- Ä«Å×°í¸® ¸ñ·Ï -->
+						<!-- ì¹´í…Œê³ ë¦¬ ëª©ë¡ -->
 
 						<table style="padding: 0px; border-spacing: 0px;">
 							<tr>
@@ -1118,7 +1156,7 @@
 		</div>
 	</div>
 
-	<!-- ¿ìÃø ½½¶óÀÌµå ºÎºĞ -->
+	<!-- ìš°ì¸¡ ìŠ¬ë¼ì´ë“œ ë¶€ë¶„ -->
 	<div id="effect2">
 		<div id="right_slide_content">
 			<div id="bg_select_slide">
@@ -1146,12 +1184,12 @@
 		</div>
 	</div>
 
-	<!-- bg´Â ¹è°æÈ­¸é Å×½ºÆ®¸¦À§ÇÑ divÀÓ.. ³ªÁß¿¡ contents_cont°¡ bg¾È¿¡ µé¾î°¡ÀÖ¾î¾ßÇÔ bg:1200x800, contents_cont:1100x700 -->
+	<!-- bgëŠ” ë°°ê²½í™”ë©´ í…ŒìŠ¤íŠ¸ë¥¼ìœ„í•œ divì„.. ë‚˜ì¤‘ì— contents_contê°€ bgì•ˆì— ë“¤ì–´ê°€ìˆì–´ì•¼í•¨ bg:1200x800, contents_cont:1100x700 -->
 	<div id="bg" align="center"
 		style="background: url(img/background/bg_<%=session.getAttribute("userBG")%>.png);">
 		<div id="contents_cont"></div>
 	</div>
-	<!-- contents_cont¿¡ ³»¿ëµéÀÌ º¸ÀÏ²¨°í, À§Ä¡ ¼öÁ¤ÇØÁà¾ßÇÔ..½ÃÀÛÀ§Ä¡°¡ ¹Ù ºÎºĞ ¹ØÀÏ¼ö ÀÖ°Ô -->
+	<!-- contents_contì— ë‚´ìš©ë“¤ì´ ë³´ì¼êº¼ê³ , ìœ„ì¹˜ ìˆ˜ì •í•´ì¤˜ì•¼í•¨..ì‹œì‘ìœ„ì¹˜ê°€ ë°” ë¶€ë¶„ ë°‘ì¼ìˆ˜ ìˆê²Œ -->
 
 </body>
 </html>
