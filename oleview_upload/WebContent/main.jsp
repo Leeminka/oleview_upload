@@ -34,25 +34,17 @@
 	hegith: 36px;
 }
 
-.btn_migrate {
-	width: 39px;
-	hegith: 36px;
-	left: -2px;
-	top: 0px;
-}
-
-.btn_crop {
-	left: 37px;
-	top: 0px;
-}
-
 .btn_delete {
-	left: 74px;
+	width: 37px;
+	hegith: 36px;
+	left: 0px;
 	top: 0px;
 }
 
 .btn_save {
-	left: 111px;
+	width: 37px;
+	hegith: 36px;
+	left: 36px;
 	top: 0px;
 }
 
@@ -146,12 +138,12 @@
 }
 
 #button {
-	/*¹öÆ° ÀÌ¹ÌÁö »çÀÌÁî ¸¸Å­*/
+	/*ï¿½ï¿½Æ° ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å­*/
 	width: 37px;
 	height: 33px;
 	background: url(img/btn_slide.png);
 	text-indent: -9999px;
-	cursor: pointer; /*¹öÆ°À§¿¡ ¸¶¿ì½º ¿Ã¸®¸é ¼Õ°¡¶ô ¸ð¾çÀ¸·Î!*/
+	cursor: pointer; /*ï¿½ï¿½Æ°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ì½º ï¿½Ã¸ï¿½ï¿½ï¿½ ï¿½Õ°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½!*/
 	position: fixed;
 	top: 7px;
 	left: 2px;
@@ -250,7 +242,7 @@
 
 .btn_x {
 	position: absolute;
-	top: -2px;
+	top: -1px;
 	right: -37px;
 	height: 37px;
 	width: 37px;
@@ -268,10 +260,10 @@
 	var STATE = STATE_PLAIN;
 	var contents_list = [];
 	$(document).ready(function() {
-		//ÄÁÅ×ÀÌ³Ê »çÀÌÁî
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Ì³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		$('#contents_cont').width(window.innerWidth);
 		$('#contents_cont').height(window.innerHeight - 48);
-		//µ¥ÀÌÅÍº£ÀÌ½º¿¡¼­ ¸ðµç ÀúÀåµÈ ÄÁÅÙÃ÷¸¦ °¡Á®¿È
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 		//var search = String("search");
 		//if (categoryName != null) {
@@ -279,28 +271,28 @@
 		//}
 		getAllContents();
 
-		//µ¥ÀÌÅÍº£ÀÌ½º¿¡¼­ Ä«Å×°í¸® ÀÌ¸§À» °¡Á®¿È
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½×°? ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		getAllCategory();
 
-		//ÆíÁý »óÅÂ (Select Page -> main À¸·Î Query¿Í ÇÔ²² ³Ñ¾î¿È) - serch
+		//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (Select Page -> main ï¿½ï¿½ï¿½ï¿½ Queryï¿½ï¿½ ï¿½Ô²ï¿½ ï¿½Ñ¾ï¿½ï¿½) - serch
 		if (isAnyQuery())
 			if (makeNewFrame())
 				STATE = STATE_EDIT;
 
-		//Æò¼Ò ·Î±×ÀÎ ÇßÀ»¶§ÀÇ »óÅÂ 
+		//ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 		if (STATE == STATE_PLAIN) {
-			//Ä«Å×°í¸® ´­·¶´ÂÁö¾È´­·¶´ÂÁö±îÁö ³ª´²¾ßÁö!
+			//Ä«ï¿½×°? ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½!
 			document.getElementById("search").style.display = "block";
-			alert('¸ÞÀÎÆäÀÌÁö È¯¿µ');
+			alert('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¯ï¿½ï¿½');
 		}
 
 		if (STATE == STATE_EDIT) {
 
-		} 
+		}
 	});
 
 	function makeFrame(width, height, url, dom_data, left, top, isNewFrame) {
-		//»õ·Î¿î DIV »ý¼º
+		//ï¿½ï¿½ï¿½Î¿ï¿½ DIV ï¿½ï¿½
 		var draggable_div = $('<div></div>').addClass("draggable_div");
 		draggable_div.width(width);
 		draggable_div.height(height);
@@ -308,7 +300,7 @@
 		draggable_div.css('left', left);
 		draggable_div.css('top', top);
 
-		//iframe ÄÁÅÙÃ÷»ý¼º ³ªÁß¿¡ »ç¿ëÇÏ±â À§ÇØ ¼Ó¼ºÀ¸·Î ´Ù ³Ö¾î¹ö·Á
+		//iframe ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½
 		var content1 = $('<iframe></iframe>');
 		content1.width(width);
 		content1.height(height);
@@ -319,50 +311,80 @@
 		content1.attr('dom_data', dom_data);
 		content1.addClass('content');
 
-		//ÄÁÅÙÃ÷¸¦ DIV¿¡ ºÙÀÓ
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ DIVï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		content1.appendTo(draggable_div);
-		
-		//0ÀÌ¸é remote_bar / 1ÀÌ¹È clip_bar
-		var toggle_bar; 
-		
-		//¸®¸ðÄÜ »ý¼º
+
+		//0ï¿½Ì¸ï¿½ remote_bar / 1ï¿½Ì¹ï¿½ clip_bar
+		var toggle_bar;
+
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 		var remote_div = $('<div></div>').addClass("remote_div");
-		var btn_migrate = $('<img />').attr('src', 'img/main/btn_migrate.png')
-				.addClass('btn_migrate remote_btn');
-		var btn_crop = $('<img />').attr('src', 'img/main/btn_crop.png')
-				.addClass('btn_crop remote_btn');
 		var btn_delete = $('<img />').attr('src', 'img/main/btn_delete.png')
 				.addClass('btn_delete remote_btn');
 		var btn_save = $('<img />').attr('src', 'img/main/btn_save.png')
 				.addClass('btn_save remote_btn');
 
-		//°¢ »ý¼ºµÈ ¹öÆ°µéÀ» remote_div¿¡ ºÙÀÓ
-		btn_migrate.appendTo(remote_div);
-		btn_crop.appendTo(remote_div);
+		//ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ï¿½ï¿½ remote_divï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		btn_delete.appendTo(remote_div);
 		btn_save.appendTo(remote_div);
 
-		//remote _save ÀÌº¥Æ® Ãß°¡
+		//remote _save ï¿½Ìºï¿½Æ® ï¿½ß°ï¿½
 		btn_save.click(function() {
 			handle_div.hide();
 			remote_div.hide();
+			toggle_bar = 1;
 
 			//InsertDB		
 			if (isNewFrame) {
 				title = saveContentPosition(content1);
-				content1.attr('id', 'ifr_' + title); //iframe¿¡ °íÀ¯ id¸¦ ¸¸µé¾îÁÒ
-				draggable_div.attr('id', "div_" + title); //div¿¡ °íÀ¯ id¸¦ ¸¸µé¾îÁÒ
+				content1.attr('id', 'ifr_' + title); //iframeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ idï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				draggable_div.attr('id', "div_" + title); //divï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ idï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			}
+			//SaveDB
+			else {
+				var para_top = content1.offset().top;
+				var para_left = content1.offset().left;
+				
+				$.ajax({
+					url : "/GetTitle",
+					type : "Get",
+					data : {
+						"para_data" : dom_data
+					},
+					success : function(data) {
+						$.ajax({
+							url : "/SaveContent",
+							type : "Get",
+							data : {
+								"para_data" : data,
+								"para_top" : para_top - 48,
+								"para_left" : para_left,
+							},
+							error : function(request, status, error) {
+								alert("code:" + request.status + "\n"
+										+ "message:" + request.responseText
+										+ "\n" + "error:" + error);
+							}
+						});
+					},
+					error : function(request, status, error) {
+						alert("code:" + request.status + "\n" + "message:"
+								+ request.responseText + "\n" + "error:"
+								+ error);
+					}
+				});
+			}
+
 		});
-		
-		//delete ÀÌº¥Æ® Ãß°¡
+
+		//delete ï¿½Ìºï¿½Æ® ï¿½ß°ï¿½
 		btn_delete.click(function() {
-			var temp = confirm("Áö¿ï²¨¾ß?-3-");
+			var temp = confirm("ï¿½ï¿½ï¿½ï²¨ï¿½ï¿½?-3-");
 			if (temp) {
 				remote_div.hide();
 				handle_div.hide();
 				draggable_div.hide();
-				
+
 				$.ajax({
 					url : "/GetTitle",
 					type : "Get",
@@ -377,32 +399,34 @@
 								"para_data" : data
 							},
 							error : function(request, status, error) {
-								alert("code:" + request.status + "\n" + "message:"
-										+ request.responseText + "\n" + "error:" + error);
+								alert("code:" + request.status + "\n"
+										+ "message:" + request.responseText
+										+ "\n" + "error:" + error);
 							}
 						});
 					},
 					error : function(request, status, error) {
 						alert("code:" + request.status + "\n" + "message:"
-								+ request.responseText + "\n" + "error:" + error);
+								+ request.responseText + "\n" + "error:"
+								+ error);
 					}
 				});
 			}
 		});
 
-		//remote_div¸¦ content¿¡ ºÙÀÓ
+		//remote_divï¿½ï¿½ contentï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		remote_div.appendTo(draggable_div);
 
-		//ÇÚµé »ý¼º
+		//ï¿½Úµï¿½ ï¿½ï¿½
 		var handle_div = $('<div></div>').addClass("handle_div");
 		handle_div.width(width);
 		handle_div.height(height);
 
-		//ÇÚµé¿¡ µé¾î°¡´Â ÀÌ¹ÌÁö »ý¼º
+		//ï¿½Úµé¿¡ ï¿½ï¿½î°¡ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½
 		var handle_img = $('<img />').attr('src', 'img/main/handle_img.png')
 				.addClass("handle_img");
 
-		//ÇÚµé ÀÌ¹ÌÁö »çÀÌÁî »ý¼º
+		//ï¿½Úµï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 		if (width >= height) {
 			handle_img.width(height * 0.5);
 			handle_img.height(height * 0.5);
@@ -411,93 +435,101 @@
 			handle_img.height(width * 0.5);
 		}
 
-		//ÇÚµé À§Ä¡ »ý¼º °¡¿îµ¥¿¡ ¸¸µë
+		//ï¿½Úµï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ ï¿½ï¿½ï¿½îµ¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		handle_img.css("top", (height * 0.5) - (handle_img.height() * 0.5));
 		handle_img.css("left", (width * 0.5) - (handle_img.width() * 0.5));
 
-		//ÇÚµé DIV¿¡ ÇÚµé img Ãß°¡
+		//ï¿½Úµï¿½ DIVï¿½ï¿½ ï¿½Úµï¿½ img ï¿½ß°ï¿½
 		handle_div.append(handle_img);
 
-		//ÇÚµé DIV¸¦ CONTENT¿¡ Ãß°¡
+		//ï¿½Úµï¿½ DIVï¿½ï¿½ CONTENTï¿½ï¿½ ï¿½ß°ï¿½
 		draggable_div.append(handle_div);
 
-		//µå·¡±× °¡´É
+		//ï¿½å·¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		draggable_div.draggable({
 			handle : handle_div,
 			containment : "#contents_cont",
 			scroll : false
 		});
 
-		//Å¬¸³¹Ù »ý¼º
+		//Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 		var clip_div = $('<div></div>').addClass("clip_div");
-		var btn_setting = $('<img />').attr('src','img/main/btn_clip-setting.png').addClass('btn_setting');
-		var btn_reflash = $('<img />').attr('src','img/main/btn_clip-reflash.png').addClass('btn_reflash');
-		var btn_new = $('<img />').attr('src', 'img/main/btn_clip-new.png').addClass('btn_new');
+		var btn_setting = $('<img />').attr('src',
+				'img/main/btn_clip-setting.png').addClass('btn_setting');
+		var btn_reflash = $('<img />').attr('src',
+				'img/main/btn_clip-reflash.png').addClass('btn_reflash');
+		var btn_new = $('<img />').attr('src', 'img/main/btn_clip-new.png')
+				.addClass('btn_new');
 
-		//Å¬¸³¹Ù ¼Ó¼º ¼³Á¤
+		//Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 		clip_div.width(width);
 
-		//Å¬¸³¹Ù ¾îÆæµå¾îÆæµå
+		//Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		btn_setting.appendTo(clip_div);
 		btn_reflash.appendTo(clip_div);
 		btn_new.appendTo(clip_div);
 		clip_div.appendTo(draggable_div);
-		
-		//Å¬¸³¹Ù¿¡¼­ setting ¹öÆ°À» ´©¸£¸é ¸®¸ðÄÁÀÌ ³ª¿É´Ï´Ù
+
+		//Å¬ï¿½ï¿½ï¿½Ù¿ï¿½ï¿½ï¿½ setting ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½É´Ï´ï¿½
 		btn_setting.click(function() {
-			handle_div.show();	remote_div.show();
+			handle_div.show();
+			remote_div.show();
 			toggle_bar = 0;
 			clip_div.hide();
-		}); 
-	
-		//Å¬¸³¹Ù¿¡¼­ reflash ¹öÆ°À» ´©¸£¸é »õ·Î°íÄ§ÀÌ µË´Ï´Ù
-		btn_reflash.click(function() {
-			content1.contentDocument.location.reload(true);
 		});
 
-		//Å¬¸³¹Ù¿¡¼­ new ¹öÆ°À» ´©¸£¸é ÇØ´ç ÇÁ·¹ÀÓÀÇ url·Î »õÃ¢À» ¿±´Ï´Ù
+		//Å¬ï¿½ï¿½ï¿½Ù¿ï¿½ï¿½ï¿½ reflash ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î°ï¿½Ä§ï¿½ï¿½ ï¿½Ë´Ï´ï¿½
+		btn_reflash.click(function() {
+			//content1.contentDocument.location.reload(true);
+			content1.location.refresh;
+		});
+
+		//Å¬ï¿½ï¿½ï¿½Ù¿ï¿½ï¿½ï¿½ new ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ urlï¿½ï¿½ ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½
 		btn_new.click(function() {
 			if (url.toLowerCase().indexOf("http://") == -1) {
 				window.open("http://" + url);
 			} else
 				window.open(url);
-		}); 
-		
-		if (isNewFrame) {	//»õ ÇÁ·¹ÀÓÀÇ °æ¿ì
+		});
+
+		if (isNewFrame) { //ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 			toggle_bar = 0;
 			clip_div.hide();
-		} else {	//ÀúÀåµÇ¾î ÀÖ´Â ÇÁ·¹ÀÓÀÇ °æ¿ì
+		} else { //ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 			toggle_bar = 1;
 			handle_div.hide();
 			remote_div.hide();
 		}
 
-		//DIV¸¦ contents ÄÁÅ×ÀÌ³Ê¿¡ ºÙÀÓ
-		//ÄÁÅ×ÀÌ³Ê´Â ÇÑ È­¸éÀ» ³Ñ¾î°¡Áö ¾Ê½À´Ï´Ù ±×·¡¼­ ½ºÅ©·Ñµµ ¼û±è´Ï´Ù
+		//DIVï¿½ï¿½ contents ï¿½ï¿½ï¿½ï¿½ï¿½Ì³Ê¿ï¿½ ï¿½ï¿½ï¿½ï¿½
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Ì³Ê´ï¿½ ï¿½ï¿½ È­ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½ ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½Ñµï¿½ ï¿½ï¿½ï¿½Ï´ï¿½
 		draggable_div.appendTo($('#contents_cont'));
 
-		//iframe À§¿¡ Ä¿¼­¸¦ ¿Ã¸®¹È ¹Ù°¡ ³ª¿Í¿ë À§¿¡ ¾øÀ¸¸é ¹Ù°¡ ¾ø¾îÁ®¿ë
-		$(this).mousemove(function(event) {
-				var div_top = content1.offset().top;
-				var div_left = content1.offset().left;
-				var pointX = event.clientX + document.body.scrollLeft; //Ä¿¼­xÁÂÇ¥
-				var pointY = event.clientY + document.body.scrollTop; //Ä¿¼­yÁÂÇ¥
+		//iframe ï¿½ï¿½ï¿½ï¿½ Ä¿ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¸ï¿½ï¿½ï¿½ ï¿½Ù°ï¿½ ï¿½ï¿½ï¿½Í¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		$(this).mousemove(
+				function(event) {
+					var div_top = content1.offset().top;
+					var div_left = content1.offset().left;
+					var pointX = event.clientX + document.body.scrollLeft; //Ä¿ï¿½ï¿½xï¿½ï¿½Ç¥
+					var pointY = event.clientY + document.body.scrollTop; //Ä¿ï¿½ï¿½yï¿½ï¿½Ç¥
 
-				if (toggle_bar == 1) {
-					if ((div_top - 31 < pointY) && (pointY < div_top) && (div_left < pointX) && (pointX < div_left + Number(width))) {
-						clip_div.show();
-					} else {
-						clip_div.hide();
+					if (toggle_bar == 1) {
+						if ((div_top - 31 < pointY) && (pointY < div_top)
+								&& (div_left < pointX)
+								&& (pointX < div_left + Number(width))) {
+							clip_div.show();
+						} else {
+							clip_div.hide();
+						}
 					}
-				}		
-		}); 
+				});
 
 		return true;
 	}
 
-	//iframe ³»¿¡¼­ ¸µÅ©¸¦ ÇÏ¹È Å©±â°¡ Ä¿Á®¿ë ÆË¾÷ÆË¾÷
+	//iframe ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ ï¿½Ï¹ï¿½ Å©ï¿½â°¡ Ä¿ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¾ï¿½ï¿½Ë¾ï¿½
 	function wide_frame(dom_data) {
-		//linkÇÑ iframeÀÇ titleÀ» °¡Á®¿Õ
+		//linkï¿½ï¿½ iframeï¿½ï¿½ titleï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		$.ajax({
 			url : "/GetTitle",
 			type : "Get",
@@ -505,14 +537,14 @@
 				"para_data" : dom_data
 			},
 			success : function(data) {
-				//¿øº» position ÀúÀå
+				//ï¿½ï¿½ position ï¿½ï¿½ï¿½ï¿½
 				var div_top = $("#ifr_" + data).offset().top;
 				var div_left = $("#ifr_" + data).offset().left;
 				var div_width = $("#ifr_" + data).width();
 				var div_height = $("#ifr_" + data).height();
 				var div_url = $("#ifr_" + data).attr('src');
 
-				//wide ¾Ö´Ï¸ÞÀÌ¼Ç
+				//wide ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½
 				$("#div_" + data).animate({
 					width : '1300px',
 					height : '670px',
@@ -524,18 +556,19 @@
 					width : '1300px',
 					height : '670px'
 				}, 300);
+				$("#div_" + data).css('zIndex', '10');	//ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½
 
-				//´Ý±â(x) ¹öÆ°
+				//ï¿½Ý±ï¿½(x) ï¿½ï¿½Æ°
 				var btn_x = $('<img />').attr('src', 'img/main/btn_x.png')
 						.addClass('btn_x');
 				btn_x.appendTo($("#div_" + data));
 
-				//´Ý±â(x)	 ¹öÆ°À» ´©¸£¸é Ã¢ÀÌ ¿ø»óÅÂ·Î µÇµ¹¾Æ°¡Áö¿ä
+				//ï¿½Ý±ï¿½(x)	 ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Â·ï¿½ ï¿½Çµï¿½ï¿½Æ°ï¿½ï¿½ï¿½ï¿½ï¿½
 				btn_x.click(function() {
 					$("#div_" + data).animate({
 						width : div_width,
 						height : div_height,
-						top : div_top,
+						top : div_top - 48,
 						left : div_left,
 						border : '1px rgb(191,221,67) solid'
 					}, 300);
@@ -547,7 +580,7 @@
 					$("#ifr_" + data).attr('src', div_url);
 
 					return true;
-				}); 
+				});
 			},
 			error : function(request, status, error) {
 				alert("code:" + request.status + "\n" + "message:"
@@ -557,18 +590,18 @@
 	}
 
 	function makeNewFrame() {
-		//URL¿¡¼­ ÆÄ¶ó¹ÌÅÍ¸¦ ¹Þ¾Æ¿Â´Ù
+		//URLï¿½ï¿½ï¿½ï¿½ ï¿½Ä¶ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Þ¾Æ¿Â´ï¿½
 		var width = getQueryVariable("width");
 		var height = getQueryVariable("height");
 		var url = getQueryVariable("url");
 		var dom_data = getQueryVariable("dom_data");
 
-		//¸¸¾à ÆÄ¶ó¹ÌÅÍÁß ÇÏ³ª¶óµµ ºñ¾îÀÖ´Ù¸é
+		//ï¿½ï¿½ï¿½ï¿½ ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´Ù¸ï¿½
 		if (width == '' || height == '' || url == '' || dom_data == '') {
 			return false;
 		}
 
-		//ÇÁ·¹ÀÓ »ý¼º width, heigth, url, dom_data, left, top , isNewFrame
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ width, heigth, url, dom_data, left, top , isNewFrame
 		if (makeFrame(width, height, url, dom_data, 0, 0, true))
 			return true;
 		return false;
@@ -594,7 +627,7 @@
 		return '';
 	}
 
-	//ÄÁÅ×ÀÌ³Ê ¾È¿¡ ÀÖ´Â ÄÁÅÙÃ÷µéÀÇ Æ÷Áö¼ÇÀ» ÀúÀåÇÔ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Ì³ï¿½ ï¿½È¿ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	function saveContentPosition(content) {
 		var content_json = {};
 		content_json["left"] = content.parent().position().left;
@@ -605,7 +638,7 @@
 		content_json["url"] = content.attr("url");
 
 		if (typeof content.attr("title") == "undefined") {
-			var title = prompt("ÄÁÅÙÃ÷ÀÇ Á¦¸ñÀ» ÀÔ·ÂÇÏ¼¼¿ä", "");
+			var title = prompt("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½", "");
 			if (title == null) {
 				return false;
 			}
@@ -652,7 +685,7 @@
 </script>
 
 <script>
-	//Ä«Å×°í¸® ºÒ·¯¿À´Âµ¥ ÇÊ¿äÇÑ°Íµé!
+	//Ä«ï¿½×°? ï¿½Ò·ï¿½ï¿½ï¿½ï¿½Âµï¿½ ï¿½Ê¿ï¿½ï¿½Ñ°Íµï¿½!
 	function getAllCategory() {
 		$
 				.ajax({
@@ -664,7 +697,7 @@
 							if (data.length == 3)
 								document.getElementById("category_add_btn").src = "img/left_slide/btn_hold-list.png";
 							for ( var i in data) {
-								//category »èÁ¦¿Í ¼öÁ¤ÇÏ´Âµ¥ ÇÊ¿äÇÑ ¾²·¡±âµé ¤Ð¤Ð¤Ð
+								//category ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´Âµï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¤Ð¤ï¿½
 								showCategory(data[i].title);
 								var j = Number(i) + 1;
 								var divID = String("category");
@@ -709,7 +742,7 @@
 </script>
 
 <script type="text/javascript">
-	//ÁÂÃø ½½¶óÀÌµå¿¡ ÇÊ¿äÇÑ script
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ìµå¿¡ ï¿½Ê¿ï¿½ï¿½ï¿½ script
 	var left_toggle_flag = true;
 	$(function() {
 		$("#button").click(function() {
@@ -733,7 +766,7 @@
 		});
 	});
 
-	//¿ìÃø ½½¶óÀÌµå ÇÊ¿äÇÑ script
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ script
 	var right_toggle_flag = true;
 	$(function() {
 		$("#bgbutton").click(function() {
@@ -761,7 +794,7 @@
 <script src="http://connect.facebook.net/en_US/all.js"
 	language="JavaScript" type="text/javascript"></script>
 <script>
-	//ÆäÀÌ½ººÏ ÃÊ±âÈ­
+	//ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 	window.fbAsyncInit = function() {
 		FB.init({
 			appId : '283897015123867',
@@ -783,7 +816,7 @@
 	}
 </script>
 <script type="text/javascript">
-	//¿À¸¥ÂÊ ¹è°æ º¯°æ¿¡ ÇÊ¿äÇÑ script
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½æ¿¡ ï¿½Ê¿ï¿½ï¿½ï¿½ script
 	$(function() {
 		$("#btn_skin1").click(function() {
 			//document.getElementById(
@@ -867,14 +900,14 @@
 	});
 	$(function() {
 		$("#btn_skin4").click(function() {
-			alert("±¸¸Å ÈÄ »ç¿ë °¡´ÉÇÕ´Ï´Ù!");
+			alert("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½!");
 		});
 	});
 </script>
 
 
 <script>
-	//¹è°æ¼³Á¤µÈ°Å È®ÀÎÈÄ ¿À¸¥ÂÊ »çÀÌµå¿¡¼­ Å¬¸¯µÈ ÀÌ¹ÌÁö º¯°æµÉ¶§ »ç¿ëÇÒ ½ºÅ©¸³Æ®
+	//ï¿½ï¿½æ¼³ï¿½ï¿½ï¿½È°ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµå¿¡ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½É¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®
 	$(window)
 			.load(
 					function() {
@@ -914,12 +947,12 @@
 </script>
 <script language="JavaScript">
 	function test(e) {
-		//Ä«Å×°í¸® ÀÌ¸§º¯°æÀ»  À§ÇÑ ÇÔ¼ö
+		//Ä«ï¿½×°? ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
 		var oldDiv = String("category" + e + "hidden_");
 		var newDiv = String("category" + e + "new");
 		var oldName = document.getElementById('' + oldDiv).value;
 
-		var newName = prompt("»õ·Î¿î Á¦¸ñÀ» ÀÔ·ÂÇÏ¼¼¿ä", "");
+		var newName = prompt("ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½", "");
 		if (newName == null) {
 			document.getElementById('' + newDiv).value = '' + oldName;
 		}
@@ -929,7 +962,7 @@
 </head>
 <body style="overflow-x: hidden; overflow-y: hidden">
 
-	<!-- »ó´Ü ¹Ù ºÎºÐ	 -->
+	<!-- ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Îºï¿½	 -->
 	<div id="bar">
 		<div align="center" style="margin-top: 7px;">
 			<img src="img/bg_barlogo.png" />
@@ -948,7 +981,7 @@
 	</div>
 
 
-	<!-- ÁÂÃø ½½¶óÀÌµå ºÎºÐ -->
+	<!-- ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Îºï¿½ -->
 	<div id="effect">
 		<div id="left_slide_content">
 			<div id="left_slide_real_content">
@@ -959,9 +992,9 @@
 				<br>
 				<div style="margin: 0 auto;">
 					<div style="margin-top: 15px">
-						<!-- ·Î±×ÀÎÇÑ ÇÁ·ÎÇÊ »çÁø-->
+						<!-- ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½-->
 						<fb:profile-pic uid="loggedinuser" size="square"></fb:profile-pic>
-						<!-- ·Î±×ÀÎÇÑ ÀÌ¸§ -->
+						<!-- ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ -->
 						<fb:name uid="loggedinuser" use-you="no"></fb:name>
 						<br>
 						<div id="status"></div>
@@ -982,7 +1015,7 @@
 								</tr>
 							</table>
 						</form>
-						<!-- Ä«Å×°í¸® ¸ñ·Ï -->
+						<!-- Ä«ï¿½×°? ï¿½ï¿½ï¿½ -->
 
 						<table style="padding: 0px; border-spacing: 0px;">
 							<tr>
@@ -1085,7 +1118,7 @@
 		</div>
 	</div>
 
-	<!-- ¿ìÃø ½½¶óÀÌµå ºÎºÐ -->
+	<!-- ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Îºï¿½ -->
 	<div id="effect2">
 		<div id="right_slide_content">
 			<div id="bg_select_slide">
@@ -1113,12 +1146,12 @@
 		</div>
 	</div>
 
-	<!-- bg´Â ¹è°æÈ­¸é Å×½ºÆ®¸¦À§ÇÑ divÀÓ.. ³ªÁß¿¡ contents_cont°¡ bg¾È¿¡ µé¾î°¡ÀÖ¾î¾ßÇÔ bg:1200x800, contents_cont:1100x700 -->
+	<!-- bgï¿½ï¿½ ï¿½ï¿½ï¿½È­ï¿½ï¿½ ï¿½×½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ divï¿½ï¿½.. ï¿½ï¿½ï¿½ß¿ï¿½ contents_contï¿½ï¿½ bgï¿½È¿ï¿½ ï¿½ï¿½î°¡ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ bg:1200x800, contents_cont:1100x700 -->
 	<div id="bg" align="center"
 		style="background: url(img/background/bg_<%=session.getAttribute("userBG")%>.png);">
 		<div id="contents_cont"></div>
 	</div>
-	<!-- contents_cont¿¡ ³»¿ëµéÀÌ º¸ÀÏ²¨°í, À§Ä¡ ¼öÁ¤ÇØÁà¾ßÇÔ..½ÃÀÛÀ§Ä¡°¡ ¹Ù ºÎºÐ ¹ØÀÏ¼ö ÀÖ°Ô -->
+	<!-- contents_contï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï²ï¿½ï¿½ï¿½, ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½..ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ ï¿½Îºï¿½ ï¿½ï¿½ï¿½Ï¼ï¿½ ï¿½Ö°ï¿½ -->
 
 </body>
 </html>
