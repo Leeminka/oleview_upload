@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR" session="true"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Oleview</title>
 <link rel="stylesheet"
 	href="css/ui-lightness/jquery-ui-1.10.4.custom.min.css">
@@ -38,18 +38,14 @@
 	width: 37px;
 	hegith: 36px;
 	left: 0px;
-	top: 36px;
-	position: absolute;
-	z-index: 15;
+	top: 0px;
 }
 
 .btn_save {
 	width: 37px;
 	hegith: 36px;
 	left: 36px;
-	top: 36px;
-	position: absolute;
-	z-index: 15;
+	top: 0px;
 }
 
 .handle_div {
@@ -75,7 +71,6 @@
 	z-index: 0;
 	border: none;
 	top: 0px;
-	background-color: rgb(255, 255, 255);
 }
 
 #contents_cont {
@@ -106,7 +101,6 @@
 
 .clip_div {
 	position: absolute;
-	z-index: 10;
 	top: -31px;
 	left: -1px;
 	height: 31px;
@@ -115,7 +109,6 @@
 
 .btn_setting {
 	position: absolute;
-	z-index: 10;
 	top: 0px;
 	left: 0px;
 	height: 31px;
@@ -124,7 +117,6 @@
 
 .btn_reflash {
 	position: absolute;
-	z-index: 10;
 	top: 0px;
 	right: 34px;
 	height: 31px;
@@ -133,7 +125,6 @@
 
 .btn_new {
 	position: absolute;
-	z-index: 10;
 	top: 0px;
 	right: -2px;
 	height: 31px;
@@ -147,12 +138,12 @@
 }
 
 #button {
-	/*버튼 이미지 사이즈 만큼*/
+	/*��ư �̹��� ������ ��ŭ*/
 	width: 37px;
 	height: 33px;
 	background: url(img/btn_slide.png);
 	text-indent: -9999px;
-	cursor: pointer; /*버튼위에 마우스 올리면 손가락 모양으로!*/
+	cursor: pointer; /*��ư���� ���콺 �ø��� �հ��� �������!*/
 	position: fixed;
 	top: 7px;
 	left: 2px;
@@ -251,7 +242,7 @@
 
 .btn_x {
 	position: absolute;
-	top: -4px;
+	top: -1px;
 	right: -37px;
 	height: 37px;
 	width: 37px;
@@ -269,10 +260,10 @@
 	var STATE = STATE_PLAIN;
 	var contents_list = [];
 	$(document).ready(function() {
-		//컨테이너 사이즈
+		//�����̳� ������
 		$('#contents_cont').width(window.innerWidth);
 		$('#contents_cont').height(window.innerHeight - 48);
-		//데이터베이스에서 모든 저장된 컨텐츠를 가져옴
+		//�����ͺ��̽����� ��� ����� �������� ������
 
 		//var search = String("search");
 		//if (categoryName != null) {
@@ -280,19 +271,19 @@
 		//}
 		getAllContents();
 
-		//데이터베이스에서 카테고리 이름을 가져옴
+		//�����ͺ��̽����� ī�װ? �̸��� ������
 		getAllCategory();
 
-		//편집 상태 (Select Page -> main 으로 Query와 함께 넘어옴) - serch
+		//���� ���� (Select Page -> main ���� Query�� �Բ� �Ѿ��) - serch
 		if (isAnyQuery())
 			if (makeNewFrame())
 				STATE = STATE_EDIT;
 
-		//평소 로그인 했을때의 상태 
+		//��� �α��� �������� ���� 
 		if (STATE == STATE_PLAIN) {
-			//카테고리 눌렀는지안눌렀는지까지 나눠야지!
+			//ī�װ? ���������ȴ����������� ��������!
 			document.getElementById("search").style.display = "block";
-			alert('메인페이지 환영');
+			alert('���������� ȯ��');
 		}
 
 		if (STATE == STATE_EDIT) {
@@ -301,7 +292,7 @@
 	});
 
 	function makeFrame(width, height, url, dom_data, left, top, isNewFrame) {
-		//새로운 DIV 생성
+		//���ο� DIV ��
 		var draggable_div = $('<div></div>').addClass("draggable_div");
 		draggable_div.width(width);
 		draggable_div.height(height);
@@ -309,7 +300,7 @@
 		draggable_div.css('left', left);
 		draggable_div.css('top', top);
 
-		//iframe 컨텐츠생성 나중에 사용하기 위해 속성으로 다 넣어버려
+		//iframe �������� ���߿� ����ϱ� ���� �Ӽ����� �� �־����
 		var content1 = $('<iframe></iframe>');
 		content1.width(width);
 		content1.height(height);
@@ -320,24 +311,24 @@
 		content1.attr('dom_data', dom_data);
 		content1.addClass('content');
 
-		//컨텐츠를 DIV에 붙임
+		//�������� DIV�� ����
 		content1.appendTo(draggable_div);
 
-		//0이면 remote_bar / 1이믄 clip_bar
+		//0�̸� remote_bar / 1�̹� clip_bar
 		var toggle_bar;
 
-		//리모콘 생성
+		//������ ��
 		var remote_div = $('<div></div>').addClass("remote_div");
 		var btn_delete = $('<img />').attr('src', 'img/main/btn_delete.png')
 				.addClass('btn_delete remote_btn');
 		var btn_save = $('<img />').attr('src', 'img/main/btn_save.png')
 				.addClass('btn_save remote_btn');
 
-		//각 생성된 버튼들을 remote_div에 붙임
+		//�� ��� ��ư���� remote_div�� ����
 		btn_delete.appendTo(remote_div);
 		btn_save.appendTo(remote_div);
 
-		//remote _save 이벤트 추가
+		//remote _save �̺�Ʈ �߰�
 		btn_save.click(function() {
 			handle_div.hide();
 			remote_div.hide();
@@ -346,14 +337,14 @@
 			//InsertDB		
 			if (isNewFrame) {
 				title = saveContentPosition(content1);
-				content1.attr('id', 'ifr_' + title); //iframe에 고유 id를 만들어죠
-				draggable_div.attr('id', "div_" + title); //div에 고유 id를 만들어죠
+				content1.attr('id', 'ifr_' + title); //iframe�� ���� id�� �������
+				draggable_div.attr('id', "div_" + title); //div�� ���� id�� �������
 			}
 			//SaveDB
 			else {
 				var para_top = content1.offset().top;
 				var para_left = content1.offset().left;
-				
+
 				$.ajax({
 					url : "/GetTitle",
 					type : "Get",
@@ -385,10 +376,10 @@
 			}
 
 		});
+		//delete �̺�Ʈ �߰�
 
-		//delete 이벤트 추가
 		btn_delete.click(function() {
-			var temp = confirm("지울꺼야?-3-");
+			var temp = confirm("���ﲨ��?-3-");
 			if (temp) {
 				remote_div.hide();
 				handle_div.hide();
@@ -423,19 +414,19 @@
 			}
 		});
 
-		//remote_div를 content에 붙임
+		//remote_div�� content�� ����
 		remote_div.appendTo(draggable_div);
 
-		//핸들 생성
+		//�ڵ� ��
 		var handle_div = $('<div></div>').addClass("handle_div");
 		handle_div.width(width);
 		handle_div.height(height);
 
-		//핸들에 들어가는 이미지 생성
+		//�ڵ鿡 ���� �̹��� ��
 		var handle_img = $('<img />').attr('src', 'img/main/handle_img.png')
 				.addClass("handle_img");
 
-		//핸들 이미지 사이즈 생성
+		//�ڵ� �̹��� ������ ��
 		if (width >= height) {
 			handle_img.width(height * 0.5);
 			handle_img.height(height * 0.5);
@@ -443,29 +434,25 @@
 			handle_img.width(width * 0.5);
 			handle_img.height(width * 0.5);
 		}
-		if (handle_img.width()>60)
-			handle_img.width(60);
-		if (handle_img.height()>60)
-			handle_img.height(60);
 
-		//핸들 위치 생성 가운데에 만듬
+		//�ڵ� ��ġ �� ����� ����
 		handle_img.css("top", (height * 0.5) - (handle_img.height() * 0.5));
 		handle_img.css("left", (width * 0.5) - (handle_img.width() * 0.5));
 
-		//핸들 DIV에 핸들 img 추가
+		//�ڵ� DIV�� �ڵ� img �߰�
 		handle_div.append(handle_img);
 
-		//핸들 DIV를 CONTENT에 추가
+		//�ڵ� DIV�� CONTENT�� �߰�
 		draggable_div.append(handle_div);
 
-		//드래그 가능
+		//�巡�� ����
 		draggable_div.draggable({
 			handle : handle_div,
 			containment : "#contents_cont",
 			scroll : false
 		});
 
-		//클립바 생성
+		//Ŭ���� ��
 		var clip_div = $('<div></div>').addClass("clip_div");
 		var btn_setting = $('<img />').attr('src',
 				'img/main/btn_clip-setting.png').addClass('btn_setting');
@@ -474,16 +461,17 @@
 		var btn_new = $('<img />').attr('src', 'img/main/btn_clip-new.png')
 				.addClass('btn_new');
 
-		//클립바 속성 설정
+		//Ŭ���� �Ӽ� ����
 		clip_div.width(width);
 
-		//클립바 어펜드어펜드
+		//Ŭ���� ���������
 		btn_setting.appendTo(clip_div);
 		btn_reflash.appendTo(clip_div);
 		btn_new.appendTo(clip_div);
 		clip_div.appendTo(draggable_div);
 
-		//클립바에서 setting 버튼을 누르면 리모컨이 나옵니다
+		//Ŭ���ٿ��� setting ��ư�� ������ �������� ���ɴϴ�
+
 		btn_setting.click(function() {
 			handle_div.show();
 			remote_div.show();
@@ -491,32 +479,13 @@
 			clip_div.hide();
 		});
 
-		//클립바에서 reflash 버튼을 누르면 새로고침이 됩니다
+		//Ŭ���ٿ��� reflash ��ư�� ������ ���ΰ�ħ�� �˴ϴ�
 		btn_reflash.click(function() {
-			/* $.ajax({
-				url : "/GetTitle",
-				type : "Get",
-				data : {
-					"para_data" : dom_data
-				},
-				success : function(data) {
-					alert(data);
-					document.getElementById("ifr_" + data).contentDocument.location.reload(true);
-				},
-				error : function(request, status, error) {
-					alert("code:" + request.status + "\n" + "message:"
-							+ request.responseText + "\n" + "error:"
-							+ error);
-				}
-			}); */
-			//document.getElementById('ifr_' + title).contentDocument.location.reload(true);
 			//content1.contentDocument.location.reload(true);
-			alert("나와라");
-			document.getElementById('ifr_비비').contentDocument.location.reload(true);
-			alert("쫌");
+			content1.location.refresh;
 		});
 
-		//클립바에서 new 버튼을 누르면 해당 프레임의 url로 새창을 엽니다
+		//Ŭ���ٿ��� new ��ư�� ������ �ش� �������� url�� ��â�� ���ϴ�
 		btn_new.click(function() {
 			if (url.toLowerCase().indexOf("http://") == -1) {
 				window.open("http://" + url);
@@ -524,26 +493,26 @@
 				window.open(url);
 		});
 
-		if (isNewFrame) { //새 프레임의 경우
+		if (isNewFrame) { //�� �������� ���
 			toggle_bar = 0;
 			clip_div.hide();
-		} else { //저장되어 있는 프레임의 경우
+		} else { //����Ǿ� �ִ� �������� ���
 			toggle_bar = 1;
 			handle_div.hide();
 			remote_div.hide();
 		}
 
-		//DIV를 contents 컨테이너에 붙임
-		//컨테이너는 한 화면을 넘어가지 않습니다 그래서 스크롤도 숨김니다
+		//DIV�� contents �����̳ʿ� ����
+		//�����̳ʴ� �� ȭ���� �Ѿ�� �ʽ��ϴ� �׷��� ��ũ�ѵ� ���ϴ�
 		draggable_div.appendTo($('#contents_cont'));
 
-		//iframe 위에 커서를 올리믄 바가 나와용 위에 없으면 바가 없어져용
+		//iframe ���� Ŀ���� �ø��� �ٰ� ���Ϳ� ���� ������ �ٰ� �������
 		$(this).mousemove(
 				function(event) {
 					var div_top = content1.offset().top;
 					var div_left = content1.offset().left;
-					var pointX = event.clientX + document.body.scrollLeft; //커서x좌표
-					var pointY = event.clientY + document.body.scrollTop; //커서y좌표
+					var pointX = event.clientX + document.body.scrollLeft; //Ŀ��x��ǥ
+					var pointY = event.clientY + document.body.scrollTop; //Ŀ��y��ǥ
 
 					if (toggle_bar == 1) {
 						if ((div_top - 31 < pointY) && (pointY < div_top)
@@ -559,9 +528,9 @@
 		return true;
 	}
 
-	//iframe 내에서 링크를 하믄 크기가 커져용 팝업팝업
+	//iframe ������ ��ũ�� �Ϲ� ũ�Ⱑ Ŀ���� �˾��˾�
 	function wide_frame(dom_data) {
-		//link한 iframe의 title을 가져왕
+		//link�� iframe�� title�� ������
 		$.ajax({
 			url : "/GetTitle",
 			type : "Get",
@@ -569,37 +538,33 @@
 				"para_data" : dom_data
 			},
 			success : function(data) {
-				//원본 position 저장
+				//�� position ����
 				var div_top = $("#ifr_" + data).offset().top;
 				var div_left = $("#ifr_" + data).offset().left;
 				var div_width = $("#ifr_" + data).width();
 				var div_height = $("#ifr_" + data).height();
 				var div_url = $("#ifr_" + data).attr('src');
 
-				//wide 애니메이션
+				//wide �ִϸ��̼�
 				$("#div_" + data).animate({
 					width : '1300px',
 					height : '670px',
 					top : '25px',
 					left : '150px',
+					border : '3px rgb(191,221,67) solid'
 				}, 300);
 				$("#ifr_" + data).animate({
 					width : '1300px',
 					height : '670px'
 				}, 300);
-				$("#div_" + data).css('border','3px rgb(191,221,67) solid');	//border bold
-				$("#div_" + data).css('zIndex', '20');	//맨앞으로
-				$("#ifr_" + data).attr('scrolling', 'yes'); //scroll on
+				$("#div_" + data).css('zIndex', '10'); //�Ǿ�����
 
-				//clip var 안나오게 
-
-				
-				//닫기(x) 버튼
+				//�ݱ�(x) ��ư
 				var btn_x = $('<img />').attr('src', 'img/main/btn_x.png')
 						.addClass('btn_x');
 				btn_x.appendTo($("#div_" + data));
 
-				//닫기(x)	 버튼을 누르면 창이 원상태로 되돌아가지요
+				//�ݱ�(x)	 ��ư�� ������ â�� ����·� �ǵ��ư�����
 				btn_x.click(function() {
 					$("#div_" + data).animate({
 						width : div_width,
@@ -614,8 +579,6 @@
 					}, 300);
 					btn_x.remove();
 					$("#ifr_" + data).attr('src', div_url);
-					$("#div_" + data).css('border','1px rgb(191,221,67) solid');	//border restore
-					$("#ifr_" + data).attr('scrolling', 'no'); //scroll off
 
 					return true;
 				});
@@ -628,18 +591,18 @@
 	}
 
 	function makeNewFrame() {
-		//URL에서 파라미터를 받아온다
+		//URL���� �Ķ���͸� �޾ƿ´�
 		var width = getQueryVariable("width");
 		var height = getQueryVariable("height");
 		var url = getQueryVariable("url");
 		var dom_data = getQueryVariable("dom_data");
 
-		//만약 파라미터중 하나라도 비어있다면
+		//���� �Ķ������ �ϳ��� ����ִٸ�
 		if (width == '' || height == '' || url == '' || dom_data == '') {
 			return false;
 		}
 
-		//프레임 생성 width, heigth, url, dom_data, left, top , isNewFrame
+		//������ �� width, heigth, url, dom_data, left, top , isNewFrame
 		if (makeFrame(width, height, url, dom_data, 0, 0, true))
 			return true;
 		return false;
@@ -665,7 +628,7 @@
 		return '';
 	}
 
-	//컨테이너 안에 있는 컨텐츠들의 포지션을 저장함
+	//�����̳� �ȿ� �ִ� ���������� �������� ������
 	function saveContentPosition(content) {
 		var content_json = {};
 		content_json["left"] = content.parent().position().left;
@@ -676,7 +639,7 @@
 		content_json["url"] = content.attr("url");
 
 		if (typeof content.attr("title") == "undefined") {
-			var title = prompt("컨텐츠의 제목을 입력하세요", "");
+			var title = prompt("�������� ������ �Է��ϼ���", "");
 			if (title == null) {
 				return false;
 			}
@@ -723,7 +686,7 @@
 </script>
 
 <script>
-	//카테고리 불러오는데 필요한것들!
+	//ī�װ? �ҷ����µ� �ʿ��Ѱ͵�!
 	function getAllCategory() {
 		$
 				.ajax({
@@ -735,7 +698,7 @@
 							if (data.length == 3)
 								document.getElementById("category_add_btn").src = "img/left_slide/btn_hold-list.png";
 							for ( var i in data) {
-								//category 삭제와 수정하는데 필요한 쓰래기들 ㅠㅠㅠ
+								//category ������ �����ϴµ� �ʿ��� ������� �ФФ�
 								showCategory(data[i].title);
 								var j = Number(i) + 1;
 								var divID = String("category");
@@ -780,7 +743,7 @@
 </script>
 
 <script type="text/javascript">
-	//좌측 슬라이드에 필요한 script
+	//���� �����̵忡 �ʿ��� script
 	var left_toggle_flag = true;
 	$(function() {
 		$("#button").click(function() {
@@ -804,7 +767,7 @@
 		});
 	});
 
-	//우측 슬라이드 필요한 script
+	//���� �����̵� �ʿ��� script
 	var right_toggle_flag = true;
 	$(function() {
 		$("#bgbutton").click(function() {
@@ -832,7 +795,7 @@
 <script src="http://connect.facebook.net/en_US/all.js"
 	language="JavaScript" type="text/javascript"></script>
 <script>
-	//페이스북 초기화
+	//���̽��� �ʱ�ȭ
 	window.fbAsyncInit = function() {
 		FB.init({
 			appId : '283897015123867',
@@ -854,7 +817,7 @@
 	}
 </script>
 <script type="text/javascript">
-	//오른쪽 배경 변경에 필요한 script
+	//������ ��� ���濡 �ʿ��� script
 	$(function() {
 		$("#btn_skin1").click(function() {
 			//document.getElementById(
@@ -938,14 +901,14 @@
 	});
 	$(function() {
 		$("#btn_skin4").click(function() {
-			alert("구매 후 사용 가능합니다!");
+			alert("���� �� ��� �����մϴ�!");
 		});
 	});
 </script>
 
 
 <script>
-	//배경설정된거 확인후 오른쪽 사이드에서 클릭된 이미지 변경될때 사용할 스크립트
+	//��漳���Ȱ� Ȯ���� ������ ���̵忡�� Ŭ���� �̹��� ����ɶ� ����� ��ũ��Ʈ
 	$(window)
 			.load(
 					function() {
@@ -985,12 +948,12 @@
 </script>
 <script language="JavaScript">
 	function test(e) {
-		//카테고리 이름변경을  위한 함수
+		//ī�װ? �̸�������  ���� �Լ�
 		var oldDiv = String("category" + e + "hidden_");
 		var newDiv = String("category" + e + "new");
 		var oldName = document.getElementById('' + oldDiv).value;
 
-		var newName = prompt("새로운 제목을 입력하세요", "");
+		var newName = prompt("���ο� ������ �Է��ϼ���", "");
 		if (newName == null) {
 			document.getElementById('' + newDiv).value = '' + oldName;
 		}
@@ -1000,7 +963,7 @@
 </head>
 <body style="overflow-x: hidden; overflow-y: hidden">
 
-	<!-- 상단 바 부분	 -->
+	<!-- ��� �� �κ�	 -->
 	<div id="bar">
 		<div align="center" style="margin-top: 7px;">
 			<img src="img/bg_barlogo.png" />
@@ -1019,7 +982,7 @@
 	</div>
 
 
-	<!-- 좌측 슬라이드 부분 -->
+	<!-- ���� �����̵� �κ� -->
 	<div id="effect">
 		<div id="left_slide_content">
 			<div id="left_slide_real_content">
@@ -1030,9 +993,9 @@
 				<br>
 				<div style="margin: 0 auto;">
 					<div style="margin-top: 15px">
-						<!-- 로그인한 프로필 사진-->
+						<!-- �α����� ������ ����-->
 						<fb:profile-pic uid="loggedinuser" size="square"></fb:profile-pic>
-						<!-- 로그인한 이름 -->
+						<!-- �α����� �̸� -->
 						<fb:name uid="loggedinuser" use-you="no"></fb:name>
 						<br>
 						<div id="status"></div>
@@ -1053,7 +1016,7 @@
 								</tr>
 							</table>
 						</form>
-						<!-- 카테고리 목록 -->
+						<!-- ī�װ? ��� -->
 
 						<table style="padding: 0px; border-spacing: 0px;">
 							<tr>
@@ -1156,7 +1119,7 @@
 		</div>
 	</div>
 
-	<!-- 우측 슬라이드 부분 -->
+	<!-- ���� �����̵� �κ� -->
 	<div id="effect2">
 		<div id="right_slide_content">
 			<div id="bg_select_slide">
@@ -1184,12 +1147,12 @@
 		</div>
 	</div>
 
-	<!-- bg는 배경화면 테스트를위한 div임.. 나중에 contents_cont가 bg안에 들어가있어야함 bg:1200x800, contents_cont:1100x700 -->
+	<!-- bg�� ���ȭ�� �׽�Ʈ������ div��.. ���߿� contents_cont�� bg�ȿ� ���־���� bg:1200x800, contents_cont:1100x700 -->
 	<div id="bg" align="center"
 		style="background: url(img/background/bg_<%=session.getAttribute("userBG")%>.png);">
 		<div id="contents_cont"></div>
 	</div>
-	<!-- contents_cont에 내용들이 보일꺼고, 위치 수정해줘야함..시작위치가 바 부분 밑일수 있게 -->
+	<!-- contents_cont�� ������� ���ϲ���, ��ġ �����������..������ġ�� �� �κ� ���ϼ� �ְ� -->
 
 </body>
 </html>
