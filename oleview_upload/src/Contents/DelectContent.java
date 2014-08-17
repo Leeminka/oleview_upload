@@ -39,13 +39,12 @@ public class DelectContent extends HttpServlet {
 		// TODO Auto-generated method stub
 		try {
 			String para_data = request.getParameter("para_data");
-			System.out.println("para = " + para_data);
+			
 			Connection conn = null;
 			PreparedStatement stmt = null;
 			String driverName = "com.mysql.jdbc.Driver";
 			Class.forName(driverName);	
 			String sql = "delete from contents where title=\"" + para_data + "\""; 
-			System.out.println("sql = " + sql);
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/leeminka2", "leeminka2", "oleview1");
 			
 			stmt = (PreparedStatement) conn.prepareStatement(sql);

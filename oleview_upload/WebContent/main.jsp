@@ -344,7 +344,7 @@
 			else {
 				var para_top = content1.offset().top;
 				var para_left = content1.offset().left;
-				
+
 				$.ajax({
 					url : "/GetTitle",
 					type : "Get",
@@ -376,8 +376,8 @@
 			}
 
 		});
-
 		//delete �̺�Ʈ �߰�
+
 		btn_delete.click(function() {
 			var temp = confirm("���ﲨ��?-3-");
 			if (temp) {
@@ -471,6 +471,7 @@
 		clip_div.appendTo(draggable_div);
 
 		//Ŭ���ٿ��� setting ��ư�� ������ �������� ���ɴϴ�
+
 		btn_setting.click(function() {
 			handle_div.show();
 			remote_div.show();
@@ -556,7 +557,7 @@
 					width : '1300px',
 					height : '670px'
 				}, 300);
-				$("#div_" + data).css('zIndex', '10');	//�Ǿ�����
+				$("#div_" + data).css('zIndex', '10'); //�Ǿ�����
 
 				//�ݱ�(x) ��ư
 				var btn_x = $('<img />').attr('src', 'img/main/btn_x.png')
