@@ -17,6 +17,7 @@
 		//카테고리 갯수확인
 		String cnt_sql = "select count(*) from my_category where ID="
 				+ userIDString;
+		out.println("sql :: " + cnt_sql);
 		pstmt = conn.prepareStatement(cnt_sql);
 		rs = pstmt.executeQuery();
 		int rowcount = 0;
@@ -34,6 +35,7 @@
 			String categoryID = request.getParameter("input_category");
 			String insert_sql = "insert into my_category values('"
 					+ userIDString + "', '" + categoryID + "')";
+			out.println("sql :: " + insert_sql);
 			pstmt = conn.prepareStatement(insert_sql);
 			pstmt.executeUpdate();
 			//int userID= request.getParameter(arg0); 
@@ -57,8 +59,5 @@
 				conn.close();
 			} catch (SQLException sqle) {
 			} // Connection 해제
-		%>
-		<script>location.href="main.jsp";</script>
-		<%
 	}
 %>

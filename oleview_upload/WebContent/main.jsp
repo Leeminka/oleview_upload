@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="EUC-KR" session="true"%>
+	pageEncoding="utf-8" session="true"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -79,12 +79,12 @@
 }
 
 #contents_cont {
-	top:50%;
-	left:50%;
-	margin:-350px 0 0 -550px;
+	top: 50%;
+	left: 50%;
+	margin: -350px 0 0 -550px;
 	position: absolute;
-	width:1100px;
-	height:700px;
+	width: 1100px;
+	height: 700px;
 }
 
 .container_button {
@@ -246,11 +246,11 @@
 }
 
 #bg {
-	position:absolute;
-	text-align:center;
-	left:50%;
-	top:50%;
-	margin:-400px auto 0 -600px;
+	position: absolute;
+	text-align: center;
+	left: 50%;
+	top: 50%;
+	margin: -400px auto 0 -600px;
 	width: 1200px;
 	height: 800px;
 	background: url(img/background/bg_1.png)
@@ -263,6 +263,24 @@
 	height: 37px;
 	width: 37px;
 	z-index: 10;
+}
+
+.fb_link {
+	color: rgb(131, 166, 30);
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.fb_link:active {
+	color: rgb(131, 166, 30);
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.fb_link:visited {
+	color: rgb(131, 166, 30);
+	text-decoration: none;
+	font-weight: bold;
 }
 </style>
 <script src="scripts/jquery-1.11.0.min.js"></script>
@@ -360,7 +378,7 @@
 			else {
 				var para_top = content1.offset().top;
 				var para_left = content1.offset().left;
-				
+
 				$.ajax({
 					url : "/GetTitle",
 					type : "Get",
@@ -450,9 +468,9 @@
 			handle_img.width(width * 0.5);
 			handle_img.height(width * 0.5);
 		}
-		if (handle_img.width()>60)
+		if (handle_img.width() > 60)
 			handle_img.width(60);
-		if (handle_img.height()>60)
+		if (handle_img.height() > 60)
 			handle_img.height(60);
 
 		//핸들 위치 생성 가운데에 만듬
@@ -519,7 +537,8 @@
 			//document.getElementById('ifr_' + title).contentDocument.location.reload(true);
 			//content1.contentDocument.location.reload(true);
 			alert("나와라");
-			document.getElementById('ifr_비비').contentDocument.location.reload(true);
+			document.getElementById('ifr_비비').contentDocument.location
+					.reload(true);
 			alert("쫌");
 		});
 
@@ -594,13 +613,12 @@
 					width : '1300px',
 					height : '670px'
 				}, 300);
-				$("#div_" + data).css('border','3px rgb(191,221,67) solid');	//border bold
-				$("#div_" + data).css('zIndex', '20');	//맨앞으로
+				$("#div_" + data).css('border', '3px rgb(191,221,67) solid'); //border bold
+				$("#div_" + data).css('zIndex', '20'); //맨앞으로
 				$("#ifr_" + data).attr('scrolling', 'yes'); //scroll on
 
 				//clip var 안나오게 
 
-				
 				//닫기(x) 버튼
 				var btn_x = $('<img />').attr('src', 'img/main/btn_x.png')
 						.addClass('btn_x');
@@ -621,7 +639,8 @@
 					}, 300);
 					btn_x.remove();
 					$("#ifr_" + data).attr('src', div_url);
-					$("#div_" + data).css('border','1px rgb(191,221,67) solid');	//border restore
+					$("#div_" + data)
+							.css('border', '1px rgb(191,221,67) solid'); //border restore
 					$("#ifr_" + data).attr('scrolling', 'no'); //scroll off
 
 					return true;
@@ -740,9 +759,7 @@
 				.done(
 						function(data) {
 							if (data.length == 3)
-								document.getElementById("category_add_btn").src = 
-
-"img/left_slide/btn_hold-list.png";
+								document.getElementById("category_add_btn").src = "img/left_slide/btn_hold-list.png";
 							for ( var i in data) {
 								//category 삭제와 수정하는데 필요한 쓰래기들 ㅠㅠㅠ
 								showCategory(data[i].title);
@@ -768,9 +785,9 @@
 								var deletebtn = String("category_");
 								deletebtn += j;
 								deletebtn += "_delete_btn";
-								document.getElementById('' + deletebtn).style.display = 
+								document.getElementById('' + deletebtn).style.display =
 
-"block";
+								"block";
 
 								var editbtn = String("category_");
 								editbtn += j;
@@ -856,6 +873,11 @@
 			document.addCategoryForm.user_id.value = fb_user_id;
 			document.getElementById('userID').innerHTML = '' + fb_user_id;
 		});
+		/* FB.api('/me/picture?type=larger', function(response) {
+			document.getElementById("profile").innerHTML += "<img src=" + response+ "><br>";
+			docuemnt.getElementById("profile").style.backgroundImage = response;
+			//document.getElementById("profile").value = response;
+		}); */
 	};
 	function fb_logout() {
 		FB.logout(function(response) {
@@ -897,7 +919,7 @@
 							document.getElementById("btn_skin1").src = "img/background/btn_skin1_c.png";
 							document.getElementById("btn_skin2").src = "img/background/btn_skin2.png";
 							document.getElementById("btn_skin3").src = "img/background/btn_skin3.png";
-							document.body.style.backgroundColor="rgb(247,254,219)";
+							document.body.style.backgroundColor = "rgb(247,254,219)";
 							//document.getElementById("bgNumber").innerHTML = "1";
 							document.change_bg_Form.bgNumber.value = 1;
 							//pf.getElementById('count').innerHTML="1";
@@ -914,7 +936,7 @@
 							document.getElementById("btn_skin2").src = "img/background/btn_skin2_c.png";
 							document.getElementById("btn_skin3").src = "img/background/btn_skin3.png";
 							document.change_bg_Form.bgNumber.value = 2;
-							document.body.style.backgroundColor="rgb(237,254,247)";
+							document.body.style.backgroundColor = "rgb(237,254,247)";
 
 							//pf.getElementById('count').innerHTML="2";
 						});
@@ -930,7 +952,7 @@
 							document.getElementById("btn_skin2").src = "img/background/btn_skin2.png";
 							document.getElementById("btn_skin3").src = "img/background/btn_skin3_c.png";
 							document.change_bg_Form.bgNumber.value = 3;
-							document.body.style.backgroundColor="rgb(255,246,247)";
+							document.body.style.backgroundColor = "rgb(255,246,247)";
 							//document.getElementById("bgNumber").innerHTML = "3";
 							//pf.getElementById('count').innerHTML="3";
 						});
@@ -946,7 +968,7 @@
 							document.getElementById("btn_skin2").src = "img/background/btn_skin2.png";
 							document.getElementById("btn_skin3").src = "img/background/btn_skin3.png";
 							document.change_bg_Form.bgNumber.value = 0;
-							document.body.style.backgroundColor="rgb(255,255,255)";
+							document.body.style.backgroundColor = "rgb(255,255,255)";
 							//document.getElementById("bgNumber").innerHTML = "0";
 							//pf.getElementById('count').innerHTML="0";
 						});
@@ -964,7 +986,9 @@
 	$(window)
 			.load(
 					function() {
-						var backgroundNumber =<%=(String) session.getAttribute("userBG")%>;
+						var backgroundNumber =
+<%=(String) session.getAttribute("userBG")%>
+	;
 
 						//document.getElementById("btn_skin1").src = "img/background/btn_skin1_c.png";
 						switch (backgroundNumber) {
@@ -973,31 +997,38 @@
 							document.getElementById("btn_skin1").src = "img/background/btn_skin1.png";
 							document.getElementById("btn_skin2").src = "img/background/btn_skin2.png";
 							document.getElementById("btn_skin3").src = "img/background/btn_skin3.png";
-							document.body.style.backgroundColor="rgb(255,255,255)";
+							document.body.style.backgroundColor = "rgb(255,255,255)";
 							break;
 						case 1:
 							document.getElementById("btn_skin0").src = "img/background/btn_no-skin.png";
 							document.getElementById("btn_skin1").src = "img/background/btn_skin1_c.png";
 							document.getElementById("btn_skin2").src = "img/background/btn_skin2.png";
 							document.getElementById("btn_skin3").src = "img/background/btn_skin3.png";
-							document.body.style.backgroundColor="rgb(247,254,219)";
+							document.body.style.backgroundColor = "rgb(247,254,219)";
 							break;
 						case 2:
 							document.getElementById("btn_skin0").src = "img/background/btn_no-skin.png";
 							document.getElementById("btn_skin1").src = "img/background/btn_skin1.png";
 							document.getElementById("btn_skin2").src = "img/background/btn_skin2_c.png";
 							document.getElementById("btn_skin3").src = "img/background/btn_skin3.png";
-							document.body.style.backgroundColor="rgb(237,254,247)";
+							document.body.style.backgroundColor = "rgb(237,254,247)";
 							break;
 						case 3:
 							document.getElementById("btn_skin0").src = "img/background/btn_no-skin.png";
 							document.getElementById("btn_skin1").src = "img/background/btn_skin1.png";
 							document.getElementById("btn_skin2").src = "img/background/btn_skin2.png";
 							document.getElementById("btn_skin3").src = "img/background/btn_skin3_c.png";
-							document.body.style.backgroundColor="rgb(255,246,247)";
+							document.body.style.backgroundColor = "rgb(255,246,247)";
 							break;
 						}
-
+						//프로필 이미지 가져올것들..
+						var profileURL = String("https://graph.facebook.com/");
+						profileURL +=
+<%=(String) session.getAttribute("userID")%>
+	;
+						profileURL += "/picture";
+						document.getElementById("profile").src = ""
+								+ profileURL;
 					});
 </script>
 <script language="JavaScript">
@@ -1013,6 +1044,9 @@
 		}
 		document.getElementById('' + newDiv).value = '' + newName;
 	}
+</script>
+<script>
+	
 </script>
 </head>
 <body style="overflow-x: hidden; overflow-y: hidden">
@@ -1046,11 +1080,20 @@
 				</div>
 				<br>
 				<div style="margin: 0 auto;">
-					<div style="margin-top: 15px">
-						<!-- 로그인한 프로필 사진-->
-						<fb:profile-pic uid="loggedinuser" size="square"></fb:profile-pic>
-						<!-- 로그인한 이름 -->
-						<fb:name uid="loggedinuser" use-you="no"></fb:name>
+					<div >
+						<table cellspacing="10" style="padding-left:20px;">
+							<tr>
+								<td>
+									<!-- 로그인한 프로필 사진--> <img id="profile"
+									style="height: 3em; width: 3em; border-radius: 1.5em; -webkit-border-radius: 1.5em; -moz-border-radius: 1.5em; text-align: center; line-height: 3em; border: 3px solid rgb(167, 204, 18);">
+									</img>
+								</td>
+								<td>
+									<!-- 로그인한 이름 --> <fb:name uid="loggedinuser" use-you="no"></fb:name>
+								</td>
+							</tr>
+						</table>
+
 						<br>
 						<div id="status"></div>
 						<form method="post" action="add_category.jsp"
