@@ -55,7 +55,7 @@ public class SaveContent extends HttpServlet {
 			response.setCharacterEncoding("utf-8");
 			response.getWriter().print("success");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+			// TODO Auto-geynerated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
