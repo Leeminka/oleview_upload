@@ -293,38 +293,40 @@
 	STATE_EDIT = 1;
 	var STATE = STATE_PLAIN;
 	var contents_list = [];
-	$(document).ready(function() {
-		//컨테이너 사이즈
-		//$('#contents_cont').width(window.innerWidth);
-		//$('#contents_cont').height(window.innerHeight - 48);
-		//데이터베이스에서 모든 저장된 컨텐츠를 가져옴
+	$(document)
+			.ready(
+					function() {
+						//컨테이너 사이즈
+						//$('#contents_cont').width(window.innerWidth);
+						//$('#contents_cont').height(window.innerHeight - 48);
+						//데이터베이스에서 모든 저장된 컨텐츠를 가져옴
 
-		//var search = String("search");
-		//if (categoryName != null) {
-		//	document.getElementById('' + search).style.display = "block";
-		//}
-		getAllContents();
+						//var search = String("search");
+						//if (categoryName != null) {
+						//	document.getElementById('' + search).style.display = "block";
+						//}
+						getAllContents();
 
-		//데이터베이스에서 카테고리 이름을 가져옴
-		getAllCategory();
+						//데이터베이스에서 카테고리 이름을 가져옴
+						getAllCategory();
 
-		//편집 상태 (Select Page -> main 으로 Query와 함께 넘어옴) - serch
-		if (isAnyQuery())
-			if (makeNewFrame())
-				STATE = STATE_EDIT;
+						//편집 상태 (Select Page -> main 으로 Query와 함께 넘어옴) - serch
+						if (isAnyQuery())
+							if (makeNewFrame())
+								STATE = STATE_EDIT;
 
-		//평소 로그인 했을때의 상태 
-		if (STATE == STATE_PLAIN) {
-			//카테고리 눌렀는지안눌렀는지까지 나눠야지!
-			document.getElementById("search").style.display = "block";
+						//평소 로그인 했을때의 상태 
+						if (STATE == STATE_PLAIN) {
+							//카테고리 눌렀는지안눌렀는지까지 나눠야지!
+							document.getElementById("search").style.display = "block";
+							
+							alert('메인페이지 환영');
+						}
 
-			alert('메인페이지 환영');
-		}
+						if (STATE == STATE_EDIT) {
 
-		if (STATE == STATE_EDIT) {
-
-		}
-	});
+						}
+					});
 
 	function makeFrame(width, height, url, dom_data, left, top, isNewFrame) {
 		//새로운 DIV 생성
@@ -377,8 +379,8 @@
 			}
 			//SaveDB
 			else {
-				var para_top = content1.offset().top;
-				var para_left = content1.offset().left;
+				var para_top = content1.parent().position().top;
+				var para_left = content1.parent().position().left;
 
 				$.ajax({
 					url : "/GetTitle",
@@ -392,7 +394,7 @@
 							type : "Get",
 							data : {
 								"para_data" : data,
-								"para_top" : para_top - 48,
+								"para_top" : para_top,
 								"para_left" : para_left,
 							},
 							error : function(request, status, error) {
@@ -519,28 +521,8 @@
 
 		//클립바에서 reflash 버튼을 누르면 새로고침이 됩니다
 		btn_reflash.click(function() {
-			/* $.ajax({
-				url : "/GetTitle",
-				type : "Get",
-				data : {
-					"para_data" : dom_data
-				},
-				success : function(data) {
-					alert(data);
-					document.getElementById("ifr_" + data).contentDocument.location.reload(true);
-				},
-				error : function(request, status, error) {
-					alert("code:" + request.status + "\n" + "message:"
-							+ request.responseText + "\n" + "error:"
-							+ error);
-				}
-			}); */
-			//document.getElementById('ifr_' + title).contentDocument.location.reload(true);
-			//content1.contentDocument.location.reload(true);
-			alert("나와라");
-			document.getElementById('ifr_비비').contentDocument.location
-					.reload(true);
-			alert("쫌");
+			
+			window.location.reload();
 		});
 
 		//클립바에서 new 버튼을 누르면 해당 프레임의 url로 새창을 엽니다
@@ -597,8 +579,8 @@
 			},
 			success : function(data) {
 				//원본 position 저장
-				var div_top = $("#ifr_" + data).offset().top;
-				var div_left = $("#ifr_" + data).offset().left;
+				var div_top =  $("#ifr_" + data).parent().position().top;
+				var div_left =  $("#ifr_" + data).parent().position().left;
 				var div_width = $("#ifr_" + data).width();
 				var div_height = $("#ifr_" + data).height();
 				var div_url = $("#ifr_" + data).attr('src');
@@ -608,7 +590,7 @@
 					width : '1300px',
 					height : '670px',
 					top : '25px',
-					left : '150px',
+					left : '-100px',
 				}, 300);
 				$("#ifr_" + data).animate({
 					width : '1300px',
@@ -630,7 +612,7 @@
 					$("#div_" + data).animate({
 						width : div_width,
 						height : div_height,
-						top : div_top - 48,
+						top : div_top,
 						left : div_left,
 						border : '1px rgb(191,221,67) solid'
 					}, 300);
@@ -640,8 +622,7 @@
 					}, 300);
 					btn_x.remove();
 					$("#ifr_" + data).attr('src', div_url);
-					$("#div_" + data)
-							.css('border', '1px rgb(191,221,67) solid'); //border restore
+					$("#div_" + data).css('border', '1px rgb(191,221,67) solid'); //border restore
 					$("#ifr_" + data).attr('scrolling', 'no'); //scroll off
 
 					return true;
@@ -869,39 +850,17 @@
 			cookie : true,
 			xfbml : true
 		});
-		FB.getLoginStatus();
-		//FB.login(function(response) {
-		//	fb_user_id = response.authResponse.userID; //get FB UID
-		//	document.addCategoryForm.user_id.value = fb_user_id;
-		//	document.getElementById('userID').innerHTML = '' + fb_user_id;
-		//});
+		FB.login(function(response) {
+			fb_user_id = response.authResponse.userID; //get FB UID
+			document.addCategoryForm.user_id.value = fb_user_id;
+			document.getElementById('userID').innerHTML = '' + fb_user_id;
+		});
 		/* FB.api('/me/picture?type=larger', function(response) {
 			document.getElementById("profile").innerHTML += "<img src=" + response+ "><br>";
 			docuemnt.getElementById("profile").style.backgroundImage = response;
 			//document.getElementById("profile").value = response;
 		}); */
 	};
-	function statusChangeCallback(response) {
-		console.log('statusChangeCallback');
-		console.log(response);
-		// The response object is returned with a status field that lets the
-		// app know the current login status of the person.
-		// Full docs on the response object can be found in the documentation
-		// for FB.getLoginStatus().
-		if (response.status === 'connected') {
-			// Logged into your app and Facebook.
-			fb_user_id = response.authResponse.userID; //get FB UID
-			document.addCategoryForm.user_id.value = fb_user_id;
-			document.getElementById('userID').innerHTML = '' + fb_user_id;
-		} else if (response.status === 'not_authorized') {
-			// The person is logged into Facebook, but not your app.
-			FB.login();
-		} else {
-			// The person is not logged into Facebook, so we're not sure if
-			// they are logged into this app or not.
-			FB.login();
-		}
-	}
 	function fb_logout() {
 		FB.logout(function(response) {
 			window.alert('byebye!');
