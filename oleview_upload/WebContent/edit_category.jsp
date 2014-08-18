@@ -6,6 +6,7 @@
 	PreparedStatement pstmt = null;
 	PreparedStatement stmt = null;
 	ResultSet rs = null;
+	request.setCharacterEncoding("UTF-8");
 
 	try {
 		String url = "jdbc:mysql://localhost:3306/leeminka2"; // 사용하려는 데이터베이스명을 포함한 URL 기술
@@ -27,9 +28,11 @@
 		String update_sql = "update my_category set title='" + newName
 				+ "' where ID=" + ID + " and title='" + categoryName
 				+ "'";
-		String update_content_sql = "update contents set categoryName='" +newName
-				+ "' where user_id=" + ID + " and categoryName='" + categoryName
-				+ "'";
+		String update_content_sql = "update contents set categoryName='"
+				+ newName
+				+ "' where user_id="
+				+ ID
+				+ " and categoryName='" + categoryName + "'";
 		pstmt = conn.prepareStatement(update_sql);
 		stmt = conn.prepareStatement(update_content_sql);
 		pstmt.executeUpdate();
@@ -41,8 +44,10 @@
 		pstmt.close();
 		stmt.close();
 		conn.close();
-	%>
-	<script>location.href="main.jsp"</script>
-	<%
+%>
+<script>
+	location.href = "main.jsp"
+</script>
+<%
 	}
 %>

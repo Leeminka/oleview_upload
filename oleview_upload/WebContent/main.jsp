@@ -986,6 +986,8 @@
 
 <script>
 	//배경설정된거 확인후 오른쪽 사이드에서 클릭된 이미지 변경될때 사용할 스크립트
+	
+	
 	$(window)
 			.load(
 					function() {
@@ -1049,10 +1051,6 @@
 		document.getElementById('' + newDiv).value = '' + newName;
 	}
 </script>
-<script>
- var cateTEST = <%= session.getAttribute("categoryName")%>
- document.getElementById(''+ testSM).innerHTML = '' + 
-</script>
 </head>
 <body style="overflow-x: hidden; overflow-y: hidden">
 
@@ -1098,7 +1096,6 @@
 								</td>
 							</tr>
 						</table>
-						<div id="testSM"></div>
 						<br>
 						<div id="status"></div>
 						<form method="post" action="add_category.jsp"

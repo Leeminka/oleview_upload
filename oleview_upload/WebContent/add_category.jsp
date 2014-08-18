@@ -5,7 +5,8 @@
 	Connection conn = null; // null로 초기화 한다.
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
-
+	request.setCharacterEncoding("UTF-8");
+	
 	try {
 		String url = "jdbc:mysql://localhost:3306/leeminka2"; // 사용하려는 데이터베이스명을 포함한 URL 기술
 		String id = "leeminka2"; // 사용자 계정
@@ -17,7 +18,7 @@
 		//카테고리 갯수확인
 		String cnt_sql = "select count(*) from my_category where ID="
 				+ userIDString;
-		out.println("sql :: " + cnt_sql);
+		//out.println("sql :: " + cnt_sql);
 		pstmt = conn.prepareStatement(cnt_sql);
 		rs = pstmt.executeQuery();
 		int rowcount = 0;
@@ -35,7 +36,7 @@
 			String categoryID = request.getParameter("input_category");
 			String insert_sql = "insert into my_category values('"
 					+ userIDString + "', '" + categoryID + "')";
-			out.println("sql :: " + insert_sql);
+			//out.println("sql :: " + insert_sql);
 			pstmt = conn.prepareStatement(insert_sql);
 			pstmt.executeUpdate();
 			//int userID= request.getParameter(arg0); 
