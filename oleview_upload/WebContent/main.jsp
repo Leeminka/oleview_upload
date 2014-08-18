@@ -175,7 +175,7 @@
 }
 
 #effect {
-	width: 500px;
+	width: 600px;
 	height: 135px;
 	position: fixed;
 	left: -250px;
@@ -194,7 +194,7 @@
 
 #left_slide_content {
 	width: 243px;
-	height: 2000px;
+	height: 793px;
 	float: left;
 	font: 18px/1.6 NanumBrushWeb;
 	background: url(img/bg_slide.png);
@@ -1029,6 +1029,12 @@
 						profileURL += "/picture";
 						document.getElementById("profile").src = ""
 								+ profileURL;
+
+						var categoryID =
+<%=(String) session.getAttribute("categoryName")%>
+	;
+						alert("현재 카태고리 = " + categoryID);
+						;
 					});
 </script>
 <script language="JavaScript">
@@ -1044,9 +1050,6 @@
 		}
 		document.getElementById('' + newDiv).value = '' + newName;
 	}
-</script>
-<script>
-	
 </script>
 </head>
 <body style="overflow-x: hidden; overflow-y: hidden">
@@ -1080,8 +1083,8 @@
 				</div>
 				<br>
 				<div style="margin: 0 auto;">
-					<div >
-						<table cellspacing="10" style="padding-left:20px;">
+					<div>
+						<table cellspacing="10" style="padding-left: 20px;">
 							<tr>
 								<td>
 									<!-- 로그인한 프로필 사진--> <img id="profile"
@@ -1115,7 +1118,7 @@
 						</form>
 						<!-- 카테고리 목록 -->
 
-						<table style="padding: 0px; border-spacing: 0px;">
+						<table style="padding: 2px; border-spacing: 2px;">
 							<tr>
 								<td>
 									<form action="delete_category.jsp" method="post"
@@ -1126,11 +1129,12 @@
 											style="display: none;" />
 									</form>
 								</td>
-								<td>
+								<td width="200px" align="center">
 									<form action="SetCategory.jsp" method="post">
 										<input type="hidden" name="categoryName"
 											id="category1hidden__" /> <input type="submit"
-											id="category1" style="display: none;" />
+											id="category1"
+											style="display: none; background-color: rgba(255, 255, 255, 0.0); font-weight: bold; text-align: center; border: 0px; color: rgb(131, 166, 30);" />
 									</form>
 								</td>
 
@@ -1156,11 +1160,11 @@
 											style="display: none;">
 									</form>
 								</td>
-								<td>
+								<td align="center">
 									<form action="SetCategory.jsp" method="post">
 										<input type="hidden" name="categoryName"
 											id="category2hidden__" /><input type="submit" id="category2"
-											style="display: none;" />
+											style="display: none; background-color: rgba(255, 255, 255, 0.0); font-weight: bold; text-align: center; border: 0px; color: rgb(131, 166, 30);" />
 									</form>
 
 								</td>
@@ -1185,11 +1189,12 @@
 											style="display: none;">
 									</form>
 								</td>
-								<td>
+								<td align="center">
 									<form action="SetCategory.jsp" method="post">
 										<input type="hidden" name="categoryName"
 											id="category3hidden__" /> <input type="submit"
-											id="category3" style="display: none;" />
+											id="category3"
+											style="display: none; background-color: rgba(255, 255, 255, 0.0); font-weight: bold; text-align: center; border: 0px; color: rgb(131, 166, 30);" />
 									</form>
 								</td>
 
