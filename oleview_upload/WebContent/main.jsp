@@ -282,6 +282,13 @@
 	text-decoration: none;
 	font-weight: bold;
 }
+
+#make_icon {
+	position: absolute;
+	top: 7px;
+	left: 500px;
+	z-index: 1;
+}
 </style>
 <script src="scripts/jquery-1.11.0.min.js"></script>
 <script src="scripts/jquery-ui-1.10.4.custom.min.js"></script>
@@ -326,7 +333,8 @@
 		}
 	});
 
-	function makeFrame(width, height, url, dom_data, left, top, isNewFrame) {
+	function makeFrame(width, height, url, dom_data, title, left, top,
+			isNewFrame) {
 		//새로운 DIV 생성
 		var draggable_div = $('<div></div>').addClass("draggable_div");
 		draggable_div.width(width);
@@ -335,14 +343,27 @@
 		draggable_div.css('left', left);
 		draggable_div.css('top', top);
 
-		//iframe 컨텐츠생성 나중에 사용하기 위해 속성으로 다 넣어버려
-		var content1 = $('<iframe></iframe>');
+		var content1;
+		if (dom_data != null) {
+			//iframe 컨텐츠생성 나중에 사용하기 위해 속성으로 다 넣어버려
+			content1 = $('<iframe></iframe>');
+			content1.attr('src', '/GetPage?url=' + encodeURIComponent(url)
+					+ '&dom_data=' + encodeURIComponent(dom_data));
+			content1.attr('scrolling', 'no');
+		} else {
+			content1 = $('<div></div>').css('background','yellow').css('cursor','pointer');
+			
+			var title_val = $('<p></p>').text(title);
+			content1.append(title_val);
+			
+			content1.click(function(){
+				window.open("http://"+url);
+			});
+		}
 		content1.width(width);
 		content1.height(height);
-		content1.attr('src', '/GetPage?url=' + encodeURIComponent(url)
-				+ '&dom_data=' + encodeURIComponent(dom_data));
-		content1.attr('scrolling', 'no');
 		content1.attr('url', url);
+		content1.attr('title', title);
 		content1.attr('dom_data', dom_data);
 		content1.addClass('content');
 
@@ -363,6 +384,10 @@
 		btn_delete.appendTo(remote_div);
 		btn_save.appendTo(remote_div);
 
+		//컨텐츠와 div에 id 만듬
+		content1.attr('id', 'ifr_' + title); //iframe에 고유 id를 만들어죠
+		draggable_div.attr('id', "div_" + title); //div에 고유 id를 만들어죠
+
 		//remote _save 이벤트 추가
 		btn_save.click(function() {
 			handle_div.hide();
@@ -371,9 +396,7 @@
 
 			//InsertDB		
 			if (isNewFrame) {
-				title = saveContentPosition(content1);
-				content1.attr('id', 'ifr_' + title); //iframe에 고유 id를 만들어죠
-				draggable_div.attr('id', "div_" + title); //div에 고유 id를 만들어죠
+				saveContentPosition(content1);
 			}
 			//SaveDB
 			else {
@@ -381,26 +404,12 @@
 				var para_left = content1.offset().left;
 
 				$.ajax({
-					url : "/GetTitle",
+					url : "/SaveContent",
 					type : "Get",
 					data : {
-						"para_data" : dom_data
-					},
-					success : function(data) {
-						$.ajax({
-							url : "/SaveContent",
-							type : "Get",
-							data : {
-								"para_data" : data,
-								"para_top" : para_top - 48,
-								"para_left" : para_left,
-							},
-							error : function(request, status, error) {
-								alert("code:" + request.status + "\n"
-										+ "message:" + request.responseText
-										+ "\n" + "error:" + error);
-							}
-						});
+						"para_data" : title,
+						"para_top" : para_top - 48,
+						"para_left" : para_left,
 					},
 					error : function(request, status, error) {
 						alert("code:" + request.status + "\n" + "message:"
@@ -408,6 +417,7 @@
 								+ error);
 					}
 				});
+
 			}
 
 		});
@@ -421,24 +431,10 @@
 				draggable_div.hide();
 
 				$.ajax({
-					url : "/GetTitle",
+					url : "/DelectContent",
 					type : "Get",
 					data : {
-						"para_data" : dom_data
-					},
-					success : function(data) {
-						$.ajax({
-							url : "/DelectContent",
-							type : "Get",
-							data : {
-								"para_data" : data
-							},
-							error : function(request, status, error) {
-								alert("code:" + request.status + "\n"
-										+ "message:" + request.responseText
-										+ "\n" + "error:" + error);
-							}
-						});
+						"para_data" : title
 					},
 					error : function(request, status, error) {
 						alert("code:" + request.status + "\n" + "message:"
@@ -505,8 +501,11 @@
 
 		//클립바 어펜드어펜드
 		btn_setting.appendTo(clip_div);
-		btn_reflash.appendTo(clip_div);
-		btn_new.appendTo(clip_div);
+
+		if (dom_data != null) {
+			btn_reflash.appendTo(clip_div);
+			btn_new.appendTo(clip_div);
+		}
 		clip_div.appendTo(draggable_div);
 
 		//클립바에서 setting 버튼을 누르면 리모컨이 나옵니다
@@ -654,6 +653,18 @@
 		});
 	}
 
+	function makeNewIcon() {
+		var url = $('#input_url').val();
+		var title = prompt("컨텐츠의 제목을 입력하세요", "");
+		if (title == null) {
+			return false;
+		}
+		if (makeFrame(180, 110, url, null, title, 0, 0, true))
+			return true;
+
+		return false;
+	}
+
 	function makeNewFrame() {
 		//URL에서 파라미터를 받아온다
 		var width = getQueryVariable("width");
@@ -665,9 +676,12 @@
 		if (width == '' || height == '' || url == '' || dom_data == '') {
 			return false;
 		}
-
+		var title = prompt("컨텐츠의 제목을 입력하세요", "");
+		if (title == null) {
+			return false;
+		}
 		//프레임 생성 width, heigth, url, dom_data, left, top , isNewFrame
-		if (makeFrame(width, height, url, dom_data, 0, 0, true))
+		if (makeFrame(width, height, url, dom_data, title, 0, 0, true))
 			return true;
 		return false;
 	}
@@ -701,16 +715,7 @@
 		content_json["height"] = content.height();
 		content_json["dom_data"] = content.attr("dom_data");
 		content_json["url"] = content.attr("url");
-
-		if (typeof content.attr("title") == "undefined") {
-			var title = prompt("컨텐츠의 제목을 입력하세요", "");
-			if (title == null) {
-				return false;
-			}
-			content_json["title"] = title;
-		} else {
-			content_json["title"] = content.attr("title");
-		}
+		content_json["title"] = content.attr("title");
 
 		$.ajax({
 			url : "/InsertContent",
@@ -728,7 +733,6 @@
 			alert(JSON.stringify(error));
 			return false;
 		});
-		return title;
 	}
 	function getAllContents() {
 		$.ajax({
@@ -738,8 +742,8 @@
 				function(data) {
 					for ( var i in data) {
 						makeFrame(data[i].width, data[i].height, data[i].url,
-								data[i].dom_data, data[i].left, data[i].top,
-								false);
+								data[i].dom_data, data[i].title, data[i].left,
+								data[i].top, false);
 					}
 				}).fail(function(error) {
 			alert("main get Contents ajax error");
@@ -1088,6 +1092,9 @@
 	<div id="search_icon">
 		<input type="image" src="img/btn_search.png" name="submit"
 			align="absmiddle" border="0">
+	</div>
+	<div id="make_icon">
+		<button onclick="makeNewIcon(); return false;">아이콘만들기</button>
 	</div>
 
 
