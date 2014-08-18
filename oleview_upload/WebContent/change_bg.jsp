@@ -20,7 +20,7 @@
 		String update_bg_sql = "update user set background = "
 		+ bgNumber + " where id = " + ID;
 		
-		out.println("sql :: " + update_bg_sql);
+		//out.println("sql :: " + update_bg_sql);
 		stmt = conn.prepareStatement(update_bg_sql);
 		stmt.executeUpdate();
 	} catch (Exception e) {

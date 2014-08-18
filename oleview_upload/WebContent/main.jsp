@@ -325,7 +325,7 @@
 			//카테고리 눌렀는지안눌렀는지까지 나눠야지!
 			document.getElementById("search").style.display = "block";
 
-			alert('메인페이지 환영');
+			//alert('메인페이지 환영');
 		}
 
 		if (STATE == STATE_EDIT) {
@@ -397,11 +397,12 @@
 			//InsertDB		
 			if (isNewFrame) {
 				saveContentPosition(content1);
+				//window.location.reload();
 			}
 			//SaveDB
 			else {
-				var para_top = content1.offset().top;
-				var para_left = content1.offset().left;
+				var para_top = content1.parent().position().top;
+				var para_left = content1.parent().position().left;
 
 				$.ajax({
 					url : "/SaveContent",
@@ -518,28 +519,7 @@
 
 		//클립바에서 reflash 버튼을 누르면 새로고침이 됩니다
 		btn_reflash.click(function() {
-			/* $.ajax({
-				url : "/GetTitle",
-				type : "Get",
-				data : {
-					"para_data" : dom_data
-				},
-				success : function(data) {
-					alert(data);
-					document.getElementById("ifr_" + data).contentDocument.location.reload(true);
-				},
-				error : function(request, status, error) {
-					alert("code:" + request.status + "\n" + "message:"
-							+ request.responseText + "\n" + "error:"
-							+ error);
-				}
-			}); */
-			//document.getElementById('ifr_' + title).contentDocument.location.reload(true);
-			//content1.contentDocument.location.reload(true);
-			alert("나와라");
-			document.getElementById('ifr_비비').contentDocument.location
-					.reload(true);
-			alert("쫌");
+			window.location.reload();
 		});
 
 		//클립바에서 new 버튼을 누르면 해당 프레임의 url로 새창을 엽니다
@@ -596,8 +576,8 @@
 			},
 			success : function(data) {
 				//원본 position 저장
-				var div_top = $("#ifr_" + data).offset().top;
-				var div_left = $("#ifr_" + data).offset().left;
+				var div_top = $("#ifr_" + data).parent().position().top;
+				var div_left = $("#ifr_" + data).parent().position().left;
 				var div_width = $("#ifr_" + data).width();
 				var div_height = $("#ifr_" + data).height();
 				var div_url = $("#ifr_" + data).attr('src');
@@ -607,7 +587,7 @@
 					width : '1300px',
 					height : '670px',
 					top : '25px',
-					left : '150px',
+					left : '-100px',
 				}, 300);
 				$("#ifr_" + data).animate({
 					width : '1300px',
@@ -629,7 +609,7 @@
 					$("#div_" + data).animate({
 						width : div_width,
 						height : div_height,
-						top : div_top - 48,
+						top : div_top,
 						left : div_left,
 						border : '1px rgb(191,221,67) solid'
 					}, 300);
@@ -989,7 +969,7 @@
 				.click(
 						function() {
 							//var pf = parent.opener.document;
-							document.getElementById("bg").style.backgroundImage = "url()";
+							document.getElementById("bg").style.backgroundImage = "url(img/background/bg_0.png)";
 							document.getElementById("btn_skin0").src = "img/background/btn_no-skin_c.png";
 							document.getElementById("btn_skin1").src = "img/background/btn_skin1.png";
 							document.getElementById("btn_skin2").src = "img/background/btn_skin2.png";
@@ -1010,6 +990,8 @@
 
 <script>
 	//배경설정된거 확인후 오른쪽 사이드에서 클릭된 이미지 변경될때 사용할 스크립트
+	
+	
 	$(window)
 			.load(
 					function() {
@@ -1121,7 +1103,6 @@
 								</td>
 							</tr>
 						</table>
-
 						<br>
 						<div id="status"></div>
 						<form method="post" action="add_category.jsp"
