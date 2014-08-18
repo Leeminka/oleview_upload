@@ -293,37 +293,40 @@
 	STATE_EDIT = 1;
 	var STATE = STATE_PLAIN;
 	var contents_list = [];
-	$(document).ready(function() {
-		//컨테이너 사이즈
-		//$('#contents_cont').width(window.innerWidth);
-		//$('#contents_cont').height(window.innerHeight - 48);
-		//데이터베이스에서 모든 저장된 컨텐츠를 가져옴
+	$(document)
+			.ready(
+					function() {
+						//컨테이너 사이즈
+						//$('#contents_cont').width(window.innerWidth);
+						//$('#contents_cont').height(window.innerHeight - 48);
+						//데이터베이스에서 모든 저장된 컨텐츠를 가져옴
 
-		//var search = String("search");
-		//if (categoryName != null) {
-		//	document.getElementById('' + search).style.display = "block";
-		//}
-		getAllContents();
+						//var search = String("search");
+						//if (categoryName != null) {
+						//	document.getElementById('' + search).style.display = "block";
+						//}
+						getAllContents();
 
-		//데이터베이스에서 카테고리 이름을 가져옴
-		getAllCategory();
+						//데이터베이스에서 카테고리 이름을 가져옴
+						getAllCategory();
 
-		//편집 상태 (Select Page -> main 으로 Query와 함께 넘어옴) - serch
-		if (isAnyQuery())
-			if (makeNewFrame())
-				STATE = STATE_EDIT;
+						//편집 상태 (Select Page -> main 으로 Query와 함께 넘어옴) - serch
+						if (isAnyQuery())
+							if (makeNewFrame())
+								STATE = STATE_EDIT;
 
-		//평소 로그인 했을때의 상태 
-		if (STATE == STATE_PLAIN) {
-			//카테고리 눌렀는지안눌렀는지까지 나눠야지!
-			document.getElementById("search").style.display = "block";
-			alert('메인페이지 환영');
-		}
+						//평소 로그인 했을때의 상태 
+						if (STATE == STATE_PLAIN) {
+							//카테고리 눌렀는지안눌렀는지까지 나눠야지!
+							document.getElementById("search").style.display = "block";
+							
+							alert('메인페이지 환영');
+						}
 
-		if (STATE == STATE_EDIT) {
+						if (STATE == STATE_EDIT) {
 
-		}
-	});
+						}
+					});
 
 	function makeFrame(width, height, url, dom_data, left, top, isNewFrame) {
 		//새로운 DIV 생성
@@ -1030,11 +1033,6 @@
 						document.getElementById("profile").src = ""
 								+ profileURL;
 
-						var categoryID =
-<%=(String) session.getAttribute("categoryName")%>
-	;
-						alert("현재 카태고리 = " + categoryID);
-						;
 					});
 </script>
 <script language="JavaScript">
