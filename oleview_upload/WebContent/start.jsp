@@ -23,12 +23,13 @@ div.backLayer {
 div#tutorialDiv {
 	background: url(img/tutorial/tutorial1.png);
 	display: none;
-	position: fix;
-	top: 0px;
-	left: 0px;
-	width: 1600px;
-	height: 842px;
-	width: 1600px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 1200px;
+	height:800px;
+	margin-top:-400px;
+	margin-left:-600px;
 }
 </style>
 
@@ -109,6 +110,7 @@ div#tutorialDiv {
 		var tutorialDiv = $("#tutorialDiv");
 		//tutorialDiv.css("top", $(document).height() / 2 - 150);
 		//tutorialDiv.css("left", $(document).width() / 2 - 150);
+		
 		tutorialDiv.fadeIn(500);
 		console.log("ม๘วเม฿2");
 		console.log("useridhear! = " + userID);
@@ -214,9 +216,9 @@ div#tutorialDiv {
 <body>
 	<div class="start_bg">
 		<img src="img/bg_1st-bg2.png"
-			style="position: absolute; left: 0px; top: 0px" /><img
-			src="img/btn_start.png" border="0" alt=""
-			style="position: absolute; left: 700px; top: 560px"
+			style="position: absolute; left: 0px; top: 0px" width="100%;"
+			height="auto;" /><img src="img/btn_start.png" border="0"
+			style="position: absolute; left: 44%; top:; margin-top: 35%;"
 			onclick="fb_login();">
 	</div>
 
@@ -227,7 +229,7 @@ div#tutorialDiv {
 			src="img/tutorial/btn_before.png" id="btn_before"
 			style="position: absolute; top: 400px; left: 20px;" /> <img
 			src="img/tutorial/btn_next.png" id="btn_next"
-			style="position: absolute; top: 400px; left: 1500px;" />
+			style="position: relative; top: 400px; padding-left:95%;" />
 
 	</div>
 
