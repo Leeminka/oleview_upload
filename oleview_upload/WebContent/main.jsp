@@ -175,7 +175,7 @@
 }
 
 #effect {
-	width: 500px;
+	width: 600px;
 	height: 135px;
 	position: fixed;
 	left: -250px;
@@ -194,7 +194,7 @@
 
 #left_slide_content {
 	width: 243px;
-	height: 2000px;
+	height: 793px;
 	float: left;
 	font: 18px/1.6 NanumBrushWeb;
 	background: url(img/bg_slide.png);
@@ -293,37 +293,40 @@
 	STATE_EDIT = 1;
 	var STATE = STATE_PLAIN;
 	var contents_list = [];
-	$(document).ready(function() {
-		//컨테이너 사이즈
-		//$('#contents_cont').width(window.innerWidth);
-		//$('#contents_cont').height(window.innerHeight - 48);
-		//데이터베이스에서 모든 저장된 컨텐츠를 가져옴
+	$(document)
+			.ready(
+					function() {
+						//컨테이너 사이즈
+						//$('#contents_cont').width(window.innerWidth);
+						//$('#contents_cont').height(window.innerHeight - 48);
+						//데이터베이스에서 모든 저장된 컨텐츠를 가져옴
 
-		//var search = String("search");
-		//if (categoryName != null) {
-		//	document.getElementById('' + search).style.display = "block";
-		//}
-		getAllContents();
+						//var search = String("search");
+						//if (categoryName != null) {
+						//	document.getElementById('' + search).style.display = "block";
+						//}
+						getAllContents();
 
-		//데이터베이스에서 카테고리 이름을 가져옴
-		getAllCategory();
+						//데이터베이스에서 카테고리 이름을 가져옴
+						getAllCategory();
 
-		//편집 상태 (Select Page -> main 으로 Query와 함께 넘어옴) - serch
-		if (isAnyQuery())
-			if (makeNewFrame())
-				STATE = STATE_EDIT;
+						//편집 상태 (Select Page -> main 으로 Query와 함께 넘어옴) - serch
+						if (isAnyQuery())
+							if (makeNewFrame())
+								STATE = STATE_EDIT;
 
-		//평소 로그인 했을때의 상태 
-		if (STATE == STATE_PLAIN) {
-			//카테고리 눌렀는지안눌렀는지까지 나눠야지!
-			document.getElementById("search").style.display = "block";
-			alert('메인페이지 환영');
-		}
+						//평소 로그인 했을때의 상태 
+						if (STATE == STATE_PLAIN) {
+							//카테고리 눌렀는지안눌렀는지까지 나눠야지!
+							document.getElementById("search").style.display = "block";
+							
+							alert('메인페이지 환영');
+						}
 
-		if (STATE == STATE_EDIT) {
+						if (STATE == STATE_EDIT) {
 
-		}
-	});
+						}
+					});
 
 	function makeFrame(width, height, url, dom_data, left, top, isNewFrame) {
 		//새로운 DIV 생성
@@ -1029,6 +1032,7 @@
 						profileURL += "/picture";
 						document.getElementById("profile").src = ""
 								+ profileURL;
+
 					});
 </script>
 <script language="JavaScript">
@@ -1044,9 +1048,6 @@
 		}
 		document.getElementById('' + newDiv).value = '' + newName;
 	}
-</script>
-<script>
-	
 </script>
 </head>
 <body style="overflow-x: hidden; overflow-y: hidden">
@@ -1080,8 +1081,8 @@
 				</div>
 				<br>
 				<div style="margin: 0 auto;">
-					<div >
-						<table cellspacing="10" style="padding-left:20px;">
+					<div>
+						<table cellspacing="10" style="padding-left: 20px;">
 							<tr>
 								<td>
 									<!-- 로그인한 프로필 사진--> <img id="profile"
@@ -1115,7 +1116,7 @@
 						</form>
 						<!-- 카테고리 목록 -->
 
-						<table style="padding: 0px; border-spacing: 0px;">
+						<table style="padding: 2px; border-spacing: 2px;">
 							<tr>
 								<td>
 									<form action="delete_category.jsp" method="post"
@@ -1126,11 +1127,12 @@
 											style="display: none;" />
 									</form>
 								</td>
-								<td>
+								<td width="200px" align="center">
 									<form action="SetCategory.jsp" method="post">
 										<input type="hidden" name="categoryName"
 											id="category1hidden__" /> <input type="submit"
-											id="category1" style="display: none;" />
+											id="category1"
+											style="display: none; background-color: rgba(255, 255, 255, 0.0); font-weight: bold; text-align: center; border: 0px; color: rgb(131, 166, 30);" />
 									</form>
 								</td>
 
@@ -1156,11 +1158,11 @@
 											style="display: none;">
 									</form>
 								</td>
-								<td>
+								<td align="center">
 									<form action="SetCategory.jsp" method="post">
 										<input type="hidden" name="categoryName"
 											id="category2hidden__" /><input type="submit" id="category2"
-											style="display: none;" />
+											style="display: none; background-color: rgba(255, 255, 255, 0.0); font-weight: bold; text-align: center; border: 0px; color: rgb(131, 166, 30);" />
 									</form>
 
 								</td>
@@ -1185,11 +1187,12 @@
 											style="display: none;">
 									</form>
 								</td>
-								<td>
+								<td align="center">
 									<form action="SetCategory.jsp" method="post">
 										<input type="hidden" name="categoryName"
 											id="category3hidden__" /> <input type="submit"
-											id="category3" style="display: none;" />
+											id="category3"
+											style="display: none; background-color: rgba(255, 255, 255, 0.0); font-weight: bold; text-align: center; border: 0px; color: rgb(131, 166, 30);" />
 									</form>
 								</td>
 
