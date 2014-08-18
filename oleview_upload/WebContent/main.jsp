@@ -318,7 +318,7 @@
 			//카테고리 눌렀는지안눌렀는지까지 나눠야지!
 			document.getElementById("search").style.display = "block";
 
-			alert('메인페이지 환영');
+			//alert('메인페이지 환영');
 		}
 
 		if (STATE == STATE_EDIT) {
@@ -1069,6 +1069,10 @@
 		document.getElementById('' + newDiv).value = '' + newName;
 	}
 </script>
+<script>
+ var cateTEST = <%= session.getAttribute("categoryName")%>
+ document.getElementById(''+ testSM).innerHTML = '' + 
+</script>
 </head>
 <body style="overflow-x: hidden; overflow-y: hidden">
 
@@ -1114,7 +1118,7 @@
 								</td>
 							</tr>
 						</table>
-
+						<div id="testSM"></div>
 						<br>
 						<div id="status"></div>
 						<form method="post" action="add_category.jsp"
