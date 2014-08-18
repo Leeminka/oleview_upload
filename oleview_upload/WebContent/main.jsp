@@ -175,8 +175,8 @@
 	width: 500px;
 	height: 135px;
 	position: fixed;
-	right: -200px;
-	top: 48px;
+	right: 0%;
+	top: -700px;
 	z-index: 1;
 }
 
@@ -773,7 +773,7 @@
 		$("#bgbutton").click(function() {
 			if (right_toggle_flag) {
 				$("#effect2").animate({
-					right : 0
+					top : 0
 				}, 500);
 				$("#bgbutton").css({
 					"background" : "url(img/background/btn_select-bgskin.png)"
@@ -781,7 +781,7 @@
 				right_toggle_flag = false;
 			} else {
 				$("#effect2").animate({
-					right : '-200px'
+					top : '-700px'
 				}, 500);
 				$("#bgbutton").css({
 					"background" : "url(img/background/btn_bgskin.png)"
@@ -849,6 +849,7 @@
 							document.getElementById("btn_skin1").src = "img/background/btn_skin1_c.png";
 							document.getElementById("btn_skin2").src = "img/background/btn_skin2.png";
 							document.getElementById("btn_skin3").src = "img/background/btn_skin3.png";
+							document.body.style.backgroundColor="rgb(247,254,219)";
 							//document.getElementById("bgNumber").innerHTML = "1";
 							document.change_bg_Form.bgNumber.value = 1;
 							//pf.getElementById('count').innerHTML="1";
@@ -865,6 +866,7 @@
 							document.getElementById("btn_skin2").src = "img/background/btn_skin2_c.png";
 							document.getElementById("btn_skin3").src = "img/background/btn_skin3.png";
 							document.change_bg_Form.bgNumber.value = 2;
+							document.body.style.backgroundColor="rgb(237,254,247)";
 
 							//pf.getElementById('count').innerHTML="2";
 						});
@@ -880,6 +882,7 @@
 							document.getElementById("btn_skin2").src = "img/background/btn_skin2.png";
 							document.getElementById("btn_skin3").src = "img/background/btn_skin3_c.png";
 							document.change_bg_Form.bgNumber.value = 3;
+							document.body.style.backgroundColor="rgb(255,246,247)";
 							//document.getElementById("bgNumber").innerHTML = "3";
 							//pf.getElementById('count').innerHTML="3";
 						});
@@ -895,6 +898,7 @@
 							document.getElementById("btn_skin2").src = "img/background/btn_skin2.png";
 							document.getElementById("btn_skin3").src = "img/background/btn_skin3.png";
 							document.change_bg_Form.bgNumber.value = 0;
+							document.body.style.backgroundColor="rgb(255,255,255)";
 							//document.getElementById("bgNumber").innerHTML = "0";
 							//pf.getElementById('count').innerHTML="0";
 						});
@@ -923,24 +927,28 @@
 							document.getElementById("btn_skin1").src = "img/background/btn_skin1.png";
 							document.getElementById("btn_skin2").src = "img/background/btn_skin2.png";
 							document.getElementById("btn_skin3").src = "img/background/btn_skin3.png";
+							document.body.style.backgroundColor="rgb(255,255,255)";
 							break;
 						case 1:
 							document.getElementById("btn_skin0").src = "img/background/btn_no-skin.png";
 							document.getElementById("btn_skin1").src = "img/background/btn_skin1_c.png";
 							document.getElementById("btn_skin2").src = "img/background/btn_skin2.png";
 							document.getElementById("btn_skin3").src = "img/background/btn_skin3.png";
+							document.body.style.backgroundColor="rgb(247,254,219)";
 							break;
 						case 2:
 							document.getElementById("btn_skin0").src = "img/background/btn_no-skin.png";
 							document.getElementById("btn_skin1").src = "img/background/btn_skin1.png";
 							document.getElementById("btn_skin2").src = "img/background/btn_skin2_c.png";
 							document.getElementById("btn_skin3").src = "img/background/btn_skin3.png";
+							document.body.style.backgroundColor="rgb(237,254,247)";
 							break;
 						case 3:
 							document.getElementById("btn_skin0").src = "img/background/btn_no-skin.png";
 							document.getElementById("btn_skin1").src = "img/background/btn_skin1.png";
 							document.getElementById("btn_skin2").src = "img/background/btn_skin2.png";
 							document.getElementById("btn_skin3").src = "img/background/btn_skin3_c.png";
+							document.body.style.backgroundColor="rgb(255,246,247)";
 							break;
 						}
 
