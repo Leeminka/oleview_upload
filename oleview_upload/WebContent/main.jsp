@@ -293,40 +293,38 @@
 	STATE_EDIT = 1;
 	var STATE = STATE_PLAIN;
 	var contents_list = [];
-	$(document)
-			.ready(
-					function() {
-						//컨테이너 사이즈
-						//$('#contents_cont').width(window.innerWidth);
-						//$('#contents_cont').height(window.innerHeight - 48);
-						//데이터베이스에서 모든 저장된 컨텐츠를 가져옴
+	$(document).ready(function() {
+		//컨테이너 사이즈
+		//$('#contents_cont').width(window.innerWidth);
+		//$('#contents_cont').height(window.innerHeight - 48);
+		//데이터베이스에서 모든 저장된 컨텐츠를 가져옴
 
-						//var search = String("search");
-						//if (categoryName != null) {
-						//	document.getElementById('' + search).style.display = "block";
-						//}
-						getAllContents();
+		//var search = String("search");
+		//if (categoryName != null) {
+		//	document.getElementById('' + search).style.display = "block";
+		//}
+		getAllContents();
 
-						//데이터베이스에서 카테고리 이름을 가져옴
-						getAllCategory();
+		//데이터베이스에서 카테고리 이름을 가져옴
+		getAllCategory();
 
-						//편집 상태 (Select Page -> main 으로 Query와 함께 넘어옴) - serch
-						if (isAnyQuery())
-							if (makeNewFrame())
-								STATE = STATE_EDIT;
+		//편집 상태 (Select Page -> main 으로 Query와 함께 넘어옴) - serch
+		if (isAnyQuery())
+			if (makeNewFrame())
+				STATE = STATE_EDIT;
 
-						//평소 로그인 했을때의 상태 
-						if (STATE == STATE_PLAIN) {
-							//카테고리 눌렀는지안눌렀는지까지 나눠야지!
-							document.getElementById("search").style.display = "block";
-							
-							alert('메인페이지 환영');
-						}
+		//평소 로그인 했을때의 상태 
+		if (STATE == STATE_PLAIN) {
+			//카테고리 눌렀는지안눌렀는지까지 나눠야지!
+			document.getElementById("search").style.display = "block";
 
-						if (STATE == STATE_EDIT) {
+			alert('메인페이지 환영');
+		}
 
-						}
-					});
+		if (STATE == STATE_EDIT) {
+
+		}
+	});
 
 	function makeFrame(width, height, url, dom_data, left, top, isNewFrame) {
 		//새로운 DIV 생성
@@ -871,17 +869,39 @@
 			cookie : true,
 			xfbml : true
 		});
-		FB.login(function(response) {
-			fb_user_id = response.authResponse.userID; //get FB UID
-			document.addCategoryForm.user_id.value = fb_user_id;
-			document.getElementById('userID').innerHTML = '' + fb_user_id;
-		});
+		FB.getLoginStatus();
+		//FB.login(function(response) {
+		//	fb_user_id = response.authResponse.userID; //get FB UID
+		//	document.addCategoryForm.user_id.value = fb_user_id;
+		//	document.getElementById('userID').innerHTML = '' + fb_user_id;
+		//});
 		/* FB.api('/me/picture?type=larger', function(response) {
 			document.getElementById("profile").innerHTML += "<img src=" + response+ "><br>";
 			docuemnt.getElementById("profile").style.backgroundImage = response;
 			//document.getElementById("profile").value = response;
 		}); */
 	};
+	function statusChangeCallback(response) {
+		console.log('statusChangeCallback');
+		console.log(response);
+		// The response object is returned with a status field that lets the
+		// app know the current login status of the person.
+		// Full docs on the response object can be found in the documentation
+		// for FB.getLoginStatus().
+		if (response.status === 'connected') {
+			// Logged into your app and Facebook.
+			fb_user_id = response.authResponse.userID; //get FB UID
+			document.addCategoryForm.user_id.value = fb_user_id;
+			document.getElementById('userID').innerHTML = '' + fb_user_id;
+		} else if (response.status === 'not_authorized') {
+			// The person is logged into Facebook, but not your app.
+			FB.login();
+		} else {
+			// The person is not logged into Facebook, so we're not sure if
+			// they are logged into this app or not.
+			FB.login();
+		}
+	}
 	function fb_logout() {
 		FB.logout(function(response) {
 			window.alert('byebye!');
