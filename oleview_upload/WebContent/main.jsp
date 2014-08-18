@@ -79,9 +79,12 @@
 }
 
 #contents_cont {
+	top:50%;
+	left:50%;
+	margin:-350px 0 0 -550px;
 	position: absolute;
-	top: 48px;
-	left: 0px;
+	width:1100px;
+	height:700px;
 }
 
 .container_button {
@@ -161,8 +164,8 @@
 
 #bgbutton {
 	float: right;
-	width: 37px;
-	height: 33px;
+	width: 35px;
+	height: 36px;
 	background: url(img/background/btn_bgskin.png);
 	text-indent: -9999px;
 	cursor: pointer;
@@ -201,9 +204,9 @@
 
 #right_slide_content {
 	width: 93px;
-	height: 793px;
+	height: 550px;
 	float: right;
-	background: url(img/background/bg_bgskin.png);
+	background: transparent;
 	z-index: 1;
 	margin: auto;
 }
@@ -243,7 +246,11 @@
 }
 
 #bg {
-	top: 40px;
+	position:absolute;
+	text-align:center;
+	left:50%;
+	top:50%;
+	margin:-400px auto 0 -600px;
 	width: 1200px;
 	height: 800px;
 	background: url(img/background/bg_1.png)
@@ -270,8 +277,8 @@
 	var contents_list = [];
 	$(document).ready(function() {
 		//컨테이너 사이즈
-		$('#contents_cont').width(window.innerWidth);
-		$('#contents_cont').height(window.innerHeight - 48);
+		//$('#contents_cont').width(window.innerWidth);
+		//$('#contents_cont').height(window.innerHeight - 48);
 		//데이터베이스에서 모든 저장된 컨텐츠를 가져옴
 
 		//var search = String("search");
@@ -814,10 +821,10 @@
 		$("#bgbutton").click(function() {
 			if (right_toggle_flag) {
 				$("#effect2").animate({
-					top : 0
+					top : '48px'
 				}, 500);
 				$("#bgbutton").css({
-					"background" : "url(img/background/btn_select-bgskin.png)"
+					"background" : "url(img/background/btn_bgskin.png)"
 				});
 				right_toggle_flag = false;
 			} else {
