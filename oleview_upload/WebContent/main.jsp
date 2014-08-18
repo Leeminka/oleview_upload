@@ -965,7 +965,7 @@
 				.click(
 						function() {
 							//var pf = parent.opener.document;
-							document.getElementById("bg").style.backgroundImage = "url()";
+							document.getElementById("bg").style.backgroundImage = "url(img/background/bg_0.png)";
 							document.getElementById("btn_skin0").src = "img/background/btn_no-skin_c.png";
 							document.getElementById("btn_skin1").src = "img/background/btn_skin1.png";
 							document.getElementById("btn_skin2").src = "img/background/btn_skin2.png";
