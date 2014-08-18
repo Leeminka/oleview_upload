@@ -374,11 +374,12 @@
 				title = saveContentPosition(content1);
 				content1.attr('id', 'ifr_' + title); //iframe에 고유 id를 만들어죠
 				draggable_div.attr('id', "div_" + title); //div에 고유 id를 만들어죠
+				//window.location.reload();
 			}
 			//SaveDB
 			else {
-				var para_top = content1.offset().top;
-				var para_left = content1.offset().left;
+				var para_top = content1.parent().position().top;
+				var para_left = content1.parent().position().left;
 
 				$.ajax({
 					url : "/GetTitle",
@@ -392,7 +393,7 @@
 							type : "Get",
 							data : {
 								"para_data" : data,
-								"para_top" : para_top - 48,
+								"para_top" : para_top,
 								"para_left" : para_left,
 							},
 							error : function(request, status, error) {
@@ -519,28 +520,7 @@
 
 		//클립바에서 reflash 버튼을 누르면 새로고침이 됩니다
 		btn_reflash.click(function() {
-			/* $.ajax({
-				url : "/GetTitle",
-				type : "Get",
-				data : {
-					"para_data" : dom_data
-				},
-				success : function(data) {
-					alert(data);
-					document.getElementById("ifr_" + data).contentDocument.location.reload(true);
-				},
-				error : function(request, status, error) {
-					alert("code:" + request.status + "\n" + "message:"
-							+ request.responseText + "\n" + "error:"
-							+ error);
-				}
-			}); */
-			//document.getElementById('ifr_' + title).contentDocument.location.reload(true);
-			//content1.contentDocument.location.reload(true);
-			alert("나와라");
-			document.getElementById('ifr_비비').contentDocument.location
-					.reload(true);
-			alert("쫌");
+			window.location.reload();
 		});
 
 		//클립바에서 new 버튼을 누르면 해당 프레임의 url로 새창을 엽니다
@@ -597,8 +577,8 @@
 			},
 			success : function(data) {
 				//원본 position 저장
-				var div_top = $("#ifr_" + data).offset().top;
-				var div_left = $("#ifr_" + data).offset().left;
+				var div_top = $("#ifr_" + data).parent().position().top;
+				var div_left = $("#ifr_" + data).parent().position().left;
 				var div_width = $("#ifr_" + data).width();
 				var div_height = $("#ifr_" + data).height();
 				var div_url = $("#ifr_" + data).attr('src');
@@ -608,7 +588,7 @@
 					width : '1300px',
 					height : '670px',
 					top : '25px',
-					left : '150px',
+					left : '-100px',
 				}, 300);
 				$("#ifr_" + data).animate({
 					width : '1300px',
@@ -630,7 +610,7 @@
 					$("#div_" + data).animate({
 						width : div_width,
 						height : div_height,
-						top : div_top - 48,
+						top : div_top,
 						left : div_left,
 						border : '1px rgb(191,221,67) solid'
 					}, 300);
