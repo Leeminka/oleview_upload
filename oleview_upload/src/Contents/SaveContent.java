@@ -37,6 +37,8 @@ public class SaveContent extends HttpServlet {
 			String para_top = request.getParameter("para_top");
 			String para_left = request.getParameter("para_left");
 			
+			System.out.print("kkkk"+para_data);
+			
 			Connection conn = null;
 			PreparedStatement stmt = null;
 			String driverName = "com.mysql.jdbc.Driver";
