@@ -606,6 +606,7 @@
 
 				//닫기(x)	 버튼을 누르면 창이 원상태로 되돌아가지요
 				btn_x.click(function() {
+					$("#ifr_" + data).attr('src', div_url);
 					$("#div_" + data).animate({
 						width : div_width,
 						height : div_height,
@@ -618,7 +619,6 @@
 						height : div_height
 					}, 300);
 					btn_x.remove();
-					$("#ifr_" + data).attr('src', div_url);
 					$("#div_" + data)
 							.css('border', '1px rgb(191,221,67) solid'); //border restore
 					$("#ifr_" + data).attr('scrolling', 'no'); //scroll off
@@ -1109,7 +1109,7 @@
 							name="addCategoryForm">
 							<div onlogin="checkLoginState();" id="userID" name="userID"
 								style="display: none;"></div>
-							<input type="hidden" name="user_id" id="user_id" /> <br> <br>
+							<input type="hidden" name="user_id" id="user_id" />
 							<table
 								style="border-collapse: collapse; padding: 0; border-spacing: 0px;">
 								<tr>
