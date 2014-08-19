@@ -348,16 +348,18 @@
 			//iframe 컨텐츠생성 나중에 사용하기 위해 속성으로 다 넣어버려
 			content1 = $('<iframe></iframe>');
 			content1.attr('src', '/GetPage?url=' + encodeURIComponent(url)
-					+ '&dom_data=' + encodeURIComponent(dom_data));
+					+ '&dom_data=' + encodeURIComponent(dom_data)
+					+ '&title=' + encodeURIComponent(title));
 			content1.attr('scrolling', 'no');
-		} else {
+		} else {	//make icon
 			content1 = $('<div></div>').css('background','yellow').css('cursor','pointer');
 			
 			var title_val = $('<p></p>').text(title);
 			content1.append(title_val);
 			
 			content1.click(function(){
-				window.open("http://"+url);
+				show_frame(title, url);
+				//window.open("http://"+url);
 			});
 		}
 		content1.width(width);
@@ -409,7 +411,7 @@
 					type : "Get",
 					data : {
 						"para_data" : title,
-						"para_top" : para_top - 48,
+						"para_top" : para_top,
 						"para_left" : para_left,
 					},
 					error : function(request, status, error) {
@@ -564,72 +566,77 @@
 
 		return true;
 	}
-
+	
+	function show_frame(title, url) {
+		//원본 position 저장
+		var div_top = $("#ifr_" + title).parent().position().top;
+		var div_left = $("#ifr_" + title).parent().position().left;
+		var div_width = $("#ifr_" + title).width();
+		var div_height = $("#ifr_" + title).height();
+		
+		var open_frame = $('<iframe id="open_frame" src=' + "http://" + url + 'frameBorder="0" scrolling="yes"></IFRAME>');
+		open_frame.appendTo('body');
+		
+		//wide 애니메이션
+		$("#open_frame").animate({
+			width : '1300px',
+			height : '670px',
+			top : '25px',
+			left : '-100px',
+		}, 300);
+		
+	}
 	//iframe 내에서 링크를 하믄 크기가 커져용 팝업팝업
-	function wide_frame(dom_data) {
-		//link한 iframe의 title을 가져왕
-		$.ajax({
-			url : "/GetTitle",
-			type : "Get",
-			data : {
-				"para_data" : dom_data
-			},
-			success : function(data) {
-				//원본 position 저장
-				var div_top = $("#ifr_" + data).parent().position().top;
-				var div_left = $("#ifr_" + data).parent().position().left;
-				var div_width = $("#ifr_" + data).width();
-				var div_height = $("#ifr_" + data).height();
-				var div_url = $("#ifr_" + data).attr('src');
+	function wide_frame(title) {
+		//원본 position 저장
+		var div_top = $("#ifr_" + title).parent().position().top;
+		var div_left = $("#ifr_" + title).parent().position().left;
+		var div_width = $("#ifr_" + title).width();
+		var div_height = $("#ifr_" + title).height();
+		var div_url = $("#ifr_" + title).attr('src');
 
-				//wide 애니메이션
-				$("#div_" + data).animate({
-					width : '1300px',
-					height : '670px',
-					top : '25px',
-					left : '-100px',
-				}, 300);
-				$("#ifr_" + data).animate({
-					width : '1300px',
-					height : '670px'
-				}, 300);
-				$("#div_" + data).css('border', '3px rgb(191,221,67) solid'); //border bold
-				$("#div_" + data).css('zIndex', '20'); //맨앞으로
-				$("#ifr_" + data).attr('scrolling', 'yes'); //scroll on
+		//wide 애니메이션
+		$("#div_" + title).animate({
+			width : '1300px',
+			height : '670px',
+			top : '25px',
+			left : '-100px',
+		}, 300);
+		$("#ifr_" + title).animate({
+			width : '1300px',
+			height : '670px'
+		}, 300);
+		$("#div_" + title).css('border', '3px rgb(191,221,67) solid'); //border bold
+		$("#div_" + title).css('zIndex', '20'); //맨앞으로
+		$("#ifr_" + title).attr('scrolling', 'yes'); //scroll on
 
-				//clip var 안나오게 
+		//clip var 안나오게 
 
-				//닫기(x) 버튼
-				var btn_x = $('<img />').attr('src', 'img/main/btn_x.png')
-						.addClass('btn_x');
-				btn_x.appendTo($("#div_" + data));
+		//닫기(x) 버튼
+		var btn_x = $('<img />').attr('src', 'img/main/btn_x.png')
+				.addClass('btn_x');
+		btn_x.appendTo($("#div_" + title));
 
-				//닫기(x)	 버튼을 누르면 창이 원상태로 되돌아가지요
-				btn_x.click(function() {
-					$("#ifr_" + data).attr('src', div_url);
-					$("#div_" + data).animate({
-						width : div_width,
-						height : div_height,
-						top : div_top,
-						left : div_left,
-						border : '1px rgb(191,221,67) solid'
-					}, 300);
-					$("#ifr_" + data).animate({
-						width : div_width,
-						height : div_height
-					}, 300);
-					btn_x.remove();
-					$("#div_" + data)
-							.css('border', '1px rgb(191,221,67) solid'); //border restore
-					$("#ifr_" + data).attr('scrolling', 'no'); //scroll off
+		//닫기(x)	 버튼을 누르면 창이 원상태로 되돌아가지요
+		btn_x.click(function() {
+			$("#div_" + title).animate({
+				width : div_width,
+				height : div_height,
+				top : div_top,
+				left : div_left,
+				border : '1px rgb(191,221,67) solid'
+			}, 300);
+			$("#ifr_" + title).animate({
+				width : div_width,
+				height : div_height
+			}, 300);
+			btn_x.remove();
+			$("#ifr_" + title).attr('src', div_url);
+			$("#div_" + title)
+					.css('border', '1px rgb(191,221,67) solid'); //border restore
+			$("#ifr_" + title).attr('scrolling', 'no'); //scroll off
 
-					return true;
-				});
-			},
-			error : function(request, status, error) {
-				alert("code:" + request.status + "\n" + "message:"
-						+ request.responseText + "\n" + "error:" + error);
-			}
+			return true;
 		});
 	}
 
