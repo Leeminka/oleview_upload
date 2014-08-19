@@ -357,9 +357,9 @@
 
 			var title_val = $('<p></p>').text(title);
 			content1.append(title_val);
-			
+
 			content1.click(function() {
-				show_frame(title,url);
+				show_frame(title, url);
 				//window.open("http://"+url);
 			});
 		}
@@ -396,6 +396,12 @@
 			handle_div.hide();
 			remote_div.hide();
 			toggle_bar = 1;
+
+			//겹치는곳 체크
+			if (!isValidPosition(draggable_div)) {
+				alert("겹친다 ㅡㅡ");
+				return;
+			}
 
 			//InsertDB		
 			if (isNewFrame) {
@@ -568,6 +574,40 @@
 		return true;
 	}
 
+	//겹치는거 체크 함수
+	function isValidPosition(content) {
+		var ret_val = true;
+		var cont_width = content.width();
+		var cont_height = content.height();
+		var cont_top = content.position().top;
+		var cont_left = content.position().left;
+		var cont_right = cont_left + cont_width;
+		var cont_bottom = cont_top + cont_height;
+		
+		var container = $('#contents_cont');
+		var contents = container.children();
+		contents.each(function(i) {
+			if(content.attr('id') == $(this).attr('id')){
+				return true;
+			}
+			var tmp_width = $(this).width();
+			var tmp_height =  $(this).height();
+			var tmp_top =  $(this).position().top;
+			var tmp_left = $(this).position().left;
+			var tmp_right = tmp_left + tmp_width;
+			var tmp_bottom = tmp_top + tmp_height;
+			
+			if(cont_left < tmp_right &&
+					cont_top < tmp_bottom &&
+					cont_right > tmp_left &&
+					cont_bottom > tmp_top){
+				ret_val = false;
+				return false;
+			}
+		});
+		return ret_val;
+	}
+
 	var zindex = 20;
 
 	//click on icon, create iframe and wide 
@@ -577,13 +617,13 @@
 		var div_left = $("#ifr_" + title).parent().position().left;
 		var div_width = $("#ifr_" + title).width();
 		var div_height = $("#ifr_" + title).height();
-		var div_url = "http://" + url; 
+		var div_url = "http://" + url;
 
 		var open_frame = $('<iframe></iframe>');
-		open_frame.attr('id','open_frame');
+		open_frame.attr('id', 'open_frame');
 		open_frame.attr('src', div_url);
-		open_frame.appendTo($("#div_" + title)); 
-		
+		open_frame.appendTo($("#div_" + title));
+
 		//wide 애니메이션
 		$("#div_" + title).animate({
 			width : '1300px',
@@ -629,7 +669,7 @@
 			return true;
 		});
 	}
-	
+
 	//iframe 내에서 링크를 하믄 크기가 커져용 팝업팝업
 	function wide_frame(title) {
 		//원본 position 저장
@@ -728,7 +768,7 @@
 	function getQueryVariable(variable) {
 		var query = window.location.search.substring(1);
 		var vars = query.split('&');
-		for (var i = 0; i < vars.length; i++) {
+		for ( var i = 0; i < vars.length; i++) {
 			var pair = vars[i].split('=');
 			if (decodeURIComponent(pair[0]) == variable) {
 				console.log(pair[1]);
