@@ -348,17 +348,18 @@
 			//iframe 컨텐츠생성 나중에 사용하기 위해 속성으로 다 넣어버려
 			content1 = $('<iframe></iframe>');
 			content1.attr('src', '/GetPage?url=' + encodeURIComponent(url)
-					+ '&dom_data=' + encodeURIComponent(dom_data)
-					+ '&title=' + encodeURIComponent(title));
+					+ '&dom_data=' + encodeURIComponent(dom_data) + '&title='
+					+ encodeURIComponent(title));
 			content1.attr('scrolling', 'no');
-		} else {	//make icon
-			content1 = $('<div></div>').css('background','yellow').css('cursor','pointer');
-			
+		} else { //make icon
+			content1 = $('<div></div>').css('background', 'yellow').css(
+					'cursor', 'pointer');
+
 			var title_val = $('<p></p>').text(title);
 			content1.append(title_val);
 			
-			content1.click(function(){
-				show_frame(title, url);
+			content1.click(function() {
+				show_frame(title,url);
 				//window.open("http://"+url);
 			});
 		}
@@ -566,26 +567,69 @@
 
 		return true;
 	}
-	
+
+	var zindex = 20;
+
+	//click on icon, create iframe and wide 
 	function show_frame(title, url) {
 		//원본 position 저장
 		var div_top = $("#ifr_" + title).parent().position().top;
 		var div_left = $("#ifr_" + title).parent().position().left;
 		var div_width = $("#ifr_" + title).width();
 		var div_height = $("#ifr_" + title).height();
-		
-		var open_frame = $('<iframe id="open_frame" src=' + "http://" + url + 'frameBorder="0" scrolling="yes"></IFRAME>');
-		open_frame.appendTo('body');
+		var div_url = "http://" + url; 
+
+		var open_frame = $('<iframe></iframe>');
+		open_frame.attr('id','open_frame');
+		open_frame.attr('src', div_url);
+		open_frame.appendTo($("#div_" + title)); 
 		
 		//wide 애니메이션
-		$("#open_frame").animate({
+		$("#div_" + title).animate({
 			width : '1300px',
 			height : '670px',
 			top : '25px',
-			left : '-100px',
+			left : '-100px'
 		}, 300);
-		
+		$("#open_frame").animate({
+			width : '1300px',
+			height : '670px'
+		}, 300);
+
+		zindex = zindex + 1;
+		$("#open_frame").css('zIndex', zindex); //맨 앞으로  
+		$("#open_frame").css('border', '3px rgb(191,221,67) solid'); //border bold
+		$("#open_frame").attr('scrolling', 'yes'); //scroll on
+
+		//clip var 안나오게 
+
+		//닫기(x) 버튼
+		var btn_x = $('<img />').attr('src', 'img/main/btn_x.png').addClass(
+				'btn_x');
+		btn_x.appendTo($("#div_" + title));
+
+		//닫기(x)	 버튼을 누르면 창이 원상태로 되돌아가지요
+		btn_x.click(function() {
+			$("#div_" + title).animate({
+				width : div_width,
+				height : div_height,
+				top : div_top,
+				left : div_left,
+				border : '1px rgb(191,221,67) solid'
+			}, 300);
+			$("#open_frame").animate({
+				width : div_width,
+				height : div_height
+			}, 300);
+			btn_x.remove();
+			$("#open_frame").attr('src', div_url);
+			$("#open_frame").css('border', '1px rgb(191,221,67) solid'); //border restore
+			$("#open_frame").attr('scrolling', 'no'); //scroll off
+
+			return true;
+		});
 	}
+	
 	//iframe 내에서 링크를 하믄 크기가 커져용 팝업팝업
 	function wide_frame(title) {
 		//원본 position 저장
@@ -600,21 +644,23 @@
 			width : '1300px',
 			height : '670px',
 			top : '25px',
-			left : '-100px',
+			left : '-100px'
 		}, 300);
 		$("#ifr_" + title).animate({
 			width : '1300px',
 			height : '670px'
 		}, 300);
+
+		zindex = zindex + 1;
+		$("#div_" + title).css('zIndex', zindex); //맨앞으로
 		$("#div_" + title).css('border', '3px rgb(191,221,67) solid'); //border bold
-		$("#div_" + title).css('zIndex', '20'); //맨앞으로
 		$("#ifr_" + title).attr('scrolling', 'yes'); //scroll on
 
 		//clip var 안나오게 
 
 		//닫기(x) 버튼
-		var btn_x = $('<img />').attr('src', 'img/main/btn_x.png')
-				.addClass('btn_x');
+		var btn_x = $('<img />').attr('src', 'img/main/btn_x.png').addClass(
+				'btn_x');
 		btn_x.appendTo($("#div_" + title));
 
 		//닫기(x)	 버튼을 누르면 창이 원상태로 되돌아가지요
@@ -632,8 +678,7 @@
 			}, 300);
 			btn_x.remove();
 			$("#ifr_" + title).attr('src', div_url);
-			$("#div_" + title)
-					.css('border', '1px rgb(191,221,67) solid'); //border restore
+			$("#div_" + title).css('border', '1px rgb(191,221,67) solid'); //border restore
 			$("#ifr_" + title).attr('scrolling', 'no'); //scroll off
 
 			return true;
@@ -997,8 +1042,7 @@
 
 <script>
 	//배경설정된거 확인후 오른쪽 사이드에서 클릭된 이미지 변경될때 사용할 스크립트
-	
-	
+
 	$(window)
 			.load(
 					function() {
@@ -1063,7 +1107,7 @@
 	}
 </script>
 </head>
-<body style="overflow-x: hidden; overflow-y: hidden">
+<body id="id_body" style="overflow-x: hidden; overflow-y: hidden">
 
 	<!-- 상단 바 부분	 -->
 	<div id="bar">
