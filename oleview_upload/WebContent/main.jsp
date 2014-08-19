@@ -1109,7 +1109,7 @@
 							name="addCategoryForm">
 							<div onlogin="checkLoginState();" id="userID" name="userID"
 								style="display: none;"></div>
-							<input type="hidden" name="user_id" id="user_id" /> <br> <br>
+							<input type="hidden" name="user_id" id="user_id" />
 							<table
 								style="border-collapse: collapse; padding: 0; border-spacing: 0px;">
 								<tr>

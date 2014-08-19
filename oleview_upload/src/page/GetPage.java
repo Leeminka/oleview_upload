@@ -40,8 +40,10 @@ public class GetPage extends HttpServlet {
 		// TODO Auto-generated method stub
 		String url = request.getParameter("url");
 		String dom_data = request.getParameter("dom_data");
+		String title = request.getParameter("title");
 		URLDecoder.decode(url.replace("+", "%2B"), "UTF-8").replace("%2B", "+");
 		URLDecoder.decode(dom_data.replace("+", "%2B"), "UTF-8").replace("%2B","+");
+		URLDecoder.decode(title.replace("+", "%2B"), "UTF-8").replace("%2B","+");
 
 		String res = "잘못된 URL 입니다.";
 		int fromIndex = -1;
@@ -116,7 +118,7 @@ public class GetPage extends HttpServlet {
 					String target_url = "_self";	//링크 새창띄우지 말긔								
 					e.attr("target",target_url);
 					
-					target_url = "parent.wide_frame(\"" + dom_data + "\");";	//프레임 내에서 링크되면 이벤트주긔 - wide
+					target_url = "parent.wide_frame(\"" + title + "\");";	//프레임 내에서 링크되면 이벤트주긔 - wide
 					e.attr("onclick",target_url);
 				}
 				if (tagName.equals("img")) {		//img 태그 src 경로 수정
