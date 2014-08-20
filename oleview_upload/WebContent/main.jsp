@@ -432,8 +432,13 @@
 		});
 
 		//delete 이벤트 추가
-		btn_delete.click(function() {
-			var temp = confirm("지울꺼야?-3-");
+		btn_delete.click(function() {  
+			//window.open("delete_popup.jsp","","width=506, height=275, resizable=no, scrollbars=no, status=no;");
+			var temp = window.open("delete_popup.jsp","","width=506, height=275, resizable=no, scrollbars=no, menubar=no, toolbar=no, location=no, status=no");
+			newWindow.focus();
+			//alert(temp)	;
+			
+			/* //var temp = confirm("지울꺼야?-3-");
 			if (temp) {
 				remote_div.hide();
 				handle_div.hide();
@@ -451,7 +456,7 @@
 								+ error);
 					}
 				});
-			}
+			}  */
 		});
 
 		//remote_div를 content에 붙임
