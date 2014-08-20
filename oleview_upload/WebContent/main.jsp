@@ -332,6 +332,9 @@
 
 		}
 	});
+	
+	//0이면 remote_bar / 1이믄 clip_bar
+	var toggle_bar;
 
 	function makeFrame(width, height, url, dom_data, title, left, top,
 			isNewFrame) {
@@ -372,9 +375,6 @@
 
 		//컨텐츠를 DIV에 붙임
 		content1.appendTo(draggable_div);
-
-		//0이면 remote_bar / 1이믄 clip_bar
-		var toggle_bar;
 
 		//리모콘 생성
 		var remote_div = $('<div></div>').addClass("remote_div");
@@ -636,18 +636,28 @@
 			height : '670px'
 		}, 300);
 
-		zindex = zindex + 1;
+		zindex = zindex + 5;
 		$("#open_frame").css('zIndex', zindex); //맨 앞으로  
-		$("#open_frame").css('border', '3px rgb(191,221,67) solid'); //border bold
+		$("#open_frame").css('border', 'none');
+		$("#div_" + title).css('border', '3px rgb(191,221,67) solid'); //border bold
 		$("#open_frame").attr('scrolling', 'yes'); //scroll on
-
-		//clip var 안나오게 
-
+		
+		//hide icon img
+		$("#ifr_" + title).css('width', 1);
+		$("#ifr_" + title).css('height', 1);
+		
 		//닫기(x) 버튼
 		var btn_x = $('<img />').attr('src', 'img/main/btn_x.png').addClass(
 				'btn_x');
 		btn_x.appendTo($("#div_" + title));
 
+		//clip var 안나오게 
+		$("#div_" + title).find('.handle_div').hide();
+		toggle_bar = 2;
+		
+		//hide 'p' tag
+		$("#div_" + title).find('p').hide();
+		
 		//닫기(x)	 버튼을 누르면 창이 원상태로 되돌아가지요
 		btn_x.click(function() {
 			$("#div_" + title).animate({
@@ -663,9 +673,15 @@
 			}, 300);
 			btn_x.remove();
 			$("#open_frame").attr('src', div_url);
-			$("#open_frame").css('border', '1px rgb(191,221,67) solid'); //border restore
+			$("#div_" + title).css('border', '1px rgb(191,221,67) solid'); //border restore
 			$("#open_frame").attr('scrolling', 'no'); //scroll off
-
+			open_frame.remove();
+			toggle_bar = 1;
+			$("#div_" + title).find('p').show();
+			$("#ifr_" + title).css('width', div_width);
+			$("#ifr_" + title).css('height', div_height);
+			
+			
 			return true;
 		});
 	}
@@ -695,14 +711,16 @@
 		$("#div_" + title).css('zIndex', zindex); //맨앞으로
 		$("#div_" + title).css('border', '3px rgb(191,221,67) solid'); //border bold
 		$("#ifr_" + title).attr('scrolling', 'yes'); //scroll on
-
-		//clip var 안나오게 
-
+		
 		//닫기(x) 버튼
 		var btn_x = $('<img />').attr('src', 'img/main/btn_x.png').addClass(
 				'btn_x');
 		btn_x.appendTo($("#div_" + title));
 
+		//clip var 안나오게 
+		$("#div_" + title).find('.handle_div').hide();
+		toggle_bar = 2;
+		
 		//닫기(x)	 버튼을 누르면 창이 원상태로 되돌아가지요
 		btn_x.click(function() {
 			$("#div_" + title).animate({
@@ -720,7 +738,8 @@
 			$("#ifr_" + title).attr('src', div_url);
 			$("#div_" + title).css('border', '1px rgb(191,221,67) solid'); //border restore
 			$("#ifr_" + title).attr('scrolling', 'no'); //scroll off
-
+			toggle_bar = 1;
+			
 			return true;
 		});
 	}
