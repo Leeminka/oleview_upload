@@ -357,13 +357,12 @@
 		} else { //make icon
 			content1 = $('<div></div>').css('background', 'yellow').css(
 					'cursor', 'pointer');
-
+		
 			var title_val = $('<p></p>').text(title);
 			content1.append(title_val);
 
 			content1.click(function() {
 				show_frame(title, url);
-				//window.open("http://"+url);
 			});
 		}
 		content1.width(width);
@@ -528,7 +527,7 @@
 
 		//클립바에서 reflash 버튼을 누르면 새로고침이 됩니다
 		btn_reflash.click(function() {
-			window.location.reload();
+			document.getElementById('ifr_' + title).contentDocument.location.reload(true);
 		});
 
 		//클립바에서 new 버튼을 누르면 해당 프레임의 url로 새창을 엽니다
