@@ -641,7 +641,6 @@
 		}
 		if (makeFrame(180, 110, url, null, title, 0, 0, true))
 			return true;
-
 		return false;
 	}
 
