@@ -37,6 +37,8 @@ public class SaveContent extends HttpServlet {
 			String para_top = request.getParameter("para_top");
 			String para_left = request.getParameter("para_left");
 			
+			System.out.print("kkkk"+para_data);
+			
 			Connection conn = null;
 			PreparedStatement stmt = null;
 			String driverName = "com.mysql.jdbc.Driver";
@@ -55,7 +57,7 @@ public class SaveContent extends HttpServlet {
 			response.setCharacterEncoding("utf-8");
 			response.getWriter().print("success");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+			// TODO Auto-geynerated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
