@@ -81,10 +81,10 @@
 #contents_cont {
 	top: 50%;
 	left: 50%;
-	margin: -350px 0 0 -550px;
+	margin: -355px 0 0 -740px;
 	position: absolute;
-	width: 1100px;
-	height: 700px;
+	width: 1480px;
+	height: 710px;
 }
 
 .container_button {
@@ -232,16 +232,16 @@
 }
 
 #search {
-	position: relative;
+	position: fixed;
 	top: 7px;
-	padding-left: 70%;
+	right : 50px;
 	z-index: 1;
 }
 
 #search_icon {
-	position: relative;
-	padding-left: 81.5%;
-	top: -17px;
+	position: fixed;
+	top: 15px;
+	right: 87px;
 	z-index: 1;
 	cursor: pointer;
 }
@@ -285,9 +285,9 @@
 }
 
 #make_icon {
-	position: relative;
-	top: -35px;
-	padding-left: 82.5%;
+	position: fixed;
+	top:15px;
+	right:62px;
 	z-index: 1;
 }
 </style>
@@ -738,7 +738,7 @@
 			width : '1300px',
 			height : '670px',
 			top : '25px',
-			left : '-100px'
+			left : '100px'
 		}, 300);
 		$("#ifr_" + title).animate({
 			width : '1300px',
@@ -1224,7 +1224,7 @@
 	<div id="search">
 		<form action="index.jsp">
 			<input type="text" id="input_url" name="input_url"
-				style="background: url(img/bg_search1.png); background-repeat: no-repeat; width: 225px; height: 34px; border: 0px; padding-left: 6px; padding-right: 40px;">
+				style="background: url(img/bg_search1.png); background-repeat: no-repeat; width: 205px; height: 34px; border: 0px; padding-left: 6px; padding-right: 60px;">
 		</form>
 	</div>
 	<div id="search_icon">
