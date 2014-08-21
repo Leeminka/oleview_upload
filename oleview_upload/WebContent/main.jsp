@@ -1302,10 +1302,10 @@
 								<tr>
 									<td><input type="text" id="input_category"
 										name="input_category"
-										style="background: url(img/ left_slide/ bg_add- list1.png); background-repeat: no-repeat; width: 200px; height: 33px; border: 0px; padding-left: 6px; padding-right: 15px;"></td>
+										style="background: url(img/left_slide/bg_add-list1.png); background-repeat: no-repeat; width: 160px; height: 33px; border: 0px; padding-left: 6px; padding-right: 15px; margin-left:20px;" maxlength="10"></td>
 									<td><input type="image"
 										src="img/left_slide/btn_add-list_btn.png" name="submit"
-										id="category_add_btn" border="0"></td>
+										id="category_add_btn" border="0" style="margin-left:15px;"></td>
 								</tr>
 							</table>
 						</form>

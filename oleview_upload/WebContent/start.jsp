@@ -218,7 +218,7 @@ div#tutorialDiv {
 		<img src="img/bg_1st-bg2.png"
 			style="position: absolute; left: 0px; top: 0px" width="100%;"
 			height="auto;" /><img src="img/btn_start.png" border="0"
-			style="position: absolute; left: 44%; top:; margin-top: 35%;"
+			style="position: absolute; left: 42.5%; top:; margin-top: 35%;"
 			onclick="fb_login();">
 	</div>
 
