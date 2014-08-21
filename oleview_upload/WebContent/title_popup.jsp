@@ -17,7 +17,7 @@
 	}
 	
 	function cancel() {
-		window.returnValue = ""; 
+		window.returnValue = "cancel_oleview"; 
 		window.close();
 	}
 </script>
