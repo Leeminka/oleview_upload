@@ -243,6 +243,7 @@
 	padding-left: 81.5%;
 	top: -17px;
 	z-index: 1;
+	cursor: pointer;
 }
 
 #bg {
@@ -1289,7 +1290,7 @@
 										<input type="hidden" name="categoryName"
 											id="category1hidden__" /> <input type="submit"
 											id="category1"
-											style="display: none; background-color: rgba(255, 255, 255, 0.0); font-weight: bold; text-align: center; border: 0px; color: rgb(131, 166, 30);" />
+											style="display: none; background-color: rgba(255, 255, 255, 0.0); font-weight: bold; text-align: center; border: 0px; color: rgb(131, 166, 30); cursor: pointer;" />
 									</form>
 								</td>
 
@@ -1319,7 +1320,7 @@
 									<form action="SetCategory.jsp" method="post">
 										<input type="hidden" name="categoryName"
 											id="category2hidden__" /><input type="submit" id="category2"
-											style="display: none; background-color: rgba(255, 255, 255, 0.0); font-weight: bold; text-align: center; border: 0px; color: rgb(131, 166, 30);" />
+											style="display: none; background-color: rgba(255, 255, 255, 0.0); font-weight: bold; text-align: center; border: 0px; color: rgb(131, 166, 30); cursor: pointer;" />
 									</form>
 
 								</td>
@@ -1349,7 +1350,7 @@
 										<input type="hidden" name="categoryName"
 											id="category3hidden__" /> <input type="submit"
 											id="category3"
-											style="display: none; background-color: rgba(255, 255, 255, 0.0); font-weight: bold; text-align: center; border: 0px; color: rgb(131, 166, 30);" />
+											style="display: none; background-color: rgba(255, 255, 255, 0.0); font-weight: bold; text-align: center; border: 0px; color: rgb(131, 166, 30); cursor: pointer;" />
 									</form>
 								</td>
 
@@ -1387,13 +1388,17 @@
 					id="btn_next" /> -->
 				<form method="post" action="change_bg.jsp" name="change_bg_Form">
 					<input type="hidden" id=bgNumber name=bgNumber /> <br> <img
-						src="img/background/btn_no-skin_c.png" id="btn_skin0" /><br>
-					<img src="img/background/btn_skin1.png" id="btn_skin1" /><br>
-					<img src="img/background/btn_skin2.png" id="btn_skin2" /><br>
-					<img src="img/background/btn_skin3.png" id="btn_skin3" /><br>
-					<img src="img/background/btn_lock.png" id="btn_skin4" /> <br>
-					<input type="image" src="img/background/btn_bgsave.png"
-						name="submit" id="bg_save_btn" border="0">
+						src="img/background/btn_no-skin_c.png" id="btn_skin0" style="cursor: pointer;"/><br>
+					<img src="img/background/btn_skin1.png" id="btn_skin1"
+						style="cursor: pointer;" /><br> <img
+						src="img/background/btn_skin2.png" id="btn_skin2"
+						style="cursor: pointer;" /><br> <img
+						src="img/background/btn_skin3.png" id="btn_skin3"
+						style="cursor: pointer;" /><br> <img
+						src="img/background/btn_lock.png" id="btn_skin4"
+						style="cursor: pointer;" /> <br> <input type="image"
+						src="img/background/btn_bgsave.png" name="submit" id="bg_save_btn"
+						border="0">
 				</form>
 			</div>
 		</div>
