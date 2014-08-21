@@ -787,7 +787,11 @@
 		var popOptions = "dialogWidth: 506px; dialogHeight: 254px; center: yes; resizable: yes; status: no; scroll: no;"; 
 		var title = window.showModalDialog("title_popup.jsp", "",  popOptions ); 
 		
-		if (makeFrame(108, 108, url, null, title, 0, 0, true))
+		if (title == "cancel_oleview")
+			return true;
+		else if (title == "")
+			alert("title을 입력하세요");
+		else if (makeFrame(108, 108, url, null, title, 0, 0, true))
 			return true;
 
 		return false;
@@ -805,13 +809,16 @@
 			return false;
 		}
 		
-		var url = $('#input_url').val();
 		var popOptions = "dialogWidth: 506px; dialogHeight: 254px; center: yes; resizable: yes; status: no; scroll: no;"; 
 		var title = window.showModalDialog("title_popup.jsp", "",  popOptions ); 	
 	
-		//프레임 생성 width, heigth, url, dom_data, left, top , isNewFrame
-		if (makeFrame(width, height, url, dom_data, title, 0, 0, true))
+		if (title == "cancel_oleview")
 			return true;
+		else if (title == "")
+			alert("title을 입력하세요");
+		else if (makeFrame(width, height, url, dom_data, title, 0, 0, true))
+			return true;
+		
 		return false;
 	}
 
