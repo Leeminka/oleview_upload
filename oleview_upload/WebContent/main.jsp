@@ -323,12 +323,8 @@
 		//컨테이너 사이즈
 		//$('#contents_cont').width(window.innerWidth);
 		//$('#contents_cont').height(window.innerHeight - 48);
+		
 		//데이터베이스에서 모든 저장된 컨텐츠를 가져옴
-
-		//var search = String("search");
-		//if (categoryName != null) {
-		//	document.getElementById('' + search).style.display = "block";
-		//}
 		getAllContents();
 
 		//데이터베이스에서 카테고리 이름을 가져옴
@@ -343,8 +339,6 @@
 		if (STATE == STATE_PLAIN) {
 			//카테고리 눌렀는지안눌렀는지까지 나눠야지!
 			document.getElementById("search").style.display = "block";
-
-			//alert('메인페이지 환영');
 		}
 
 		if (STATE == STATE_EDIT) {
@@ -834,7 +828,7 @@
 
 	function makeNewIcon() {
 		var url = $('#input_url').val();
-		var popOptions = "dialogWidth: 506px; dialogHeight: 270px; center: yes; resizable: yes; status: no; scroll: no;"; 
+		var popOptions = "dialogWidth: 506px; dialogHeight: 254px; center: yes; resizable: yes; status: no; scroll: no;"; 
 		var title = window.showModalDialog("title_popup.jsp", "",  popOptions ); 
 		
 		if (title == "cancel_oleview")
@@ -859,7 +853,7 @@
 			return false;
 		}
 		
-		var popOptions = "dialogWidth: 506px; dialogHeight: 270px; center: yes; resizable: yes; status: no; scroll: no;"; 
+		var popOptions = "dialogWidth: 506px; dialogHeight: 254px; center: yes; resizable: yes; status: no; scroll: no;"; 
 		var title = window.showModalDialog("title_popup.jsp", "",  popOptions ); 	
 	
 		if (title == "cancel_oleview")
