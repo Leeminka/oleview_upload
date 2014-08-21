@@ -129,7 +129,7 @@
 	position: absolute;
 	z-index: 10;
 	top: -31px;
-	left: -1px;
+	left: 4px;
 	height: 31px;
 	background: rgb(191, 221, 67);
 }
@@ -138,7 +138,7 @@
 	position: absolute;
 	z-index: 10;
 	top: 0px;
-	left: -3px;
+	left: -7px;
 	height: 31px;
 	width: 41px;
 }
@@ -147,7 +147,7 @@
 	position: absolute;
 	z-index: 10;
 	top: 0px;
-	right: 34px;
+	right: 35px;
 	height: 31px;
 	width: 31px;
 }
@@ -156,7 +156,7 @@
 	position: absolute;
 	z-index: 10;
 	top: 0px;
-	right: -4px;
+	right: 1px;
 	height: 31px;
 	width: 36px;
 }
@@ -351,6 +351,7 @@
 
 		}
 	});
+	
 	//0이면 remote_bar / 1이믄 clip_bar
 	var toggle_bar;
 
@@ -509,16 +510,15 @@
 					type : "Get",
 					data : {
 						"para_data" : title
-					},
-					error : function(request, status, error) {
+					}
+					/* error : function(request, status, error) {
 						alert("delete code:" + request.status + "\n" + "message:"
 								+ request.responseText + "\n" + "error:"
 								+ error);
-					}
+					} */
 				});
 			}
-			
-			return true;
+			window.location.refresh;
 		});
 
 		//remote bar_clip event
@@ -543,6 +543,7 @@
 			
 			//create new icon
 			makeFrame(108, 108, url, null, title, 0, 0, true);
+			
 		});
 		
 		//remote_div를 content에 붙임
@@ -597,7 +598,7 @@
 				.addClass('btn_new');
 
 		//클립바 속성 설정
-		clip_div.width(width+4);
+		clip_div.width(width);
 
 		//클립바 어펜드어펜드
 		btn_setting.appendTo(clip_div);
@@ -718,7 +719,7 @@
 		$("#div_" + title).animate({
 			width : '1300px',
 			height : '670px',
-			top : '10px',
+			top : '40px',
 			left : '100px'
 		}, 300);
 		$("#open_frame").animate({
@@ -788,7 +789,7 @@
 		$("#div_" + title).animate({
 			width : '1300px',
 			height : '670px',
-			top : '10px',
+			top : '40px',
 			left : '100px'
 		}, 300);
 		$("#ifr_" + title).animate({
