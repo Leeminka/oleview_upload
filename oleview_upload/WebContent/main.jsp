@@ -312,7 +312,10 @@
 <script src="scripts/jquery-1.11.0.min.js"></script>
 <script src="scripts/jquery-ui-1.10.4.custom.min.js"></script>
 
+
+<script> </script>
 <script>
+window.history.forward(0);
 	const
 	STATE_PLAIN = 0;
 	const
@@ -344,6 +347,25 @@
 		if (STATE == STATE_EDIT) {
 
 		}
+		
+		 /* $(document).keydown(function(e){   
+		        if(e.target.nodeName != "INPUT" && e.target.nodeName != "TEXTAREA"){       
+		            if(e.keyCode === 8){   
+		            return false;
+		            }
+		        }
+		 }); */
+		 
+		
+		    /* $(window).keyup(function (e) {
+		        // 발생한 이벤트에서 키 코드 추출, BackSpace 키의 코드는 8
+		        if (e.keyCode == 8) {
+		            // 다른 함수 호출
+		            alert("ee");
+		            // 기존 키의 기능은 무력화
+		            return false;
+		        }
+		    }); */
 	});
 	
 	//0이면 remote_bar / 1이믄 clip_bar
@@ -504,15 +526,14 @@
 					type : "Get",
 					data : {
 						"para_data" : title
-					}
-					/* error : function(request, status, error) {
+					},
+					error : function(request, status, error) {
 						alert("delete code:" + request.status + "\n" + "message:"
 								+ request.responseText + "\n" + "error:"
 								+ error);
-					} */
+					} 
 				});
 			}
-			window.location.refresh;
 		});
 
 		//remote bar_clip event
@@ -638,7 +659,7 @@
 		draggable_div.appendTo($('#contents_cont'));
 
 		//iframe 위에 커서를 올리믄 바가 나와용 위에 없으면 바가 없어져용
-		$(this).mousemove(
+		 $(document).mousemove(
 				function(event) {
 					var div_top = content1.offset().top;
 					var div_left = content1.offset().left;
@@ -654,8 +675,8 @@
 							clip_div.hide();
 						}
 					}
-				});
-
+				}); 
+			
 		return true;
 	}
 
