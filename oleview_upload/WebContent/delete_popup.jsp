@@ -25,6 +25,6 @@
 
 <body background="img/popup/bg_delete.png" >
 <img id="btn_yes" onclick="yes()" src="img/popup/btn_yes.png" border=0 style="position:absolute; width:147px; height:50px; top:210px; left:95px; cursor: pointer"/> 
-<img id="btn_cancel" onclick="cancel()" src="img/popup/btn_cancel.png" border=0 style="position:absolute; width:147px; height:50px; top:210px; left:310px cursor: pointer"/> 
+<img id="btn_cancel" onclick="cancel()" src="img/popup/btn_cancel.png" border=0 style="position:absolute; width:147px; height:50px; top:210px; left:310px; cursor: pointer"/> 
 </body>
 </html>
