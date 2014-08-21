@@ -23,7 +23,7 @@
 .remote_div {
 	position: absolute;
 	top: -36px;
-	left: 0px;
+	left: 2px;
 	width: 148px;
 	height: 36px;
 }
@@ -37,7 +37,7 @@
 .btn_delete {
 	width: 37px;
 	hegith: 36px;
-	left: -1px;
+	left: -2px;
 	top: 36px;
 	position: absolute;
 	z-index: 15;
@@ -46,7 +46,16 @@
 .btn_save {
 	width: 37px;
 	hegith: 36px;
-	left: 67px;
+	left: 66px;
+	top: 36px;
+	position: absolute;
+	z-index: 15;
+}
+
+.btn_save_clip {
+	width: 37px;
+	hegith: 36px;
+	left: 35px;
 	top: 36px;
 	position: absolute;
 	z-index: 15;
@@ -55,7 +64,7 @@
 .btn_clip {
 	width: 33px;
 	hegith: 36px;
-	left: 35px;
+	left: 34px;
 	top: 36px;
 	position: absolute;
 	z-index: 15;
@@ -243,7 +252,7 @@
 #search {
 	position: fixed;
 	top: 7px;
-	right : 50px;
+	right: 50px;
 	z-index: 1;
 }
 
@@ -295,8 +304,8 @@
 
 #make_icon {
 	position: fixed;
-	top:15px;
-	right:62px;
+	top: 15px;
+	right: 62px;
 	z-index: 1;
 }
 </style>
@@ -363,6 +372,7 @@
 					+ '&dom_data=' + encodeURIComponent(dom_data) + '&title='
 					+ encodeURIComponent(title));
 			content1.attr('scrolling', 'no');
+			
 		} else { //make icon
 
 			//색 랜덤지정
@@ -410,7 +420,23 @@
 			content1.click(function() {
 				show_frame(title, url);
 			});
+			
 		}
+		
+		//remote bar - delete & clip & save
+		var remote_div = $('<div></div>').addClass("remote_div");
+		var btn_delete = $('<img />').attr('src', 'img/main/btn_delete.png')
+				.addClass('btn_delete remote_btn');
+		var btn_save = $('<img />').attr('src', 'img/main/btn_save.png')
+				.addClass('btn_save remote_btn');
+		var btn_clip = $('<img />').attr('src', 'img/main/clip.jpg')
+				.addClass('btn_clip remote_btn');
+
+		//각 생성된 버튼들을 remote_div에 붙임
+		btn_delete.appendTo(remote_div);
+		btn_save.appendTo(remote_div);
+		btn_clip.appendTo(remote_div);
+		
 		content1.width(width);
 		content1.height(height);
 		content1.attr('url', url);
@@ -420,20 +446,6 @@
 
 		//컨텐츠를 DIV에 붙임
 		content1.appendTo(draggable_div);
-
-		//리모콘 생성
-		var remote_div = $('<div></div>').addClass("remote_div");
-		var btn_delete = $('<img />').attr('src', 'img/main/btn_delete.png')
-				.addClass('btn_delete remote_btn');
-		var btn_save = $('<img />').attr('src', 'img/main/btn_save.png')
-				.addClass('btn_save remote_btn');
-		var btn_clip = $('<img />').attr('src', 'img/main/clip.jpg')
-		.addClass('btn_clip remote_btn');
-
-		//각 생성된 버튼들을 remote_div에 붙임
-		btn_delete.appendTo(remote_div);
-		btn_save.appendTo(remote_div);
-		btn_clip.appendTo(remote_div);
 
 		//컨텐츠와 div에 id 만듬
 		content1.attr('id', 'ifr_' + title); //iframe에 고유 id를 만들어죠
@@ -477,7 +489,9 @@
 				});
 
 			}
-
+	
+			return;
+			
 		});
 
 		//delete 이벤트 추가
@@ -497,12 +511,14 @@
 						"para_data" : title
 					},
 					error : function(request, status, error) {
-						alert("code:" + request.status + "\n" + "message:"
+						alert("delete code:" + request.status + "\n" + "message:"
 								+ request.responseText + "\n" + "error:"
 								+ error);
 					}
 				});
 			}
+			
+			return true;
 		});
 
 		//remote bar_clip event
@@ -519,7 +535,7 @@
 					"para_data" : title
 				},
 				error : function(request, status, error) {
-					alert("code:" + request.status + "\n" + "message:"
+					alert("clip code:" + request.status + "\n" + "message:"
 							+ request.responseText + "\n" + "error:"
 							+ error);
 				}
@@ -581,7 +597,7 @@
 				.addClass('btn_new');
 
 		//클립바 속성 설정
-		clip_div.width(width);
+		clip_div.width(width+4);
 
 		//클립바 어펜드어펜드
 		btn_setting.appendTo(clip_div);
@@ -702,17 +718,18 @@
 		$("#div_" + title).animate({
 			width : '1300px',
 			height : '670px',
-			top : '25px',
-			left : '-100px'
+			top : '10px',
+			left : '100px'
 		}, 300);
 		$("#open_frame").animate({
 			width : '1300px',
 			height : '670px'
 		}, 300);
 
-		zindex = zindex + 5;
-		$("#open_frame").css('zIndex', zindex); //맨 앞으로  
+		zindex = zindex + 1;
+		$("#div_" + title).css('zIndex', zindex); //맨 앞으로  
 		$("#open_frame").css('border', 'none');
+		$("#open_frame").css('background-color', 'rgb(255, 255, 255)');
 		$("#open_frame").attr('scrolling', 'yes'); //scroll on
 		
 		//hide icon img
@@ -725,7 +742,7 @@
 		btn_x.appendTo($("#div_" + title));
 
 		//clip var 안나오게 
-		$("#div_" + title).find('.handle_div').hide();
+		$("#div_" + title).find('.clip_div').hide();
 		toggle_bar = 2;
 		
 		//hide 'p' tag
@@ -743,16 +760,17 @@
 				width : '108px',
 				height : '108px'
 			}, 300);
-			btn_x.remove();
+			
 			$("#open_frame").attr('src', div_url);
 			$("#open_frame").attr('scrolling', 'no'); //scroll off
-			open_frame.remove();
-			toggle_bar = 1;
 			$("#div_" + title).find('p').show();
 			$("#ifr_" + title).css('width', div_width);
 			$("#ifr_" + title).css('height', div_height);
+			$("#open_frame").css('zIndex', '20'); 
 			
-			
+			btn_x.remove();
+			open_frame.remove();
+			toggle_bar = 1;
 			return true;
 		});
 	}
@@ -770,7 +788,7 @@
 		$("#div_" + title).animate({
 			width : '1300px',
 			height : '670px',
-			top : '25px',
+			top : '10px',
 			left : '100px'
 		}, 300);
 		$("#ifr_" + title).animate({
@@ -788,7 +806,7 @@
 		btn_x.appendTo($("#div_" + title));
 
 		//clip var 안나오게 
-		$("#div_" + title).find('.handle_div').hide();
+		$("#div_" + title).find('.clip_div').hide();
 		toggle_bar = 2;
 		
 		//닫기(x)	 버튼을 누르면 창이 원상태로 되돌아가지요
@@ -806,6 +824,7 @@
 			btn_x.remove();
 			$("#ifr_" + title).attr('src', div_url);
 			$("#ifr_" + title).attr('scrolling', 'no'); //scroll off
+			$("#div_" + title).css('zIndex', '20');
 			toggle_bar = 1;
 			
 			return true;
@@ -814,7 +833,7 @@
 
 	function makeNewIcon() {
 		var url = $('#input_url').val();
-		var popOptions = "dialogWidth: 506px; dialogHeight: 254px; center: yes; resizable: yes; status: no; scroll: no;"; 
+		var popOptions = "dialogWidth: 506px; dialogHeight: 270px; center: yes; resizable: yes; status: no; scroll: no;"; 
 		var title = window.showModalDialog("title_popup.jsp", "",  popOptions ); 
 		
 		if (title == "cancel_oleview")
@@ -839,7 +858,7 @@
 			return false;
 		}
 		
-		var popOptions = "dialogWidth: 506px; dialogHeight: 254px; center: yes; resizable: yes; status: no; scroll: no;"; 
+		var popOptions = "dialogWidth: 506px; dialogHeight: 270px; center: yes; resizable: yes; status: no; scroll: no;"; 
 		var title = window.showModalDialog("title_popup.jsp", "",  popOptions ); 	
 	
 		if (title == "cancel_oleview")
@@ -1302,10 +1321,11 @@
 								<tr>
 									<td><input type="text" id="input_category"
 										name="input_category"
-										style="background: url(img/left_slide/bg_add-list1.png); background-repeat: no-repeat; width: 160px; height: 33px; border: 0px; padding-left: 6px; padding-right: 15px; margin-left:20px;" maxlength="10"></td>
+										style="background: url(img/left_slide/bg_add-list1.png); background-repeat: no-repeat; width: 160px; height: 33px; border: 0px; padding-left: 6px; padding-right: 15px; margin-left: 20px;"
+										maxlength="10"></td>
 									<td><input type="image"
 										src="img/left_slide/btn_add-list_btn.png" name="submit"
-										id="category_add_btn" border="0" style="margin-left:15px;"></td>
+										id="category_add_btn" border="0" style="margin-left: 15px;"></td>
 								</tr>
 							</table>
 						</form>
@@ -1425,8 +1445,9 @@
 					id="btn_next" /> -->
 				<form method="post" action="change_bg.jsp" name="change_bg_Form">
 					<input type="hidden" id=bgNumber name=bgNumber /> <br> <img
-						src="img/background/btn_no-skin_c.png" id="btn_skin0" style="cursor: pointer;"/><br>
-					<img src="img/background/btn_skin1.png" id="btn_skin1"
+						src="img/background/btn_no-skin_c.png" id="btn_skin0"
+						style="cursor: pointer;" /><br> <img
+						src="img/background/btn_skin1.png" id="btn_skin1"
 						style="cursor: pointer;" /><br> <img
 						src="img/background/btn_skin2.png" id="btn_skin2"
 						style="cursor: pointer;" /><br> <img

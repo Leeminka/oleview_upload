@@ -213,7 +213,7 @@ div#tutorialDiv {
 	});
 </script>
 </head>
-<body style="backgroundColor:black; opacity:30%;">
+<body style="backgroundColor:black; opacity:30%; overflow-x: hidden; overflow-y: hidden">
 	<div class="start_bg">
 		<img src="img/bg_1st-bg2.png"
 			style="position: absolute; left: 0px; top: 0px" width="100%;"
