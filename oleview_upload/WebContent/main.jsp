@@ -469,13 +469,10 @@
 
 		//delete 이벤트 추가
 		btn_delete.click(function() {  
-			//window.open("delete_popup.jsp","","width=506, height=275, resizable=no, scrollbars=no, status=no;");
-			var temp = window.open("delete_popup.jsp","","width=506, height=275, resizable=no, scrollbars=no, menubar=no, toolbar=no, location=no, status=no");
-			newWindow.focus();
-			//alert(temp)	;
+			var popOptions = "dialogWidth: 506px; dialogHeight: 275px; center: yes; resizable: yes; status: no; scroll: no;"; 
+			var pop = window.showModalDialog("delete_popup.jsp", "",  popOptions ); 
 			
-			/* //var temp = confirm("지울꺼야?-3-");
-			if (temp) {
+			if (pop) {
 				remote_div.hide();
 				handle_div.hide();
 				draggable_div.hide();
@@ -492,7 +489,7 @@
 								+ error);
 					}
 				});
-			}  */
+			}
 		});
 
 		//remote_div를 content에 붙임
@@ -786,10 +783,9 @@
 
 	function makeNewIcon() {
 		var url = $('#input_url').val();
-		var title = prompt("컨텐츠의 제목을 입력하세요", "");
-		if (title == null) {
-			return false;
-		}
+		var popOptions = "dialogWidth: 506px; dialogHeight: 254px; center: yes; resizable: yes; status: no; scroll: no;"; 
+		var title = window.showModalDialog("title_popup.jsp", "",  popOptions ); 
+		
 		if (makeFrame(108, 108, url, null, title, 0, 0, true))
 			return true;
 
@@ -807,10 +803,11 @@
 		if (width == '' || height == '' || url == '' || dom_data == '') {
 			return false;
 		}
-		var title = prompt("컨텐츠의 제목을 입력하세요", "");
-		if (title == null) {
-			return false;
-		}
+		
+		var url = $('#input_url').val();
+		var popOptions = "dialogWidth: 506px; dialogHeight: 254px; center: yes; resizable: yes; status: no; scroll: no;"; 
+		var title = window.showModalDialog("title_popup.jsp", "",  popOptions ); 	
+	
 		//프레임 생성 width, heigth, url, dom_data, left, top , isNewFrame
 		if (makeFrame(width, height, url, dom_data, title, 0, 0, true))
 			return true;
@@ -1133,7 +1130,8 @@
 	});
 	$(function() {
 		$("#btn_skin4").click(function() {
-			alert("구매 후 사용 가능합니다!");
+			var popOptions = "dialogWidth: 506px; dialogHeight: 275px; center: yes; resizable: yes; status: no; scroll: no;"; 
+			var title = window.showModalDialog("buy_popup.jsp", "",  popOptions ); 
 		});
 	});
 </script>

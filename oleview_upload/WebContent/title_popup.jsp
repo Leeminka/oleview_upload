@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>삭제할꺼에용??</title>
+<title>이름을 지어주세용~</title>
 
 <link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.10.4.custom.min.css">
 <script src="scripts/jquery-1.11.0.min.js"></script>
@@ -12,19 +12,20 @@
 
 <script language="javascript" type="text/javascript">
 	function yes(){
-		window.returnValue= 1;
+		window.returnValue= $('#input').val();
 		window.close();
 	}
 	
 	function cancel() {
-		window.returnValue = 0; 
+		window.returnValue = ""; 
 		window.close();
 	}
 </script>
 </head>
 
-<body background="img/popup/bg_delete.png" >
+<body background="img/popup/bg_title.png" >
+<input type="text" id="input" style="background: url(img/popup/input.png); border: 0px; position:absolute; width:391px; height:46px; top:115px; left:40px;">
 <img id="btn_yes" onclick="yes()" src="img/popup/btn_yes.png" border=0 style="position:absolute; width:147px; height:50px; top:210px; left:95px;"/> 
-<img id="btn_cancel" onclick="cancel()" src="img/popup/btn_cancel.png" border=0 style="position:absolute; width:147px; height:50px; top:210px; left:310px"/> 
+<img id="btn_cancel" onclick="cancel()" src="img/popup/btn_cancel.png" border=0 style="position:absolute; width:147px; height:50px; top:210px; left:270px"/> 
 </body>
 </html>
