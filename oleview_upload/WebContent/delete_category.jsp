@@ -6,6 +6,7 @@
 	PreparedStatement pstmt = null;
 	PreparedStatement stmt = null;
 	ResultSet rs = null;
+	request.setCharacterEncoding("UTF-8");
 
 	try {
 		String url = "jdbc:mysql://localhost:3306/leeminka2"; // 사용하려는 데이터베이스명을 포함한 URL 기술

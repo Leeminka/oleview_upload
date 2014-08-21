@@ -232,16 +232,16 @@
 }
 
 #search {
-	position: absolute;
+	position: relative;
 	top: 7px;
-	left: 1100px;
+	padding-left: 70%;
 	z-index: 1;
 }
 
 #search_icon {
-	position: absolute;
-	left: 1340px;
-	top: 16px;
+	position: relative;
+	padding-left: 81.5%;
+	top: -17px;
 	z-index: 1;
 }
 
@@ -284,9 +284,9 @@
 }
 
 #make_icon {
-	position: absolute;
-	top: 7px;
-	left: 500px;
+	position: relative;
+	top: -35px;
+	padding-left: 82.5%;
 	z-index: 1;
 }
 </style>
@@ -332,7 +332,6 @@
 
 		}
 	});
-	
 	//0이면 remote_bar / 1이믄 clip_bar
 	var toggle_bar;
 
@@ -355,12 +354,49 @@
 					+ encodeURIComponent(title));
 			content1.attr('scrolling', 'no');
 		} else { //make icon
-			content1 = $('<div></div>').css('background', 'yellow').css(
-					'cursor', 'pointer');
-		
-			var title_val = $('<p></p>').text(title);
-			content1.append(title_val);
 
+			//색 랜덤지정
+			var back_name=String("url(img/link/bg_2.png");
+			var number=Math.floor(Math.random() * 6);
+			switch(number){
+			case 0:
+				content1 = $('<div></div>').css('background', 'url(img/link/bg_0.png)').css(
+						'cursor', 'pointer');
+				break;
+			case 1:
+				content1 = $('<div></div>').css('background', 'url(img/link/bg_1.png)').css(
+						'cursor', 'pointer');
+				break;
+			case 2:
+				content1 = $('<div></div>').css('background', 'url(img/link/bg_2.png)').css(
+						'cursor', 'pointer');
+				break;
+			case 3:
+				content1 = $('<div></div>').css('background', 'url(img/link/bg_3.png)').css(
+						'cursor', 'pointer');
+				break;
+			case 4:
+				content1 = $('<div></div>').css('background', 'url(img/link/bg_4.png)').css(
+						'cursor', 'pointer');
+				break;
+			case 5:
+				content1 = $('<div></div>').css('background', 'url(img/link/bg_5.png)').css(
+						'cursor', 'pointer');
+				break;
+			}
+			
+		//타이틀 글자 수정
+			var title_val = $('<p></p>');
+			var brtag = document.createElement('br');
+			var brtag2 = document.createElement('br');
+			var brtag3 = document.createElement('br');
+			
+			title_val=$('<b></b>').css('color', 'white').text(title);
+			content1.append(brtag);
+			content1.append(brtag2);
+			content1.append(brtag3);
+			
+			content1.append(title_val);
 			content1.click(function() {
 				show_frame(title, url);
 			});
@@ -398,7 +434,7 @@
 
 			//겹치는곳 체크
 			if (!isValidPosition(draggable_div)) {
-				alert("겹친다 ㅡㅡ");
+				alert("겹쳐서 저장하면 안되요!");
 				return;
 			}
 
@@ -754,7 +790,7 @@
 		if (title == null) {
 			return false;
 		}
-		if (makeFrame(180, 110, url, null, title, 0, 0, true))
+		if (makeFrame(108, 108, url, null, title, 0, 0, true))
 			return true;
 
 		return false;
@@ -1190,7 +1226,8 @@
 			align="absmiddle" border="0">
 	</div>
 	<div id="make_icon">
-		<button onclick="makeNewIcon(); return false;">아이콘만들기</button>
+		<input type="image" src="img/link/btn_link.png"
+			onclick="makeNewIcon(); return false;"></input>
 	</div>
 
 

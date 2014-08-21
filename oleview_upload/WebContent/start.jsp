@@ -27,9 +27,9 @@ div#tutorialDiv {
 	top: 50%;
 	left: 50%;
 	width: 1200px;
-	height:800px;
-	margin-top:-400px;
-	margin-left:-600px;
+	height: 800px;
+	margin-top: -400px;
+	margin-left: -600px;
 }
 </style>
 
@@ -110,7 +110,7 @@ div#tutorialDiv {
 		var tutorialDiv = $("#tutorialDiv");
 		//tutorialDiv.css("top", $(document).height() / 2 - 150);
 		//tutorialDiv.css("left", $(document).width() / 2 - 150);
-		
+
 		tutorialDiv.fadeIn(500);
 		console.log("ม๘วเม฿2");
 		console.log("useridhear! = " + userID);
@@ -226,10 +226,10 @@ div#tutorialDiv {
 	<!--  div class='backLayer'></div> -->
 	<div id="tutorialDiv">
 		<input type="hidden" id="currentTutorial" value="1" /> <img
-			src="img/tutorial/btn_before.png" id="btn_before"
-			style="position: absolute; top: 400px; left: 20px;" /> <img
 			src="img/tutorial/btn_next.png" id="btn_next"
-			style="position: relative; top: 400px; padding-left:95%;" />
+			style="position: relative; top: 400px; padding-left: 95%;" /> <img
+			src="img/tutorial/btn_before.png" id="btn_before"
+			style="position: absolute; top: 400px; left: 20px;" />
 
 	</div>
 
