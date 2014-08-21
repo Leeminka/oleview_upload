@@ -15,7 +15,7 @@
 
 .draggable_div {
 	position: absolute;
-	border-width: 1px;
+	border-width: 3px;
 	border-color: rgb(167, 204, 18);
 	border-style: solid;
 }
@@ -37,7 +37,7 @@
 .btn_delete {
 	width: 37px;
 	hegith: 36px;
-	left: 0px;
+	left: -1px;
 	top: 36px;
 	position: absolute;
 	z-index: 15;
@@ -46,7 +46,16 @@
 .btn_save {
 	width: 37px;
 	hegith: 36px;
-	left: 36px;
+	left: 67px;
+	top: 36px;
+	position: absolute;
+	z-index: 15;
+}
+
+.btn_clip {
+	width: 33px;
+	hegith: 36px;
+	left: 35px;
 	top: 36px;
 	position: absolute;
 	z-index: 15;
@@ -120,7 +129,7 @@
 	position: absolute;
 	z-index: 10;
 	top: 0px;
-	left: 0px;
+	left: -3px;
 	height: 31px;
 	width: 41px;
 }
@@ -138,7 +147,7 @@
 	position: absolute;
 	z-index: 10;
 	top: 0px;
-	right: -2px;
+	right: -4px;
 	height: 31px;
 	width: 36px;
 }
@@ -418,10 +427,13 @@
 				.addClass('btn_delete remote_btn');
 		var btn_save = $('<img />').attr('src', 'img/main/btn_save.png')
 				.addClass('btn_save remote_btn');
+		var btn_clip = $('<img />').attr('src', 'img/main/clip.jpg')
+		.addClass('btn_clip remote_btn');
 
 		//각 생성된 버튼들을 remote_div에 붙임
 		btn_delete.appendTo(remote_div);
 		btn_save.appendTo(remote_div);
+		btn_clip.appendTo(remote_div);
 
 		//컨텐츠와 div에 id 만듬
 		content1.attr('id', 'ifr_' + title); //iframe에 고유 id를 만들어죠
@@ -493,6 +505,30 @@
 			}
 		});
 
+		//remote bar_clip event
+		btn_clip.click(function() {
+			//delete before frame
+			remote_div.hide();
+			handle_div.hide();
+			draggable_div.hide();
+
+			$.ajax({
+				url : "/DelectContent",
+				type : "Get",
+				data : {
+					"para_data" : title
+				},
+				error : function(request, status, error) {
+					alert("code:" + request.status + "\n" + "message:"
+							+ request.responseText + "\n" + "error:"
+							+ error);
+				}
+			});
+			
+			//create new icon
+			makeFrame(108, 108, url, null, title, 0, 0, true);
+		});
+		
 		//remote_div를 content에 붙임
 		remote_div.appendTo(draggable_div);
 
@@ -677,7 +713,6 @@
 		zindex = zindex + 5;
 		$("#open_frame").css('zIndex', zindex); //맨 앞으로  
 		$("#open_frame").css('border', 'none');
-		$("#div_" + title).css('border', '3px rgb(191,221,67) solid'); //border bold
 		$("#open_frame").attr('scrolling', 'yes'); //scroll on
 		
 		//hide icon img
@@ -699,19 +734,17 @@
 		//닫기(x)	 버튼을 누르면 창이 원상태로 되돌아가지요
 		btn_x.click(function() {
 			$("#div_" + title).animate({
-				width : div_width,
-				height : div_height,
+				width : '108px',
+				height : '108px',
 				top : div_top,
 				left : div_left,
-				border : '1px rgb(191,221,67) solid'
 			}, 300);
 			$("#open_frame").animate({
-				width : div_width,
-				height : div_height
+				width : '108px',
+				height : '108px'
 			}, 300);
 			btn_x.remove();
 			$("#open_frame").attr('src', div_url);
-			$("#div_" + title).css('border', '1px rgb(191,221,67) solid'); //border restore
 			$("#open_frame").attr('scrolling', 'no'); //scroll off
 			open_frame.remove();
 			toggle_bar = 1;
@@ -747,7 +780,6 @@
 
 		zindex = zindex + 1;
 		$("#div_" + title).css('zIndex', zindex); //맨앞으로
-		$("#div_" + title).css('border', '3px rgb(191,221,67) solid'); //border bold
 		$("#ifr_" + title).attr('scrolling', 'yes'); //scroll on
 		
 		//닫기(x) 버튼
@@ -766,7 +798,6 @@
 				height : div_height,
 				top : div_top,
 				left : div_left,
-				border : '1px rgb(191,221,67) solid'
 			}, 300);
 			$("#ifr_" + title).animate({
 				width : div_width,
@@ -774,7 +805,6 @@
 			}, 300);
 			btn_x.remove();
 			$("#ifr_" + title).attr('src', div_url);
-			$("#div_" + title).css('border', '1px rgb(191,221,67) solid'); //border restore
 			$("#ifr_" + title).attr('scrolling', 'no'); //scroll off
 			toggle_bar = 1;
 			
