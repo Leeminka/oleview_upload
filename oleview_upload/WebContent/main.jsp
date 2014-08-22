@@ -474,16 +474,16 @@ window.history.forward(0);
 
 		//remote _save 이벤트 추가
 		btn_save.click(function() {
+			//겹치는곳 체크
+			if (!isValidPosition(draggable_div)) {
+				draggable_div.css('border-color', 'rgb(255, 0, 0)');
+				return;
+			}else{
+				draggable_div.css('border-color', 'rgb(167, 204, 18)');
+			}
 			handle_div.hide();
 			remote_div.hide();
 			toggle_bar = 1;
-
-			//겹치는곳 체크
-			if (!isValidPosition(draggable_div)) {
-				alert("겹쳐서 저장하면 안되요!");
-				return;
-			}
-
 			//InsertDB		
 			if (isNewFrame) {
 				saveContentPosition(content1);
@@ -886,10 +886,6 @@ window.history.forward(0);
 			alertIcon.css('left','230px');
 			alertIcon.css('top','230px');
 			alertIcon.appendTo(alertDiv);
-
-			var alertText = $('<p></p>').text(url);
-			alertText.css('position','absolute');
-			alertText.appendTo(alertDiv);
 			
 			var alertText = $('<p> </p>');
 			alertText = $('<b></b>').css('color', 'white').css('font-size','32px').text(url);

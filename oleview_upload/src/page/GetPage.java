@@ -75,6 +75,11 @@ public class GetPage extends HttpServlet {
 			counter++;
 		}
 
+		fromIndex = 0;
+		if ((fromIndex = root_url.toLowerCase().indexOf('?', fromIndex + 1)) > 0) {
+			root_url = root_url.substring(0, fromIndex);
+		}
+		
 		try {
 			Document doc = Jsoup.connect(url).get();
 			Element head = doc.head();
