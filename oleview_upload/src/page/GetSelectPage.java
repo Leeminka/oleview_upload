@@ -76,14 +76,18 @@ public class GetSelectPage extends HttpServlet {
 						e.attr("src", src_url);
 					}
 				} else if (tagName.equals("script")) {
-					//String src_url = e.attr("src");
-					//if (!src_url.equals("")) {
-					//	if (src_url.toLowerCase().indexOf("http") == -1) {
-					//		src_url = root_url + src_url;
-					//		e.attr("src", src_url);
-					//	}
-					//}
-					 e.remove();
+					// String src_url = e.attr("src");
+					// if (!src_url.equals("")) {
+					// if (src_url.toLowerCase().indexOf("http") == -1) {
+					// src_url = root_url + src_url;
+					// e.attr("src", src_url);
+					// }
+					// }
+					e.remove();
+				} else if (tagName.equals("a")) {
+					e.attr("href", "javascript:void(0)");
+					e.attr("onclick", "return false;");
+					e.attr("target","_self");
 				} else if (tagName.equals("iframe")) {
 					// e.remove();
 				}
