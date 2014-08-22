@@ -102,8 +102,8 @@
 	margin: -355px 0 0 -740px;
 	position: absolute;
 	width: 1480px;
-	height: 710px;
-}
+	height: 710px; 
+} 
 
 .container_button {
 	z-index: 10;
@@ -324,8 +324,8 @@ window.history.forward(0);
 	var contents_list = [];
 	$(document).ready(function() {
 		//컨테이너 사이즈
-		//$('#contents_cont').width(window.innerWidth);
-		//$('#contents_cont').height(window.innerHeight - 48);
+		$('#contents_cont').width(window.innerWidth);
+		$('#contents_cont').height(window.innerHeight - 48);
 		
 		//데이터베이스에서 모든 저장된 컨텐츠를 가져옴
 		getAllContents();
@@ -548,14 +548,15 @@ window.history.forward(0);
 					"para_width" : 108,
 					"para_height" : 108,
 				},
+				success : function (data) {
+					location.href="main.jsp";
+				},
 				error : function(request, status, error) {
 					alert("saveicon code:" + request.status + "\n" + "message:"
 							+ request.responseText + "\n" + "error:"
 							+ error);
 				}
 			});
-			
-			
 		});
 		
 		//remote_div를 content에 붙임
