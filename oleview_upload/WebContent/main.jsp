@@ -851,6 +851,8 @@ window.history.forward(0);
 
 	function makeNewIcon() {
 		var url = $('#input_url').val();
+		$('#input_url').attr('value', '');
+		
 		var popOptions = "dialogWidth: 506px; dialogHeight: 254px; center: yes; resizable: yes; status: no; scroll: no;"; 
 		var title = window.showModalDialog("title_popup.jsp", "",  popOptions ); 
 		
