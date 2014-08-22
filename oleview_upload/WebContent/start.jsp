@@ -21,15 +21,15 @@ div.backLayer {
 }
 
 div#tutorialDiv {
-	background: url(img/tutorial/tutorial1.png);
+	background: url(img/tutorial/tutorial1.jpg);
 	display: none;
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	width: 1200px;
-	height:800px;
-	margin-top:-400px;
-	margin-left:-600px;
+	width: 1600px;
+	height: 841px;
+	margin-top: -420.5px;
+	margin-left: -800px;
 }
 </style>
 
@@ -110,7 +110,7 @@ div#tutorialDiv {
 		var tutorialDiv = $("#tutorialDiv");
 		//tutorialDiv.css("top", $(document).height() / 2 - 150);
 		//tutorialDiv.css("left", $(document).width() / 2 - 150);
-		
+
 		tutorialDiv.fadeIn(500);
 		console.log("ม๘วเม฿2");
 		console.log("useridhear! = " + userID);
@@ -157,19 +157,19 @@ div#tutorialDiv {
 								var tutorialNum = Number(num) - 1;
 								switch (tutorialNum) {
 								case 1:
-									document.getElementById("tutorialDiv").style.backgroundImage = "url(img/tutorial/tutorial1.png)";
+									document.getElementById("tutorialDiv").style.backgroundImage = "url(img/tutorial/tutorial1.jpg)";
 									break;
 								case 2:
-									document.getElementById("tutorialDiv").style.backgroundImage = "url(img/tutorial/tutorial2.png)";
+									document.getElementById("tutorialDiv").style.backgroundImage = "url(img/tutorial/tutorial2.jpg)";
 									break;
 								case 3:
-									document.getElementById("tutorialDiv").style.backgroundImage = "url(img/tutorial/tutorial3.png)";
+									document.getElementById("tutorialDiv").style.backgroundImage = "url(img/tutorial/tutorial3.jpg)";
 									break;
 								case 4:
-									document.getElementById("tutorialDiv").style.backgroundImage = "url(img/tutorial/tutorial4.png)";
+									document.getElementById("tutorialDiv").style.backgroundImage = "url(img/tutorial/tutorial4.jpg)";
 									break;
 								case 5:
-									document.getElementById("tutorialDiv").style.backgroundImage = "url(img/tutorial/tutorial5.png)";
+									document.getElementById("tutorialDiv").style.backgroundImage = "url(img/tutorial/tutorial5.jpg)";
 									break;
 								}
 
@@ -190,19 +190,19 @@ div#tutorialDiv {
 								var tutorialNum = Number(num) + 1;
 								switch (tutorialNum) {
 								case 1:
-									document.getElementById("tutorialDiv").style.backgroundImage = "url(img/tutorial/tutorial1.png)";
+									document.getElementById("tutorialDiv").style.backgroundImage = "url(img/tutorial/tutorial1.jpg)";
 									break;
 								case 2:
-									document.getElementById("tutorialDiv").style.backgroundImage = "url(img/tutorial/tutorial2.png)";
+									document.getElementById("tutorialDiv").style.backgroundImage = "url(img/tutorial/tutorial2.jpg)";
 									break;
 								case 3:
-									document.getElementById("tutorialDiv").style.backgroundImage = "url(img/tutorial/tutorial3.png)";
+									document.getElementById("tutorialDiv").style.backgroundImage = "url(img/tutorial/tutorial3.jpg)";
 									break;
 								case 4:
-									document.getElementById("tutorialDiv").style.backgroundImage = "url(img/tutorial/tutorial4.png)";
+									document.getElementById("tutorialDiv").style.backgroundImage = "url(img/tutorial/tutorial4.jpg)";
 									break;
 								case 5:
-									document.getElementById("tutorialDiv").style.backgroundImage = "url(img/tutorial/tutorial5.png)";
+									document.getElementById("tutorialDiv").style.backgroundImage = "url(img/tutorial/tutorial5.jpg)";
 									break;
 								}
 							} else {
@@ -213,12 +213,12 @@ div#tutorialDiv {
 	});
 </script>
 </head>
-<body>
+<body style="backgroundColor:black; opacity:30%; overflow-x: hidden; overflow-y: hidden">
 	<div class="start_bg">
 		<img src="img/bg_1st-bg2.png"
 			style="position: absolute; left: 0px; top: 0px" width="100%;"
-			height="auto;" /><img src="img/btn_start.png" border="0"
-			style="position: absolute; left: 44%; top:; margin-top: 35%;"
+			height="auto;" /><img src="img/btn_start.png" border="0" 
+			style="position: absolute; left: 42.5%; top:; margin-top: 35%; cursor: pointer;"
 			onclick="fb_login();">
 	</div>
 
@@ -226,10 +226,10 @@ div#tutorialDiv {
 	<!--  div class='backLayer'></div> -->
 	<div id="tutorialDiv">
 		<input type="hidden" id="currentTutorial" value="1" /> <img
-			src="img/tutorial/btn_before.png" id="btn_before"
-			style="position: absolute; top: 400px; left: 20px;" /> <img
 			src="img/tutorial/btn_next.png" id="btn_next"
-			style="position: relative; top: 400px; padding-left:95%;" />
+			style="position: relative; top: 400px; padding-left: 95%; cursor: pointer;" /> <img
+			src="img/tutorial/btn_before.png" id="btn_before"
+			style="position: absolute; top: 400px; left: 20px; cursor: pointer;" />
 
 	</div>
 
