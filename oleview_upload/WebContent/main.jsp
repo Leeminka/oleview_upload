@@ -1158,6 +1158,7 @@ window.history.forward(0);
 		FB.logout(function(response) {
 			window.alert('byebye!');
 			window.location.href = "/";
+			
 		});
 	}
 </script>
@@ -1393,7 +1394,8 @@ window.history.forward(0);
 							</table>
 						</form>
 						<!-- 카테고리 목록 -->
-
+						<br>
+						cate =<%= session.getAttribute("categoryName") %> <br>
 						<table style="padding: 2px; border-spacing: 2px;">
 							<tr>
 								<td>
