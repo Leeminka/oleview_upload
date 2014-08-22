@@ -325,7 +325,7 @@ window.history.forward(0);
 	$(document).ready(function() {
 		//컨테이너 사이즈
 		$('#contents_cont').width(window.innerWidth);
-		$('#contents_cont').height(window.innerHeight);
+		$('#contents_cont').height(window.innerHeight - 48);
 		
 		//데이터베이스에서 모든 저장된 컨텐츠를 가져옴
 		getAllContents();
@@ -351,6 +351,25 @@ window.history.forward(0);
 		if (STATE == STATE_EDIT) {
 
 		}
+		
+		 /* $(document).keydown(function(e){   
+		        if(e.target.nodeName != "INPUT" && e.target.nodeName != "TEXTAREA"){       
+		            if(e.keyCode === 8){   
+		            return false;
+		            }
+		        }
+		 }); */
+		 
+		
+		    /* $(window).keyup(function (e) {
+		        // 발생한 이벤트에서 키 코드 추출, BackSpace 키의 코드는 8
+		        if (e.keyCode == 8) {
+		            // 다른 함수 호출
+		            alert("ee");
+		            // 기존 키의 기능은 무력화
+		            return false;
+		        }
+		    }); */
 	});
 	
 	//0이면 remote_bar / 1이믄 clip_bar
@@ -832,7 +851,6 @@ window.history.forward(0);
 
 	function makeNewIcon() {
 		var url = $('#input_url').val();
-		
 		var popOptions = "dialogWidth: 506px; dialogHeight: 254px; center: yes; resizable: yes; status: no; scroll: no;"; 
 		var title = window.showModalDialog("title_popup.jsp", "",  popOptions ); 
 		
@@ -848,6 +866,8 @@ window.history.forward(0);
 
 	function makeAlertDiv(){
 		var result = getQueryVariable("result");
+		var url = $('#input_url').val();
+		
 		if(result == ''){
 			return false;
 		}else if(result == 'fail'){
@@ -865,7 +885,16 @@ window.history.forward(0);
 			
 			var alertIcon = $('<img />').attr('src','img/alert/wrong_url_alert_icon.png');
 			alertIcon.css('position','absolute');
+			alertIcon.css('left','230px');
+			alertIcon.css('top','230px');
 			alertIcon.appendTo(alertDiv);
+			
+			var alertText = $('<p> </p>');
+			alertText = $('<b></b>').css('color', 'white').css('font-size','32px').text(url);
+			alertText.css('position','absolute');
+			alertText.css('left','720px');
+			alertText.css('top','380px');
+			alertText.appendTo(alertDiv);
 			
 			var exitIcon = $('<img />').attr('src','img/alert/wrong_url_alert_exit.png');
 			exitIcon.css('position','absolute');
@@ -881,6 +910,7 @@ window.history.forward(0);
 			alertDiv.appendTo('body');
 		}
 	}
+	
 	function makeNewFrame() {
 		//URL에서 파라미터를 받아온다
 		var width = getQueryVariable("width");
