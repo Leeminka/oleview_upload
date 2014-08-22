@@ -94,8 +94,12 @@ public class GetSelectPage extends HttpServlet {
 					e.attr("onclick", "return false;");
 					e.attr("target", "_self");
 				} else if (tagName.equals("iframe")) {
-					// e.remove();
-				}
+					String src_url = e.attr("src");
+					if (src_url.toLowerCase().indexOf("http") == -1) {
+						src_url = root_url + src_url;
+						e.attr("src", src_url);
+					}
+				} 		
 			}
 			res = doc.html();
 		} catch (Exception e) {
