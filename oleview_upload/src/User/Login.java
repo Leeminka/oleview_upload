@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.DriverManager;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -86,6 +87,10 @@ public class Login extends HttpServlet {
 						+ "', '0')";
 				stmt = conn.prepareStatement(insertsql);
 				stmt.executeUpdate();
+				
+				session.setAttribute("categoryName", "");
+				session.setAttribute("userBG", "0");
+				
 			} else {
 				//로그인 한적 있는 사람은 user테이블에서 배경값 설정한거 가져오기
 				String checkbg = "select * from user where id=" + facebookID;
@@ -96,8 +101,23 @@ public class Login extends HttpServlet {
 				String background = rs2.getString("background");
 				//가져온 배경값 세션에 넣기
 				session.setAttribute("userBG", background);
-				session.setAttribute("categoryName", "");
 				
+				//카테고리 구별하기
+				ResultSet rs3 = null;
+				String checkCategory = "select count(*) from my_category where ID=" + facebookID;
+				stmt = conn.prepareStatement(checkCategory);
+				rs3 = stmt.executeQuery();
+				int cnt = 0;
+				rs3.next();
+				cnt = rs3.getInt(1);
+				if(cnt != 0){
+					//생성한 카테고리가 있는 경우
+					session.setAttribute("categoryName", "categoryOK");
+				}
+				else{
+					//생선한 카테고리가 없었던 경우
+					session.setAttribute("categoryName", "");	
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
