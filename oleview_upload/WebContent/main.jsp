@@ -99,7 +99,7 @@
 #contents_cont {
 	top: 50%;
 	left: 50%;
-	margin: -355px 0 0 -740px;
+	margin: -350px 0 0 -740px;
 	position: absolute;
 	width: 1480px;
 	height: 710px;
@@ -323,9 +323,9 @@ window.history.forward(0);
 	var STATE = STATE_PLAIN;
 	var contents_list = [];
 	$(document).ready(function() {
-		//컨테이너 사이즈
-		$('#contents_cont').width(window.innerWidth);
-		$('#contents_cont').height(window.innerHeight - 48);
+		//컨테이너 사이즈 ->절대값으로 바꿈 이거 필요없음
+		//$('#contents_cont').width(window.innerWidth);
+		//$('#contents_cont').height(window.innerHeight - 48);
 		
 		//데이터베이스에서 모든 저장된 컨텐츠를 가져옴
 		getAllContents();
@@ -859,7 +859,7 @@ window.history.forward(0);
 	}
 
 	function makeNewIcon() {
-		var url = $('#input_url').val();
+		var url = $('#input_url').val();	
 		var popOptions = "dialogWidth: 506px; dialogHeight: 254px; center: yes; resizable: yes; status: no; scroll: no;"; 
 		var title = window.showModalDialog("title_popup.jsp", "",  popOptions ); 
 		

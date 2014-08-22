@@ -26,10 +26,10 @@ div#tutorialDiv {
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	width: 1600px;
-	height: 841px;
-	margin-top: -420.5px;
-	margin-left: -800px;
+	width: 1500px;
+	height: 725px;
+	margin-top: -362.5px;
+	margin-left: -750px;
 }
 </style>
 
