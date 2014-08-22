@@ -57,6 +57,11 @@ public class GetSelectPage extends HttpServlet {
 			counter++;
 		}
 
+		fromIndex = 0;
+		if ((fromIndex = root_url.toLowerCase().indexOf('?', fromIndex + 1)) > 0) {
+			root_url = root_url.substring(0, fromIndex);
+		}
+
 		try {
 			Document doc = Jsoup.connect(url).get();
 			Elements els = doc.getAllElements();
@@ -87,7 +92,7 @@ public class GetSelectPage extends HttpServlet {
 				} else if (tagName.equals("a")) {
 					e.attr("href", "javascript:void(0)");
 					e.attr("onclick", "return false;");
-					e.attr("target","_self");
+					e.attr("target", "_self");
 				} else if (tagName.equals("iframe")) {
 					String src_url = e.attr("src");
 					if (src_url.toLowerCase().indexOf("http") == -1) {
