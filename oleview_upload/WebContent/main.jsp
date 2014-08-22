@@ -441,7 +441,7 @@ window.history.forward(0);
 			content1.click(function() {
 				show_frame(title, url);
 			});
-			
+			draggable_div.css('border-color', 'rgba(255, 255, 255, 0)');
 		}
 		
 		//remote bar - delete & clip & save
@@ -484,7 +484,10 @@ window.history.forward(0);
 				draggable_div.css('border-color', 'rgb(255, 0, 0)');
 				return;
 			}else{
-				draggable_div.css('border-color', 'rgb(167, 204, 18)');
+				if(dom_data != null)
+					draggable_div.css('border-color', 'rgb(167, 204, 18)');
+				else
+					draggable_div.css('border-color', 'rgba(255, 255, 255,0)');
 			}
 			handle_div.hide();
 			remote_div.hide();
@@ -677,12 +680,15 @@ window.history.forward(0);
 								&& (div_left < pointX)
 								&& (pointX < div_left + Number(width))) {
 							clip_div.show();
+							if(dom_data == null)
+							draggable_div.css('border-color', 'rgb(167, 204, 18)');
 						} else {
 							clip_div.hide();
+							if(dom_data == null)
+							draggable_div.css('border-color', 'rgba(0, 0, 0,0)');
 						}
 					}
 				}); 
-			
 		return true;
 	}
 	
@@ -865,7 +871,8 @@ window.history.forward(0);
 	}
 
 	function makeNewIcon() {
-		var url = $('#input_url').val();	
+		var url = $('#input_url').val();
+		$('#input_url').val('');
 		var popOptions = "dialogWidth: 506px; dialogHeight: 254px; center: yes; resizable: yes; status: no; scroll: no;"; 
 		var title = window.showModalDialog("title_popup.jsp", "",  popOptions ); 
 		
