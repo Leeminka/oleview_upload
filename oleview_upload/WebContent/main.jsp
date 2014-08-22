@@ -538,23 +538,6 @@ window.history.forward(0);
 
 		//remote bar_clip event
 		btn_clip.click(function() {
-			//delete before frame
-			remote_div.hide();
-			handle_div.hide();
-			draggable_div.hide();
-
-			$.ajax({
-				url : "/DelectContent",
-				type : "Get",
-				data : {
-					"para_data" : title
-				},
-				error : function(request, status, error) {
-					alert("clip code:" + request.status + "\n" + "message:"
-							+ request.responseText + "\n" + "error:"
-							+ error);
-				}
-			});
 			
 			//create new icon
 			$.ajax({
@@ -571,7 +554,6 @@ window.history.forward(0);
 							+ error);
 				}
 			});
-			
 			
 			
 		});
