@@ -557,7 +557,22 @@ window.history.forward(0);
 			});
 			
 			//create new icon
-			makeFrame(108, 108, url, null, title, 0, 0, true);
+			$.ajax({
+				url : "/SaveIcon",
+				type : "Get",
+				data : {
+					"para_data" : title,
+					"para_width" : 108,
+					"para_height" : 108,
+				},
+				error : function(request, status, error) {
+					alert("saveicon code:" + request.status + "\n" + "message:"
+							+ request.responseText + "\n" + "error:"
+							+ error);
+				}
+			});
+			
+			
 			
 		});
 		

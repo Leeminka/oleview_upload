@@ -13,16 +13,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class SaveContents
+ * Servlet implementation class SaveIcon
  */
-@WebServlet("/SaveContent")
-public class SaveContent extends HttpServlet {
+@WebServlet("/SaveIcon")
+public class SaveIcon extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SaveContent() {
+    public SaveIcon() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,21 +34,25 @@ public class SaveContent extends HttpServlet {
 		// TODO Auto-generated method stub
 		try {
 			String para_data = request.getParameter("para_data");	 
-			String para_top = request.getParameter("para_top");
-			String para_left = request.getParameter("para_left");
+			String para_width = request.getParameter("para_width");
+			String para_height = request.getParameter("para_height");
 			
 			Connection conn = null;
 			PreparedStatement stmt = null;
 			String driverName = "com.mysql.jdbc.Driver";
 			Class.forName(driverName);	
-			String sql_top = "update contents set top_int = " + para_top + " where title = \"" + para_data + "\"";
-			String sql_left = "update contents set left_int = " + para_left + " where title = \"" + para_data + "\"";
+			String sql_width = "update contents set width_int = " + para_width + " where title = \"" + para_data + "\"";
+			String sql_height = "update contents set height_int = " + para_height + " where title = \"" + para_data + "\"";
+			String sql_dom = "update contents set dom_data = NULL where title = \"" + para_data + "\"";
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/leeminka2", "leeminka2", "oleview1");
 			
-			stmt = (PreparedStatement) conn.prepareStatement(sql_top);
+			stmt = (PreparedStatement) conn.prepareStatement(sql_width);
 			stmt.executeUpdate();
 			
-			stmt = (PreparedStatement) conn.prepareStatement(sql_left);
+			stmt = (PreparedStatement) conn.prepareStatement(sql_height);
+			stmt.executeUpdate();
+			
+			stmt = (PreparedStatement) conn.prepareStatement(sql_dom);
 			stmt.executeUpdate();
 			
 			response.setContentType("text/html");
