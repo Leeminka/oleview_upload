@@ -441,7 +441,7 @@ window.history.forward(0);
 			content1.click(function() {
 				show_frame(title, url);
 			});
-			
+			draggable_div.css('border-color', 'rgba(255, 255, 255, 0)');
 		}
 		
 		//remote bar - delete & clip & save
@@ -457,6 +457,11 @@ window.history.forward(0);
 		btn_delete.appendTo(remote_div);
 		btn_save.appendTo(remote_div);
 		btn_clip.appendTo(remote_div);
+		
+		if(dom_data == null){
+			btn_clip.hide();
+			btn_save.css('left','34px');
+		}
 		
 		content1.width(width);
 		content1.height(height);
@@ -479,7 +484,10 @@ window.history.forward(0);
 				draggable_div.css('border-color', 'rgb(255, 0, 0)');
 				return;
 			}else{
-				draggable_div.css('border-color', 'rgb(167, 204, 18)');
+				if(dom_data != null)
+					draggable_div.css('border-color', 'rgb(167, 204, 18)');
+				else
+					draggable_div.css('border-color', 'rgba(255, 255, 255,0)');
 			}
 			handle_div.hide();
 			remote_div.hide();
@@ -521,10 +529,8 @@ window.history.forward(0);
 			var pop = window.showModalDialog("delete_popup.jsp", "",  popOptions ); 
 			
 			if (pop) {
-				remote_div.hide();
-				handle_div.hide();
-				draggable_div.hide();
-
+				draggable_div.remove();
+				toggle_bar = 1;
 				$.ajax({
 					url : "/DelectContent",
 					type : "Get",
@@ -602,9 +608,10 @@ window.history.forward(0);
 		draggable_div.draggable({
 			handle : handle_div,
 			containment : "#contents_cont",
-			scroll : false
+			scroll : false,
+			drag: function(){positionChecker(draggable_div);}
 		});
-
+	
 		//클립바 생성
 		var clip_div = $('<div></div>').addClass("clip_div");
 		var btn_setting = $('<img />').attr('src',
@@ -673,15 +680,26 @@ window.history.forward(0);
 								&& (div_left < pointX)
 								&& (pointX < div_left + Number(width))) {
 							clip_div.show();
+							if(dom_data == null)
+							draggable_div.css('border-color', 'rgb(167, 204, 18)');
 						} else {
 							clip_div.hide();
+							if(dom_data == null)
+							draggable_div.css('border-color', 'rgba(0, 0, 0,0)');
 						}
 					}
 				}); 
-			
 		return true;
 	}
-
+	
+	function positionChecker(content){
+		if(isValidPosition(content)){
+			content.css('border-color', 'rgb(167, 204, 18)');
+		}else{
+			content.css('border-color', 'rgb(255, 0, 0)');
+		}
+	}
+	
 	//겹치는거 체크 함수
 	function isValidPosition(content) {
 		var ret_val = true;
@@ -725,7 +743,10 @@ window.history.forward(0);
 		var div_left = $("#ifr_" + title).parent().position().left;
 		var div_width = $("#ifr_" + title).width();
 		var div_height = $("#ifr_" + title).height();
-		var div_url = "http://" + url;
+		var div_url = url;
+		
+		if (url.toLowerCase().indexOf("http://") == -1) 
+			div_url = "http://" + url;
 
 		var open_frame = $('<iframe></iframe>');
 		open_frame.attr('id', 'open_frame');
@@ -801,7 +822,7 @@ window.history.forward(0);
 		var div_width = $("#ifr_" + title).width();
 		var div_height = $("#ifr_" + title).height();
 		var div_url = $("#ifr_" + title).attr('src');
-
+alert(div_url);
 		//wide 애니메이션
 		$("#div_" + title).animate({
 			width : '1300px',
@@ -850,7 +871,8 @@ window.history.forward(0);
 	}
 
 	function makeNewIcon() {
-		var url = $('#input_url').val();	
+		var url = $('#input_url').val();
+		$('#input_url').val('');
 		var popOptions = "dialogWidth: 506px; dialogHeight: 254px; center: yes; resizable: yes; status: no; scroll: no;"; 
 		var title = window.showModalDialog("title_popup.jsp", "",  popOptions ); 
 		
