@@ -458,6 +458,11 @@ window.history.forward(0);
 		btn_save.appendTo(remote_div);
 		btn_clip.appendTo(remote_div);
 		
+		if(dom_data == null){
+			btn_clip.hide();
+			btn_save.css('left','34px');
+		}
+		
 		content1.width(width);
 		content1.height(height);
 		content1.attr('url', url);
@@ -521,10 +526,8 @@ window.history.forward(0);
 			var pop = window.showModalDialog("delete_popup.jsp", "",  popOptions ); 
 			
 			if (pop) {
-				remote_div.hide();
-				handle_div.hide();
-				draggable_div.hide();
-
+				draggable_div.remove();
+				toggle_bar = 1;
 				$.ajax({
 					url : "/DelectContent",
 					type : "Get",
@@ -605,7 +608,7 @@ window.history.forward(0);
 			scroll : false,
 			drag: function(){positionChecker(draggable_div);}
 		});
-
+	
 		//클립바 생성
 		var clip_div = $('<div></div>').addClass("clip_div");
 		var btn_setting = $('<img />').attr('src',
