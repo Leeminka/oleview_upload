@@ -752,7 +752,9 @@ window.history.forward(0);
 		open_frame.attr('id', 'open_frame');
 		open_frame.attr('src', div_url);
 		open_frame.appendTo($("#div_" + title));
-
+		
+		$("#div_" + title).css('background-color', 'rgb(167, 204, 18)');
+		
 		//wide 애니메이션
 		$("#div_" + title).animate({
 			width : '1300px',
@@ -810,6 +812,7 @@ window.history.forward(0);
 			btn_x.remove();
 			open_frame.remove();
 			toggle_bar = 1;
+			$("#div_" + title).css('background-color', 'rgba(255, 255, 255,0)');
 			return true;
 		});
 	}
