@@ -883,10 +883,19 @@ window.history.forward(0);
 			
 			var alertIcon = $('<img />').attr('src','img/alert/wrong_url_alert_icon.png');
 			alertIcon.css('position','absolute');
+			alertIcon.css('left','230px');
+			alertIcon.css('top','230px');
 			alertIcon.appendTo(alertDiv);
 
 			var alertText = $('<p></p>').text(url);
 			alertText.css('position','absolute');
+			alertText.appendTo(alertDiv);
+			
+			var alertText = $('<p> </p>');
+			alertText = $('<b></b>').css('color', 'white').css('font-size','32px').text(url);
+			alertText.css('position','absolute');
+			alertText.css('left','720px');
+			alertText.css('top','380px');
 			alertText.appendTo(alertDiv);
 			
 			var exitIcon = $('<img />').attr('src','img/alert/wrong_url_alert_exit.png');
@@ -903,6 +912,7 @@ window.history.forward(0);
 			alertDiv.appendTo('body');
 		}
 	}
+	
 	function makeNewFrame() {
 		//URL에서 파라미터를 받아온다
 		var width = getQueryVariable("width");

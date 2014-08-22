@@ -2,6 +2,7 @@ package page;
 
 import java.io.IOException;
 import java.net.URLDecoder;
+import java.net.UnknownHostException;
 import java.util.Iterator;
 
 import javax.servlet.ServletException;
@@ -121,7 +122,7 @@ public class GetPage extends HttpServlet {
 					target_url = "parent.wide_frame(\"" + title + "\");";	//프레임 내에서 링크되면 이벤트주긔 - wide
 					e.attr("onclick",target_url);
 					
-					String src_url = e.attr("href");
+					String src_url = e.attr("href");	//a tag link setting
 					if (src_url.toLowerCase().indexOf("http") == -1) {
 						src_url = root_url + src_url;
 						e.attr("href", src_url);
@@ -134,6 +135,11 @@ public class GetPage extends HttpServlet {
 						e.attr("src", src_url);
 					}
 				}
+				/*if (tagName.equals("div")) {
+					String src_url = e.attr("style");
+					String target_url = "text-align:left;";
+					e.attr("style", src_url + target_url);
+				}*/
 			}
 			
 			System.out.println(dom_string);
@@ -171,7 +177,8 @@ public class GetPage extends HttpServlet {
 			body.append(script_els.toString());
 			
 			res = doc.html();
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			response.setContentType("text/html");
