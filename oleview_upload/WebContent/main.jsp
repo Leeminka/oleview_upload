@@ -813,7 +813,7 @@ window.history.forward(0);
 		var div_width = $("#ifr_" + title).width();
 		var div_height = $("#ifr_" + title).height();
 		var div_url = $("#ifr_" + title).attr('src');
-
+alert(div_url);
 		//wide 애니메이션
 		$("#div_" + title).animate({
 			width : '1300px',
