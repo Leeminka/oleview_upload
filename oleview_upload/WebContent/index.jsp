@@ -10,7 +10,6 @@
 	padding: 0px;
 	cursor: pointer;
 }
-
 </style>
 <script type="text/javascript"
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
@@ -29,7 +28,11 @@
 			url : "GetSelectPage",
 			data : "" + params
 		}).done(function(data) {
-			$('#page').append(data);
+			if (data == 'fail') {
+				window.location = '/main.jsp?result=fail';
+			} else {
+				$('#page').append(data);
+			}
 			add_event();
 		}).fail(function() {
 			alert('Fail?');

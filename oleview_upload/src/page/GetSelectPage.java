@@ -37,7 +37,7 @@ public class GetSelectPage extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String url = request.getParameter("url");
-		String res = "잘못된 URL 입니다.";
+		String res = "fail";
 		int fromIndex = -1;
 		int counter = 0;
 
