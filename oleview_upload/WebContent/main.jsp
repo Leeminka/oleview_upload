@@ -689,7 +689,6 @@ window.history.forward(0);
 						}
 					}
 				}); 
-			
 		return true;
 	}
 	
@@ -872,7 +871,8 @@ alert(div_url);
 	}
 
 	function makeNewIcon() {
-		var url = $('#input_url').val();	
+		var url = $('#input_url').val();
+		$('#input_url').val('');
 		var popOptions = "dialogWidth: 506px; dialogHeight: 254px; center: yes; resizable: yes; status: no; scroll: no;"; 
 		var title = window.showModalDialog("title_popup.jsp", "",  popOptions ); 
 		
