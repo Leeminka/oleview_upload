@@ -29,7 +29,7 @@
 			data : "" + params
 		}).done(function(data) {
 			if (data == 'fail') {
-				window.location = '/main.jsp?result=fail';
+				window.location = '/main.jsp?result=fail&url='+url;
 			} else {
 				$('#page').append(data);
 			}

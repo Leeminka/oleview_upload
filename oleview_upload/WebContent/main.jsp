@@ -866,10 +866,10 @@ window.history.forward(0);
 
 	function makeAlertDiv(){
 		var result = getQueryVariable("result");
-		if(result == ''){
+		var url = getQueryVariable("url");
+		if(result == ''|| url ==''){
 			return false;
 		}else if(result == 'fail'){
-			console.log('kkk');
 			var alertDiv = $('<div></div>').width(window.innerWidth).height(window.innerHeight - 48);
 			alertDiv.css('position','absolute');
 			alertDiv.css('left','0px');
@@ -884,6 +884,10 @@ window.history.forward(0);
 			var alertIcon = $('<img />').attr('src','img/alert/wrong_url_alert_icon.png');
 			alertIcon.css('position','absolute');
 			alertIcon.appendTo(alertDiv);
+
+			var alertText = $('<p></p>').text(url);
+			alertText.css('position','absolute');
+			alertText.appendTo(alertDiv);
 			
 			var exitIcon = $('<img />').attr('src','img/alert/wrong_url_alert_exit.png');
 			exitIcon.css('position','absolute');
