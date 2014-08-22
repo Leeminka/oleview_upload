@@ -50,6 +50,7 @@ public class InsertContent extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String jData = request.getParameter("jData");
+		request.setCharacterEncoding("UTF-8");
 		System.out.print(jData);
 		JSONParser jsonParser = new JSONParser();
 		JSONObject retObject =new JSONObject();

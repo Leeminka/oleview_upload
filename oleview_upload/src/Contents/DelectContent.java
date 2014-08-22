@@ -37,6 +37,7 @@ public class DelectContent extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
+			request.setCharacterEncoding("UTF-8");
 			String para_data = request.getParameter("para_data");
 			
 			Connection conn = null;

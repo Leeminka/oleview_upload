@@ -39,7 +39,7 @@ public class GetContents extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		
+		request.setCharacterEncoding("UTF-8");
 		// TODO Auto-generated method stub
 		//DB IO를 위한 객체
 		ContentDAO dao = new ContentDAO();

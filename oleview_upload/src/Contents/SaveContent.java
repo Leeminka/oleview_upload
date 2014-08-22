@@ -36,6 +36,7 @@ public class SaveContent extends HttpServlet {
 			String para_data = request.getParameter("para_data");	 
 			String para_top = request.getParameter("para_top");
 			String para_left = request.getParameter("para_left");
+			request.setCharacterEncoding("UTF-8");
 			
 			System.out.print("kkkk"+para_data);
 			
