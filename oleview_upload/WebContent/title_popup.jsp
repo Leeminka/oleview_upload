@@ -29,7 +29,7 @@
 
 <body background="img/popup/bg_title.png">
 	<input type="text" maxlength="10" id="input"
-		style="margin-left: 10px; margin-right: 10px; background: url(img/popup/input.png); border: 0px; font-face: 나눔고딕; position: absolute; width: 391px; height: 45px; top: 115px; left: 40px;">
+		style="margin-left: 10px; margin-right: 10px; background: url(img/popup/input.png); border: 0px; font-face: url(font/font.ttf); color:#a7cc12; font-size:14pt; position: absolute; width: 391px; height: 45px; top: 115px; left: 40px;">
 	<img id="btn_yes" onclick="yes()" src="img/popup/btn_yes.png" border=0
 		style="position: absolute; width: 147px; height: 50px; top: 180px; left: 95px; cursor: pointer" />
 	<img id="btn_cancel" onclick="cancel()" src="img/popup/btn_cancel.png"

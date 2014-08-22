@@ -37,7 +37,7 @@ public class GetSelectPage extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String url = request.getParameter("url");
-		String res = "잘못된 URL 입니다.";
+		String res = "fail";
 		int fromIndex = -1;
 		int counter = 0;
 
@@ -55,6 +55,11 @@ public class GetSelectPage extends HttpServlet {
 				break;
 			}
 			counter++;
+		}
+
+		fromIndex = 0;
+		if ((fromIndex = root_url.toLowerCase().indexOf('?', fromIndex + 1)) > 0) {
+			root_url = root_url.substring(0, fromIndex);
 		}
 
 		try {
@@ -76,14 +81,18 @@ public class GetSelectPage extends HttpServlet {
 						e.attr("src", src_url);
 					}
 				} else if (tagName.equals("script")) {
-					//String src_url = e.attr("src");
-					//if (!src_url.equals("")) {
-					//	if (src_url.toLowerCase().indexOf("http") == -1) {
-					//		src_url = root_url + src_url;
-					//		e.attr("src", src_url);
-					//	}
-					//}
-					 e.remove();
+					// String src_url = e.attr("src");
+					// if (!src_url.equals("")) {
+					// if (src_url.toLowerCase().indexOf("http") == -1) {
+					// src_url = root_url + src_url;
+					// e.attr("src", src_url);
+					// }
+					// }
+					e.remove();
+				} else if (tagName.equals("a")) {
+					e.attr("href", "javascript:void(0)");
+					e.attr("onclick", "return false;");
+					e.attr("target", "_self");
 				} else if (tagName.equals("iframe")) {
 					// e.remove();
 				}

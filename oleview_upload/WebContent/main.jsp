@@ -324,8 +324,8 @@ window.history.forward(0);
 	var contents_list = [];
 	$(document).ready(function() {
 		//컨테이너 사이즈
-		//$('#contents_cont').width(window.innerWidth);
-		//$('#contents_cont').height(window.innerHeight - 48);
+		$('#contents_cont').width(window.innerWidth);
+		$('#contents_cont').height(window.innerHeight - 48);
 		
 		//데이터베이스에서 모든 저장된 컨텐츠를 가져옴
 		getAllContents();
@@ -334,9 +334,13 @@ window.history.forward(0);
 		getAllCategory();
 
 		//편집 상태 (Select Page -> main 으로 Query와 함께 넘어옴) - serch
-		if (isAnyQuery())
-			if (makeNewFrame())
+		if (isAnyQuery()){
+			if (makeNewFrame()){
 				STATE = STATE_EDIT;
+			}else if(makeAlertDiv()){
+				
+			}
+		}
 
 		//평소 로그인 했을때의 상태 
 		if (STATE == STATE_PLAIN) {
@@ -470,16 +474,16 @@ window.history.forward(0);
 
 		//remote _save 이벤트 추가
 		btn_save.click(function() {
+			//겹치는곳 체크
+			if (!isValidPosition(draggable_div)) {
+				draggable_div.css('border-color', 'rgb(255, 0, 0)');
+				return;
+			}else{
+				draggable_div.css('border-color', 'rgb(167, 204, 18)');
+			}
 			handle_div.hide();
 			remote_div.hide();
 			toggle_bar = 1;
-
-			//겹치는곳 체크
-			if (!isValidPosition(draggable_div)) {
-				alert("겹쳐서 저장하면 안되요!");
-				return;
-			}
-
 			//InsertDB		
 			if (isNewFrame) {
 				saveContentPosition(content1);
@@ -538,23 +542,6 @@ window.history.forward(0);
 
 		//remote bar_clip event
 		btn_clip.click(function() {
-			//delete before frame
-			remote_div.hide();
-			handle_div.hide();
-			draggable_div.hide();
-
-			$.ajax({
-				url : "/DelectContent",
-				type : "Get",
-				data : {
-					"para_data" : title
-				},
-				error : function(request, status, error) {
-					alert("clip code:" + request.status + "\n" + "message:"
-							+ request.responseText + "\n" + "error:"
-							+ error);
-				}
-			});
 			
 			//create new icon
 			$.ajax({
@@ -565,15 +552,15 @@ window.history.forward(0);
 					"para_width" : 108,
 					"para_height" : 108,
 				},
+				success : function (data) {
+					location.href="main.jsp";
+				},
 				error : function(request, status, error) {
 					alert("saveicon code:" + request.status + "\n" + "message:"
 							+ request.responseText + "\n" + "error:"
 							+ error);
 				}
 			});
-			
-			
-			
 		});
 		
 		//remote_div를 content에 붙임
@@ -877,6 +864,51 @@ window.history.forward(0);
 		return false;
 	}
 
+	function makeAlertDiv(){
+		var result = getQueryVariable("result");
+		var url = getQueryVariable("url");
+		if(result == ''|| url ==''){
+			return false;
+		}else if(result == 'fail'){
+			var alertDiv = $('<div></div>').width(window.innerWidth).height(window.innerHeight - 48);
+			alertDiv.css('position','absolute');
+			alertDiv.css('left','0px');
+			alertDiv.css('top','48px');
+			alertDiv.css('z-index','1000');
+			
+			var backgroundDiv = $('<div></div>').css('width','100%').css('height','100%');
+			backgroundDiv.css('position','absolute');
+			backgroundDiv.css('background-color','rgba(0, 0, 0, 0.5)');
+			backgroundDiv.appendTo(alertDiv);
+			
+			var alertIcon = $('<img />').attr('src','img/alert/wrong_url_alert_icon.png');
+			alertIcon.css('position','absolute');
+			alertIcon.css('left','230px');
+			alertIcon.css('top','230px');
+			alertIcon.appendTo(alertDiv);
+			
+			var alertText = $('<p> </p>');
+			alertText = $('<b></b>').css('color', 'white').css('font-size','32px').text(url);
+			alertText.css('position','absolute');
+			alertText.css('left','720px');
+			alertText.css('top','380px');
+			alertText.appendTo(alertDiv);
+			
+			var exitIcon = $('<img />').attr('src','img/alert/wrong_url_alert_exit.png');
+			exitIcon.css('position','absolute');
+			exitIcon.css('right','30px');
+			exitIcon.css('top','30px');
+			exitIcon.css('cursor','pointer');
+			
+			exitIcon.click(function(){
+				alertDiv.remove();
+			});
+			
+			exitIcon.appendTo(alertDiv);
+			alertDiv.appendTo('body');
+		}
+	}
+	
 	function makeNewFrame() {
 		//URL에서 파라미터를 받아온다
 		var width = getQueryVariable("width");
@@ -925,8 +957,8 @@ window.history.forward(0);
 	//컨테이너 안에 있는 컨텐츠들의 포지션을 저장함
 	function saveContentPosition(content) {
 		var content_json = {};
-		content_json["left"] = content.parent().position().left;
-		content_json["top"] = content.parent().position().top;
+		content_json["left"] = parseInt(content.parent().position().left);
+		content_json["top"] = parseInt(content.parent().position().top);
 		content_json["width"] = content.width();
 		content_json["height"] = content.height();
 		content_json["dom_data"] = content.attr("dom_data");
@@ -1125,7 +1157,7 @@ window.history.forward(0);
 	function fb_logout() {
 		FB.logout(function(response) {
 			window.alert('byebye!');
-			window.location.href = "";
+			window.location.href = "/";
 		});
 	}
 </script>
@@ -1506,6 +1538,5 @@ contents_cont:1100x700 -->
 		<div id="contents_cont"></div>
 	</div>
 	<!-- contents_cont에 내용들이 보일꺼고, 위치 수정해줘야함..시작위치가 바 부분 밑일수 있게 -->
-
 </body>
 </html>
