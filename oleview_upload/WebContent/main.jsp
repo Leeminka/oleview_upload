@@ -908,8 +908,8 @@ window.history.forward(0);
 	//컨테이너 안에 있는 컨텐츠들의 포지션을 저장함
 	function saveContentPosition(content) {
 		var content_json = {};
-		content_json["left"] = content.parent().position().left;
-		content_json["top"] = content.parent().position().top;
+		content_json["left"] = parseInt(content.parent().position().left);
+		content_json["top"] = parseInt(content.parent().position().top);
 		content_json["width"] = content.width();
 		content_json["height"] = content.height();
 		content_json["dom_data"] = content.attr("dom_data");
