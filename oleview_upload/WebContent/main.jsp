@@ -15,7 +15,7 @@
 
 .draggable_div {
 	position: absolute;
-	border-width: 1px;
+	border-width: 3px;
 	border-color: rgb(167, 204, 18);
 	border-style: solid;
 }
@@ -253,7 +253,7 @@
 	margin: -400px auto 0 -600px;
 	width: 1200px;
 	height: 800px;
-	background: url(img/background/bg_1.png)
+	background: url(img/background/bg_1.png);
 }
 
 .btn_x {
@@ -288,6 +288,10 @@
 	top: 7px;
 	left: 500px;
 	z-index: 1;
+}
+
+.invalid_frame {
+	border-color: rgb(255, 0, 0);
 }
 </style>
 <script src="scripts/jquery-1.11.0.min.js"></script>
@@ -398,7 +402,7 @@
 
 			//겹치는곳 체크
 			if (!isValidPosition(draggable_div)) {
-				alert("겹친다 ㅡㅡ");
+				draggable_div.addClass("invalid_frame");				
 				return;
 			}
 
@@ -613,7 +617,6 @@
 	}
 
 	var zindex = 20;
-
 	//click on icon, create iframe and wide 
 	function show_frame(title, url) {
 		//원본 position 저장
@@ -622,7 +625,6 @@
 		var div_width = $("#ifr_" + title).width();
 		var div_height = $("#ifr_" + title).height();
 		var div_url = "http://" + url;
-
 		var open_frame = $('<iframe></iframe>');
 		open_frame.attr('id', 'open_frame');
 		open_frame.attr('src', div_url);
