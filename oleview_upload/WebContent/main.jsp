@@ -744,7 +744,10 @@ window.history.forward(0);
 		var div_left = $("#ifr_" + title).parent().position().left;
 		var div_width = $("#ifr_" + title).width();
 		var div_height = $("#ifr_" + title).height();
-		var div_url = "http://" + url;
+		var div_url = url;
+		
+		if (url.toLowerCase().indexOf("http://") == -1) 
+			div_url = "http://" + url;
 
 		var open_frame = $('<iframe></iframe>');
 		open_frame.attr('id', 'open_frame');
@@ -820,7 +823,7 @@ window.history.forward(0);
 		var div_width = $("#ifr_" + title).width();
 		var div_height = $("#ifr_" + title).height();
 		var div_url = $("#ifr_" + title).attr('src');
-
+alert(div_url);
 		//wide 애니메이션
 		$("#div_" + title).animate({
 			width : '1300px',
