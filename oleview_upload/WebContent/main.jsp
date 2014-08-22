@@ -102,8 +102,8 @@
 	margin: -355px 0 0 -740px;
 	position: absolute;
 	width: 1480px;
-	height: 710px; 
-} 
+	height: 710px;
+}
 
 .container_button {
 	z-index: 10;
@@ -334,9 +334,13 @@ window.history.forward(0);
 		getAllCategory();
 
 		//편집 상태 (Select Page -> main 으로 Query와 함께 넘어옴) - serch
-		if (isAnyQuery())
-			if (makeNewFrame())
+		if (isAnyQuery()){
+			if (makeNewFrame()){
 				STATE = STATE_EDIT;
+			}else if(makeAlertDiv()){
+				
+			}
+		}
 
 		//평소 로그인 했을때의 상태 
 		if (STATE == STATE_PLAIN) {
@@ -860,6 +864,41 @@ window.history.forward(0);
 		return false;
 	}
 
+	function makeAlertDiv(){
+		var result = getQueryVariable("result");
+		if(result == ''){
+			return false;
+		}else if(result == 'fail'){
+			console.log('kkk');
+			var alertDiv = $('<div></div>').width(window.innerWidth).height(window.innerHeight - 48);
+			alertDiv.css('position','absolute');
+			alertDiv.css('left','0px');
+			alertDiv.css('top','48px');
+			alertDiv.css('z-index','1000');
+			
+			var backgroundDiv = $('<div></div>').css('width','100%').css('height','100%');
+			backgroundDiv.css('position','absolute');
+			backgroundDiv.css('background-color','rgba(0, 0, 0, 0.5)');
+			backgroundDiv.appendTo(alertDiv);
+			
+			var alertIcon = $('<img />').attr('src','img/alert/wrong_url_alert_icon.png');
+			alertIcon.css('position','absolute');
+			alertIcon.appendTo(alertDiv);
+			
+			var exitIcon = $('<img />').attr('src','img/alert/wrong_url_alert_exit.png');
+			exitIcon.css('position','absolute');
+			exitIcon.css('right','30px');
+			exitIcon.css('top','30px');
+			exitIcon.css('cursor','pointer');
+			
+			exitIcon.click(function(){
+				alertDiv.remove();
+			});
+			
+			exitIcon.appendTo(alertDiv);
+			alertDiv.appendTo('body');
+		}
+	}
 	function makeNewFrame() {
 		//URL에서 파라미터를 받아온다
 		var width = getQueryVariable("width");
@@ -1108,7 +1147,7 @@ window.history.forward(0);
 	function fb_logout() {
 		FB.logout(function(response) {
 			window.alert('byebye!');
-			window.location.href = "";
+			window.location.href = "/";
 		});
 	}
 </script>
@@ -1489,6 +1528,5 @@ contents_cont:1100x700 -->
 		<div id="contents_cont"></div>
 	</div>
 	<!-- contents_cont에 내용들이 보일꺼고, 위치 수정해줘야함..시작위치가 바 부분 밑일수 있게 -->
-
 </body>
 </html>

@@ -60,8 +60,7 @@ div#tutorialDiv {
 	};
 	function fb_login() {
 		var userID;
-		FB
-				.login(function(response) {
+		FB.login(function(response) {
 					if (response.authResponse) {
 						console.log('Welcome!  Fetching your information.... ');
 						//console.log(response); // dump complete info
@@ -79,6 +78,33 @@ div#tutorialDiv {
 							//session.getAttribute("userID");
 							//alert("in session!! userID = " + str);
 							console.log("success function");
+							$(".start_bg").fadeOut(1000);
+							var width = $(window).width();
+							var height = $(window).height();
+
+							//$(".backLayer").width(width);
+							//$(".backLayer").height(height);
+							//$(".backLayer").fadeTo(500, 0.5);
+							console.log("진행중");
+							var tutorialDiv = $("#tutorialDiv");
+							//tutorialDiv.css("top", $(document).height() / 2 - 150);
+							//tutorialDiv.css("left", $(document).width() / 2 - 150);
+
+							tutorialDiv.fadeIn(500);
+							console.log("진행중2");
+							console.log("useridhear! = " + userID);
+							/* 		$.ajax({
+							 url : "/Login",
+							 type : "post",
+							 data : "userID=" + userID
+							 }).done(function() {
+							 String
+							 str = (String)
+							 session.getAttribute("userID");
+							 alert("in session!! userID = " + str);
+							 }).fail(function() {
+							 alert("fail.....?");
+							 }); */
 						}).fail(function() {
 							alert("fail.....?");
 						});
@@ -99,33 +125,7 @@ div#tutorialDiv {
 
 					}
 				});
-		$(".start_bg").fadeOut(1000);
-		var width = $(window).width();
-		var height = $(window).height();
 
-		//$(".backLayer").width(width);
-		//$(".backLayer").height(height);
-		//$(".backLayer").fadeTo(500, 0.5);
-		console.log("진행중");
-		var tutorialDiv = $("#tutorialDiv");
-		//tutorialDiv.css("top", $(document).height() / 2 - 150);
-		//tutorialDiv.css("left", $(document).width() / 2 - 150);
-
-		tutorialDiv.fadeIn(500);
-		console.log("진행중2");
-		console.log("useridhear! = " + userID);
-		/* 		$.ajax({
-		 url : "/Login",
-		 type : "post",
-		 data : "userID=" + userID
-		 }).done(function() {
-		 String
-		 str = (String)
-		 session.getAttribute("userID");
-		 alert("in session!! userID = " + str);
-		 }).fail(function() {
-		 alert("fail.....?");
-		 }); */
 	}
 	(function() {
 		var e = document.createElement('script');
@@ -213,11 +213,12 @@ div#tutorialDiv {
 	});
 </script>
 </head>
-<body style="backgroundColor:black; opacity:30%; overflow-x: hidden; overflow-y: hidden">
+<body
+	style="backgroundColor: black; opacity: 30%; overflow-x: hidden; overflow-y: hidden">
 	<div class="start_bg">
 		<img src="img/bg_1st-bg2.png"
 			style="position: absolute; left: 0px; top: 0px" width="100%;"
-			height="auto;" /><img src="img/btn_start.png" border="0" 
+			height="auto;" /><img src="img/btn_start.png" border="0"
 			style="position: absolute; left: 42.5%; top:; margin-top: 35%; cursor: pointer;"
 			onclick="fb_login();">
 	</div>
@@ -227,8 +228,8 @@ div#tutorialDiv {
 	<div id="tutorialDiv">
 		<input type="hidden" id="currentTutorial" value="1" /> <img
 			src="img/tutorial/btn_next.png" id="btn_next"
-			style="position: relative; top: 400px; padding-left: 95%; cursor: pointer;" /> <img
-			src="img/tutorial/btn_before.png" id="btn_before"
+			style="position: relative; top: 400px; padding-left: 95%; cursor: pointer;" />
+		<img src="img/tutorial/btn_before.png" id="btn_before"
 			style="position: absolute; top: 400px; left: 20px; cursor: pointer;" />
 
 	</div>
