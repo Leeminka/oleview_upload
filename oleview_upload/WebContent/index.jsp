@@ -54,24 +54,41 @@
 		$('#page').find("*").click(
 				function(event) {
 					event.stopPropagation();
+					
+					var selected_dom = this;
+					var j_selected_dom = $(this);
+					
+					//이벤트 제거
+					$('#page').find("*").unbind('mouseenter');
+					
+					//Pick 버튼 생성
+					var pickButton = $('<img />').attr('src','img/btn_pic.png');
+					pickButton.css('position','absolute');
+					pickButton.css('right','0px');
+					pickButton.css('top','0px');
+					pickButton.css('cursor','pointer');
+					pickButton.css('z-index','1000');
+					pickButton.appendTo($(this));
+					
+					pickButton.click(function(){
+						var parentEls = "";
+						//Dom Object를 반환
+						parentEls = j_selected_dom.parents().map(
+								function() {
+									var ret = serialize_dom_data(this.tagName,
+											this.id, this.className);
+									return ret;
+								}).get().join(",");
 
-					var parentEls = "";
-					//Dom Object를 반환
-					parentEls = $(this).parents().map(
-							function() {
-								var ret = serialize_dom_data(this.tagName,
-										this.id, this.className);
-								return ret;
-							}).get().join(",");
+						var parentEls_arry = parentEls.split(",");
+						parentEls_arry.reverse();
+						var parentEls_str = parentEls_arry.toString();
+						parentEls_str += ",";
+						parentEls_str += serialize_dom_data(selected_dom.tagName, selected_dom.id,
+								selected_dom.className);
 
-					var parentEls_arry = parentEls.split(",");
-					parentEls_arry.reverse();
-					var parentEls_str = parentEls_arry.toString();
-					parentEls_str += ",";
-					parentEls_str += serialize_dom_data(this.tagName, this.id,
-							this.className);
-
-					select_dom($(this), parentEls_str);
+						select_dom(j_selected_dom, parentEls_str);
+					});
 				});
 	}
 	function serialize_dom_data(tag_name, tag_id, tag_class) {
