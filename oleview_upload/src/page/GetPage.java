@@ -120,6 +120,12 @@ public class GetPage extends HttpServlet {
 					
 					target_url = "parent.wide_frame(\"" + title + "\");";	//프레임 내에서 링크되면 이벤트주긔 - wide
 					e.attr("onclick",target_url);
+					
+					String src_url = e.attr("href");
+					if (src_url.toLowerCase().indexOf("http") == -1) {
+						src_url = root_url + src_url;
+						e.attr("href", src_url);
+					}
 				}
 				if (tagName.equals("img")) {		//img 태그 src 경로 수정
 					String src_url = e.attr("src");

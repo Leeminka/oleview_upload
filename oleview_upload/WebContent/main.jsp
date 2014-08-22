@@ -129,7 +129,7 @@
 	position: absolute;
 	z-index: 10;
 	top: -31px;
-	left: -1px;
+	left: 4px;
 	height: 31px;
 	background: rgb(191, 221, 67);
 }
@@ -138,7 +138,7 @@
 	position: absolute;
 	z-index: 10;
 	top: 0px;
-	left: -3px;
+	left: -7px;
 	height: 31px;
 	width: 41px;
 }
@@ -147,7 +147,7 @@
 	position: absolute;
 	z-index: 10;
 	top: 0px;
-	right: 34px;
+	right: 35px;
 	height: 31px;
 	width: 31px;
 }
@@ -156,7 +156,7 @@
 	position: absolute;
 	z-index: 10;
 	top: 0px;
-	right: -4px;
+	right: 1px;
 	height: 31px;
 	width: 36px;
 }
@@ -312,7 +312,10 @@
 <script src="scripts/jquery-1.11.0.min.js"></script>
 <script src="scripts/jquery-ui-1.10.4.custom.min.js"></script>
 
+
+<script> </script>
 <script>
+window.history.forward(0);
 	const
 	STATE_PLAIN = 0;
 	const
@@ -323,12 +326,8 @@
 		//컨테이너 사이즈
 		//$('#contents_cont').width(window.innerWidth);
 		//$('#contents_cont').height(window.innerHeight - 48);
+		
 		//데이터베이스에서 모든 저장된 컨텐츠를 가져옴
-
-		//var search = String("search");
-		//if (categoryName != null) {
-		//	document.getElementById('' + search).style.display = "block";
-		//}
 		getAllContents();
 
 		//데이터베이스에서 카테고리 이름을 가져옴
@@ -343,14 +342,32 @@
 		if (STATE == STATE_PLAIN) {
 			//카테고리 눌렀는지안눌렀는지까지 나눠야지!
 			document.getElementById("search").style.display = "block";
-
-			//alert('메인페이지 환영');
 		}
 
 		if (STATE == STATE_EDIT) {
 
 		}
+		
+		 /* $(document).keydown(function(e){   
+		        if(e.target.nodeName != "INPUT" && e.target.nodeName != "TEXTAREA"){       
+		            if(e.keyCode === 8){   
+		            return false;
+		            }
+		        }
+		 }); */
+		 
+		
+		    /* $(window).keyup(function (e) {
+		        // 발생한 이벤트에서 키 코드 추출, BackSpace 키의 코드는 8
+		        if (e.keyCode == 8) {
+		            // 다른 함수 호출
+		            alert("ee");
+		            // 기존 키의 기능은 무력화
+		            return false;
+		        }
+		    }); */
 	});
+	
 	//0이면 remote_bar / 1이믄 clip_bar
 	var toggle_bar;
 
@@ -514,11 +531,9 @@
 						alert("delete code:" + request.status + "\n" + "message:"
 								+ request.responseText + "\n" + "error:"
 								+ error);
-					}
+					} 
 				});
 			}
-			
-			return true;
 		});
 
 		//remote bar_clip event
@@ -542,7 +557,23 @@
 			});
 			
 			//create new icon
-			makeFrame(108, 108, url, null, title, 0, 0, true);
+			$.ajax({
+				url : "/SaveIcon",
+				type : "Get",
+				data : {
+					"para_data" : title,
+					"para_width" : 108,
+					"para_height" : 108,
+				},
+				error : function(request, status, error) {
+					alert("saveicon code:" + request.status + "\n" + "message:"
+							+ request.responseText + "\n" + "error:"
+							+ error);
+				}
+			});
+			
+			
+			
 		});
 		
 		//remote_div를 content에 붙임
@@ -597,7 +628,7 @@
 				.addClass('btn_new');
 
 		//클립바 속성 설정
-		clip_div.width(width+4);
+		clip_div.width(width);
 
 		//클립바 어펜드어펜드
 		btn_setting.appendTo(clip_div);
@@ -643,7 +674,7 @@
 		draggable_div.appendTo($('#contents_cont'));
 
 		//iframe 위에 커서를 올리믄 바가 나와용 위에 없으면 바가 없어져용
-		$(this).mousemove(
+		 $(document).mousemove(
 				function(event) {
 					var div_top = content1.offset().top;
 					var div_left = content1.offset().left;
@@ -659,8 +690,8 @@
 							clip_div.hide();
 						}
 					}
-				});
-
+				}); 
+			
 		return true;
 	}
 
@@ -718,7 +749,7 @@
 		$("#div_" + title).animate({
 			width : '1300px',
 			height : '670px',
-			top : '10px',
+			top : '40px',
 			left : '100px'
 		}, 300);
 		$("#open_frame").animate({
@@ -788,7 +819,7 @@
 		$("#div_" + title).animate({
 			width : '1300px',
 			height : '670px',
-			top : '10px',
+			top : '40px',
 			left : '100px'
 		}, 300);
 		$("#ifr_" + title).animate({
@@ -833,7 +864,7 @@
 
 	function makeNewIcon() {
 		var url = $('#input_url').val();
-		var popOptions = "dialogWidth: 506px; dialogHeight: 270px; center: yes; resizable: yes; status: no; scroll: no;"; 
+		var popOptions = "dialogWidth: 506px; dialogHeight: 254px; center: yes; resizable: yes; status: no; scroll: no;"; 
 		var title = window.showModalDialog("title_popup.jsp", "",  popOptions ); 
 		
 		if (title == "cancel_oleview")
@@ -858,7 +889,7 @@
 			return false;
 		}
 		
-		var popOptions = "dialogWidth: 506px; dialogHeight: 270px; center: yes; resizable: yes; status: no; scroll: no;"; 
+		var popOptions = "dialogWidth: 506px; dialogHeight: 254px; center: yes; resizable: yes; status: no; scroll: no;"; 
 		var title = window.showModalDialog("title_popup.jsp", "",  popOptions ); 	
 	
 		if (title == "cancel_oleview")
